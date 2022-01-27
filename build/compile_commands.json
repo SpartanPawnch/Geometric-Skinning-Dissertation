@@ -1,0 +1,17 @@
+[
+{
+  "directory": "C:/Users/marti/Documents/DissProject/build",
+  "command": "C:\\MinGW\\bin\\g++.exe -DROOTDIR=\\\"C:/Users/marti/Documents/DissProject\\\"  -g -o CMakeFiles\\SkinningDiss.dir\\src\\main.cpp.obj -c C:\\Users\\marti\\Documents\\DissProject\\src\\main.cpp",
+  "file": "C:/Users/marti/Documents/DissProject/src/main.cpp"
+},
+{
+  "directory": "C:/Users/marti/Documents/DissProject/build",
+  "command": "C:\\MinGW\\bin\\g++.exe -DROOTDIR=\\\"C:/Users/marti/Documents/DissProject\\\"  -g -o CMakeFiles\\SkinningDiss.dir\\src\\modelloader.cpp.obj -c C:\\Users\\marti\\Documents\\DissProject\\src\\modelloader.cpp",
+  "file": "C:/Users/marti/Documents/DissProject/src/modelloader.cpp"
+},
+{
+  "directory": "C:/Users/marti/Documents/DissProject/build",
+  "command": "C:\\MinGW\\bin\\g++.exe -DROOTDIR=\\\"C:/Users/marti/Documents/DissProject\\\"  -g -o CMakeFiles\\UnitTests.dir\\src\\unittests.cpp.obj -c C:\\Users\\marti\\Documents\\DissProject\\src\\unittests.cpp",
+  "file": "C:/Users/marti/Documents/DissProject/src/unittests.cpp"
+}
+]
