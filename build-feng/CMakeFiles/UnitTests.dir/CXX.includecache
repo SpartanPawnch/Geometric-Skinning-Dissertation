@@ -1,0 +1,50 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/csunix/sc19mmt/Documents/Skinning Diss/geometric-skinning-dissertation/external/iqm.h
+
+/home/csunix/sc19mmt/Documents/Skinning Diss/geometric-skinning-dissertation/src/modelloader.cpp
+modelloader.hpp
+/home/csunix/sc19mmt/Documents/Skinning Diss/geometric-skinning-dissertation/src/modelloader.hpp
+../external/iqm.h
+/home/csunix/sc19mmt/Documents/Skinning Diss/geometric-skinning-dissertation/external/iqm.h
+GL/glew.h
+-
+glm/gtc/type_ptr.hpp
+-
+glm/gtx/transform.hpp
+-
+glm/gtc/quaternion.hpp
+-
+glm/gtx/quaternion.hpp
+-
+cstdio
+-
+vector
+-
+iostream
+-
+
+/home/csunix/sc19mmt/Documents/Skinning Diss/geometric-skinning-dissertation/src/modelloader.hpp
+vector
+-
+glm/mat4x4.hpp
+-
+glm/gtc/quaternion.hpp
+-
+glm/gtx/quaternion.hpp
+-
+
+/home/csunix/sc19mmt/Documents/Skinning Diss/geometric-skinning-dissertation/src/unittests.cpp
+iostream
+-
+glm/vec3.hpp
+-
+modelloader.cpp
+/home/csunix/sc19mmt/Documents/Skinning Diss/geometric-skinning-dissertation/src/modelloader.cpp
+

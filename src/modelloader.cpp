@@ -4,6 +4,8 @@
 #include<GL/glew.h>
 #include<glm/gtc/type_ptr.hpp>
 #include<glm/gtx/transform.hpp>
+#include<glm/gtc/quaternion.hpp>
+#include<glm/gtx/quaternion.hpp>
 #include<cstdio>
 #include<vector>
 #include<iostream>
@@ -189,6 +191,27 @@ Model loadIQM(const char *filename) {
         delete indices;
     }
     m.vertexCount = indexBuffer.size() - m.vertexOffset;
+
+    //read joints
+    if(header.ofs_joints>0){
+        iqmjoint joints[header.num_joints];
+        fseek(file,header.ofs_joints,SEEK_SET);
+        fread(joints,sizeof(iqmjoint),header.num_joints,file);
+        m.joints.resize(header.num_joints);
+        
+        for(int i=0;i<header.num_joints;i++){
+            m.joints[i].offset=glm::translate(glm::mat4(1.0f),glm::vec3(joints[i].translate[0],joints[i].translate[1],joints[i].translate[2]))
+            *glm::toMat4(glm::quat(joints[i].rotate[0],joints[i].rotate[1],joints[i].rotate[2],joints[i].rotate[3]))*
+            glm::scale(glm::mat4(1.0f),glm::vec3(joints[i].scale[0],joints[i].scale[1],joints[i].scale[2]));
+            m.joints[i].parent=joints[i].parent;
+            if(joints[i].parent<0){
+                m.rootJoint=i;
+            }
+        }
+    }
+
+
+
     fclose(file);
     return m;
 }

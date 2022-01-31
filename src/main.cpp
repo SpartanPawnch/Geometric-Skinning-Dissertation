@@ -9,7 +9,7 @@ int main() {
     GLFWwindow *window;
     glfwInit();
 
-    glfwWindowHint(GLFW_MAXIMIZED, 1);
+    //glfwWindowHint(GLFW_MAXIMIZED, 1);
     glfwWindowHint(GLFW_SAMPLES, 4);
 
     window = glfwCreateWindow(1600, 900, "Skinning Dissertation", NULL, NULL);
@@ -30,7 +30,7 @@ int main() {
 
     graphicsInit();
     //load models
-    Model longboi = loadIQM(ROOTDIR "/assets/longboi(vibe).iqm");
+    Model longboi = loadIQM(ROOTDIR "/assets/longboi.iqm");
     uploadBuffers();
 
 
