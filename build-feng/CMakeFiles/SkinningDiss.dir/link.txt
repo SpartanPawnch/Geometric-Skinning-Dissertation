@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/SkinningDiss.dir/src/main.cpp.o CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.o  -o SkinningDiss -lglfw -lGL -lGLEW 

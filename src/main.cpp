@@ -9,7 +9,7 @@ int main() {
     GLFWwindow *window;
     glfwInit();
 
-    glfwWindowHint(GLFW_MAXIMIZED, 1);
+    //glfwWindowHint(GLFW_MAXIMIZED, 1);
     glfwWindowHint(GLFW_SAMPLES, 4);
 
     window = glfwCreateWindow(1600, 900, "Skinning Dissertation", NULL, NULL);
