@@ -30,7 +30,9 @@ int main() {
 
     graphicsInit();
     //load models
-    Model longboi = loadIQM(ROOTDIR "/assets/longboi(vibe).iqm");
+    Model longboi = loadIQM(ROOTDIR "/assets/longboi.iqm");
+    longboi.texture = loadTexture(ROOTDIR "/assets/longboi_texture.png");
+    longboi.textured = true;
     uploadBuffers();
 
 

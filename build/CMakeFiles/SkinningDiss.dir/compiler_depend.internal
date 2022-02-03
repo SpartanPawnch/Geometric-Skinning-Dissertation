@@ -139,7 +139,6 @@ CMakeFiles/SkinningDiss.dir/src/main.cpp.obj
 CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj
  C:/Users/marti/Documents/DissProject/src/modelloader.cpp
  C:/Users/marti/Documents/DissProject/src/modelloader.hpp
- C:/Users/marti/Documents/DissProject/external/iqm.h
  C:/MinGW/x86_64-w64-mingw32/include/GL/glew.h
  C:/MinGW/x86_64-w64-mingw32/include/inttypes.h
  C:/MinGW/x86_64-w64-mingw32/include/crtdefs.h
@@ -157,18 +156,17 @@ CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj
  C:/MinGW/x86_64-w64-mingw32/include/_mingw_print_pop.h
  C:/MinGW/x86_64-w64-mingw32/include/GL/glu.h
  C:/MinGW/x86_64-w64-mingw32/include/GL/gl.h
- C:/MinGW/x86_64-w64-mingw32/include/glm/gtc/type_ptr.hpp
- C:/MinGW/x86_64-w64-mingw32/include/glm/gtc/quaternion.hpp
- C:/MinGW/x86_64-w64-mingw32/include/glm/gtc/constants.hpp
- C:/MinGW/x86_64-w64-mingw32/include/glm/ext/scalar_constants.hpp
- C:/MinGW/x86_64-w64-mingw32/include/glm/detail/setup.hpp
- C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cassert
+ C:/Users/marti/Documents/DissProject/external/iqm.h
+ C:/Users/marti/Documents/DissProject/external/stb_image.h
+ C:/MinGW/x86_64-w64-mingw32/include/stdio.h
+ C:/MinGW/x86_64-w64-mingw32/include/_mingw_off_t.h
+ C:/MinGW/x86_64-w64-mingw32/include/swprintf.inl
+ C:/MinGW/x86_64-w64-mingw32/include/sec_api/stdio_s.h
+ C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/stdlib.h
+ C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cstdlib
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32/bits/c++config.h
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32/bits/os_defines.h
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32/bits/cpu_defines.h
- C:/MinGW/x86_64-w64-mingw32/include/assert.h
- C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/stdlib.h
- C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cstdlib
  C:/MinGW/x86_64-w64-mingw32/include/stdlib.h
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed/limits.h
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed/syslimits.h
@@ -176,6 +174,27 @@ CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj
  C:/MinGW/x86_64-w64-mingw32/include/sec_api/stdlib_s.h
  C:/MinGW/x86_64-w64-mingw32/include/malloc.h
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/std_abs.h
+ C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/stdarg.h
+ C:/MinGW/x86_64-w64-mingw32/include/stdarg.h
+ C:/MinGW/x86_64-w64-mingw32/include/_mingw_stdarg.h
+ C:/MinGW/x86_64-w64-mingw32/include/string.h
+ C:/MinGW/x86_64-w64-mingw32/include/sec_api/string_s.h
+ C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/math.h
+ C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cmath
+ C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/cpp_type_traits.h
+ C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/ext/type_traits.h
+ C:/MinGW/x86_64-w64-mingw32/include/math.h
+ C:/MinGW/x86_64-w64-mingw32/include/assert.h
+ C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/emmintrin.h
+ C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/xmmintrin.h
+ C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/mmintrin.h
+ C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/mm_malloc.h
+ C:/MinGW/x86_64-w64-mingw32/include/glm/gtc/type_ptr.hpp
+ C:/MinGW/x86_64-w64-mingw32/include/glm/gtc/quaternion.hpp
+ C:/MinGW/x86_64-w64-mingw32/include/glm/gtc/constants.hpp
+ C:/MinGW/x86_64-w64-mingw32/include/glm/ext/scalar_constants.hpp
+ C:/MinGW/x86_64-w64-mingw32/include/glm/detail/setup.hpp
+ C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cassert
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cstddef
  C:/MinGW/x86_64-w64-mingw32/include/glm/simd/platform.h
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cstdint
@@ -296,10 +315,6 @@ CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj
  C:/MinGW/x86_64-w64-mingw32/include/glm/exponential.hpp
  C:/MinGW/x86_64-w64-mingw32/include/glm/detail/type_vec1.hpp
  C:/MinGW/x86_64-w64-mingw32/include/glm/detail/type_vec1.inl
- C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cmath
- C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/cpp_type_traits.h
- C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/ext/type_traits.h
- C:/MinGW/x86_64-w64-mingw32/include/math.h
  C:/MinGW/x86_64-w64-mingw32/include/glm/detail/func_exponential.inl
  C:/MinGW/x86_64-w64-mingw32/include/glm/vector_relational.hpp
  C:/MinGW/x86_64-w64-mingw32/include/glm/detail/func_vector_relational.inl
@@ -355,8 +370,6 @@ CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj
  C:/MinGW/x86_64-w64-mingw32/include/glm/ext/vector_uint1.hpp
  C:/MinGW/x86_64-w64-mingw32/include/glm/ext/vector_uint1_sized.hpp
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cstring
- C:/MinGW/x86_64-w64-mingw32/include/string.h
- C:/MinGW/x86_64-w64-mingw32/include/sec_api/string_s.h
  C:/MinGW/x86_64-w64-mingw32/include/glm/gtc/type_ptr.inl
  C:/MinGW/x86_64-w64-mingw32/include/glm/gtx/transform.hpp
  C:/MinGW/x86_64-w64-mingw32/include/glm/glm.hpp
@@ -373,10 +386,6 @@ CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj
  C:/MinGW/x86_64-w64-mingw32/include/glm/detail/func_integer.inl
  C:/MinGW/x86_64-w64-mingw32/include/glm/gtx/transform.inl
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cstdio
- C:/MinGW/x86_64-w64-mingw32/include/stdio.h
- C:/MinGW/x86_64-w64-mingw32/include/_mingw_off_t.h
- C:/MinGW/x86_64-w64-mingw32/include/swprintf.inl
- C:/MinGW/x86_64-w64-mingw32/include/sec_api/stdio_s.h
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/vector
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_algobase.h
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/functexcept.h

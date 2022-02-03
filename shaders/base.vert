@@ -3,6 +3,7 @@ precision lowp float;
 
 layout(location=0) in vec3 pos;
 layout(location=1) in vec3 normal;
+layout(location=2) in vec2 tx;
 
 //separate model matrix for normals
 uniform mat4 model;
@@ -17,5 +18,5 @@ void main(){
     gl_Position=viewproj*worldPos;
     fragPos=vec3(worldPos);
     modNormal=mat3(model)*normal;
-    //texCoord=tx;
+    texCoord=tx;
 }

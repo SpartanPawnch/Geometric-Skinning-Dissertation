@@ -137,7 +137,6 @@ CMakeFiles/SkinningDiss.dir/src/main.cpp.obj: ../src/main.cpp \
 
 CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj: ../src/modelloader.cpp \
   ../src/modelloader.hpp \
-  ../external/iqm.h \
   C:/MinGW/x86_64-w64-mingw32/include/GL/glew.h \
   C:/MinGW/x86_64-w64-mingw32/include/inttypes.h \
   C:/MinGW/x86_64-w64-mingw32/include/crtdefs.h \
@@ -155,18 +154,17 @@ CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj: ../src/modelloader.cpp \
   C:/MinGW/x86_64-w64-mingw32/include/_mingw_print_pop.h \
   C:/MinGW/x86_64-w64-mingw32/include/GL/glu.h \
   C:/MinGW/x86_64-w64-mingw32/include/GL/gl.h \
-  C:/MinGW/x86_64-w64-mingw32/include/glm/gtc/type_ptr.hpp \
-  C:/MinGW/x86_64-w64-mingw32/include/glm/gtc/quaternion.hpp \
-  C:/MinGW/x86_64-w64-mingw32/include/glm/gtc/constants.hpp \
-  C:/MinGW/x86_64-w64-mingw32/include/glm/ext/scalar_constants.hpp \
-  C:/MinGW/x86_64-w64-mingw32/include/glm/detail/setup.hpp \
-  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cassert \
+  ../external/iqm.h \
+  ../external/stb_image.h \
+  C:/MinGW/x86_64-w64-mingw32/include/stdio.h \
+  C:/MinGW/x86_64-w64-mingw32/include/_mingw_off_t.h \
+  C:/MinGW/x86_64-w64-mingw32/include/swprintf.inl \
+  C:/MinGW/x86_64-w64-mingw32/include/sec_api/stdio_s.h \
+  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/stdlib.h \
+  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cstdlib \
   C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32/bits/c++config.h \
   C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32/bits/os_defines.h \
   C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32/bits/cpu_defines.h \
-  C:/MinGW/x86_64-w64-mingw32/include/assert.h \
-  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/stdlib.h \
-  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cstdlib \
   C:/MinGW/x86_64-w64-mingw32/include/stdlib.h \
   C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed/limits.h \
   C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed/syslimits.h \
@@ -174,6 +172,27 @@ CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj: ../src/modelloader.cpp \
   C:/MinGW/x86_64-w64-mingw32/include/sec_api/stdlib_s.h \
   C:/MinGW/x86_64-w64-mingw32/include/malloc.h \
   C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/std_abs.h \
+  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/stdarg.h \
+  C:/MinGW/x86_64-w64-mingw32/include/stdarg.h \
+  C:/MinGW/x86_64-w64-mingw32/include/_mingw_stdarg.h \
+  C:/MinGW/x86_64-w64-mingw32/include/string.h \
+  C:/MinGW/x86_64-w64-mingw32/include/sec_api/string_s.h \
+  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/math.h \
+  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cmath \
+  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/cpp_type_traits.h \
+  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/ext/type_traits.h \
+  C:/MinGW/x86_64-w64-mingw32/include/math.h \
+  C:/MinGW/x86_64-w64-mingw32/include/assert.h \
+  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/emmintrin.h \
+  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/xmmintrin.h \
+  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/mmintrin.h \
+  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/mm_malloc.h \
+  C:/MinGW/x86_64-w64-mingw32/include/glm/gtc/type_ptr.hpp \
+  C:/MinGW/x86_64-w64-mingw32/include/glm/gtc/quaternion.hpp \
+  C:/MinGW/x86_64-w64-mingw32/include/glm/gtc/constants.hpp \
+  C:/MinGW/x86_64-w64-mingw32/include/glm/ext/scalar_constants.hpp \
+  C:/MinGW/x86_64-w64-mingw32/include/glm/detail/setup.hpp \
+  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cassert \
   C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cstddef \
   C:/MinGW/x86_64-w64-mingw32/include/glm/simd/platform.h \
   C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cstdint \
@@ -294,10 +313,6 @@ CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj: ../src/modelloader.cpp \
   C:/MinGW/x86_64-w64-mingw32/include/glm/exponential.hpp \
   C:/MinGW/x86_64-w64-mingw32/include/glm/detail/type_vec1.hpp \
   C:/MinGW/x86_64-w64-mingw32/include/glm/detail/type_vec1.inl \
-  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cmath \
-  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/cpp_type_traits.h \
-  C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/ext/type_traits.h \
-  C:/MinGW/x86_64-w64-mingw32/include/math.h \
   C:/MinGW/x86_64-w64-mingw32/include/glm/detail/func_exponential.inl \
   C:/MinGW/x86_64-w64-mingw32/include/glm/vector_relational.hpp \
   C:/MinGW/x86_64-w64-mingw32/include/glm/detail/func_vector_relational.inl \
@@ -353,8 +368,6 @@ CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj: ../src/modelloader.cpp \
   C:/MinGW/x86_64-w64-mingw32/include/glm/ext/vector_uint1.hpp \
   C:/MinGW/x86_64-w64-mingw32/include/glm/ext/vector_uint1_sized.hpp \
   C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cstring \
-  C:/MinGW/x86_64-w64-mingw32/include/string.h \
-  C:/MinGW/x86_64-w64-mingw32/include/sec_api/string_s.h \
   C:/MinGW/x86_64-w64-mingw32/include/glm/gtc/type_ptr.inl \
   C:/MinGW/x86_64-w64-mingw32/include/glm/gtx/transform.hpp \
   C:/MinGW/x86_64-w64-mingw32/include/glm/glm.hpp \
@@ -371,10 +384,6 @@ CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj: ../src/modelloader.cpp \
   C:/MinGW/x86_64-w64-mingw32/include/glm/detail/func_integer.inl \
   C:/MinGW/x86_64-w64-mingw32/include/glm/gtx/transform.inl \
   C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cstdio \
-  C:/MinGW/x86_64-w64-mingw32/include/stdio.h \
-  C:/MinGW/x86_64-w64-mingw32/include/_mingw_off_t.h \
-  C:/MinGW/x86_64-w64-mingw32/include/swprintf.inl \
-  C:/MinGW/x86_64-w64-mingw32/include/sec_api/stdio_s.h \
   C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/vector \
   C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_algobase.h \
   C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/functexcept.h \
@@ -673,6 +682,8 @@ C:/MinGW/x86_64-w64-mingw32/include/glm/gtx/transform.hpp:
 
 C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cstddef:
 
+C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/mm_malloc.h:
+
 C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/cpp_type_traits.h:
 
 C:/MinGW/x86_64-w64-mingw32/include/glm/ext/quaternion_geometric.hpp:
@@ -680,6 +691,8 @@ C:/MinGW/x86_64-w64-mingw32/include/glm/ext/quaternion_geometric.hpp:
 C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_pair.h:
 
 C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/debug/assertions.h:
+
+C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/stdarg.h:
 
 C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cstdint:
 
@@ -811,6 +824,8 @@ C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/basic_string.tcc:
 
 C:/MinGW/x86_64-w64-mingw32/include/glm/mat4x3.hpp:
 
+C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/mmintrin.h:
+
 C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/locale_classes.tcc:
 
 C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/system_error:
@@ -849,6 +864,30 @@ C:/MinGW/x86_64-w64-mingw32/include/glm/ext/matrix_float2x2_precision.hpp:
 
 ../external/iqm.h:
 
+../external/stb_image.h:
+
+C:/MinGW/x86_64-w64-mingw32/include/stdarg.h:
+
+C:/MinGW/x86_64-w64-mingw32/include/_mingw_stdarg.h:
+
+C:/MinGW/x86_64-w64-mingw32/include/string.h:
+
+C:/MinGW/x86_64-w64-mingw32/include/sec_api/string_s.h:
+
+C:/MinGW/x86_64-w64-mingw32/include/glm/common.hpp:
+
+C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/math.h:
+
+C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cmath:
+
+C:/MinGW/x86_64-w64-mingw32/include/assert.h:
+
+C:/MinGW/x86_64-w64-mingw32/include/glm/detail/type_vec2.inl:
+
+C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/emmintrin.h:
+
+C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/xmmintrin.h:
+
 C:/MinGW/x86_64-w64-mingw32/include/glm/gtc/type_ptr.hpp:
 
 C:/MinGW/x86_64-w64-mingw32/include/glm/simd/platform.h:
@@ -866,8 +905,6 @@ C:/MinGW/x86_64-w64-mingw32/include/glm/trigonometric.hpp:
 C:/MinGW/x86_64-w64-mingw32/include/glm/detail/type_mat3x4.hpp:
 
 C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cassert:
-
-C:/MinGW/x86_64-w64-mingw32/include/assert.h:
 
 C:/MinGW/x86_64-w64-mingw32/include/glm/ext/scalar_constants.inl:
 
@@ -900,8 +937,6 @@ C:/MinGW/x86_64-w64-mingw32/include/glm/vec2.hpp:
 C:/MinGW/x86_64-w64-mingw32/include/glm/ext/vector_bool2.hpp:
 
 C:/MinGW/x86_64-w64-mingw32/include/glm/detail/type_vec2.hpp:
-
-C:/MinGW/x86_64-w64-mingw32/include/glm/detail/type_vec2.inl:
 
 C:/MinGW/x86_64-w64-mingw32/include/glm/ext/vector_bool2_precision.hpp:
 
@@ -1057,11 +1092,7 @@ C:/MinGW/x86_64-w64-mingw32/include/glm/detail/func_matrix.inl:
 
 C:/MinGW/x86_64-w64-mingw32/include/glm/geometric.hpp:
 
-C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cmath:
-
 C:/MinGW/x86_64-w64-mingw32/include/glm/detail/func_vector_relational.inl:
-
-C:/MinGW/x86_64-w64-mingw32/include/glm/common.hpp:
 
 C:/MinGW/x86_64-w64-mingw32/include/glm/detail/func_trigonometric.inl:
 
@@ -1120,10 +1151,6 @@ C:/MinGW/x86_64-w64-mingw32/include/glm/ext/vector_float1.hpp:
 C:/MinGW/x86_64-w64-mingw32/include/glm/ext/vector_int1.hpp:
 
 C:/MinGW/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cstring:
-
-C:/MinGW/x86_64-w64-mingw32/include/string.h:
-
-C:/MinGW/x86_64-w64-mingw32/include/sec_api/string_s.h:
 
 C:/MinGW/x86_64-w64-mingw32/include/glm/glm.hpp:
 

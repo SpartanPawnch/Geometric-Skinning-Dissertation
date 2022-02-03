@@ -1,5 +1,7 @@
 #include "modelloader.hpp"
 #include "../external/iqm.h"
+#define STB_IMAGE_IMPLEMENTATION
+#include "../external/stb_image.h"
 
 #include<GL/glew.h>
 #include<glm/gtc/type_ptr.hpp>
@@ -11,6 +13,7 @@
 //Buffers
 static std::vector<glm::vec3> positionBuffer;
 static std::vector<glm::vec3> normalBuffer;
+static std::vector<glm::vec2> texCoordBuffer;
 static std::vector<unsigned int>indexBuffer;
 
 static GLuint modelVAO;
@@ -19,7 +22,6 @@ static GLuint modelElementBuffer;
 
 //Shading
 static GLuint defaultShader;
-
 
 char *loadAscii(const char *filename) {
     FILE *file = fopen(filename, "r");
@@ -48,7 +50,7 @@ void graphicsInit() {
     glBindVertexArray(modelVAO);
 
     //create vertex buffers
-    glGenBuffers(2, modelVBO);
+    glGenBuffers(3, modelVBO);
     glBindBuffer(GL_ARRAY_BUFFER, modelVBO[0]);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void *)0);
     glEnableVertexAttribArray(0);
@@ -56,6 +58,10 @@ void graphicsInit() {
     glBindBuffer(GL_ARRAY_BUFFER, modelVBO[1]);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void *)0);
     glEnableVertexAttribArray(1);
+
+    glBindBuffer(GL_ARRAY_BUFFER, modelVBO[2]);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), (void *)0);
+    glEnableVertexAttribArray(2);
 
     //create element buffer
     glGenBuffers(1, &modelElementBuffer);
@@ -96,11 +102,6 @@ void graphicsInit() {
     glAttachShader(defaultShader, vertShader);
     glAttachShader(defaultShader, fragShader);
 
-    //setup attribute layout
-    // glBindAttribLocation(flatShader.id, 0, "pos");
-    // glBindAttribLocation(flatShader.id, 1, "tx");
-    // glBindAttribLocation(flatShader.id, 2, "normal");
-
     glLinkProgram(defaultShader);
     glGetProgramiv(defaultShader, GL_COMPILE_STATUS, &success);
     if (!success) {
@@ -115,22 +116,25 @@ void graphicsInit() {
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_MULTISAMPLE);
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    //glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 }
 
+static glm::vec3 cameraCenter = glm::vec3(.0f, 1.0f, .0f);
+static glm::vec3 eye = glm::vec3(.0f, 2.0f, 5.0f);
 
 void Model::draw() {
     glLoadIdentity();
 
 
     glUseProgram(defaultShader);
-    glm::vec3 eye = glm::vec3(.0f, 2.0f, 5.0f);
     glm::mat4 viewProj = glm::perspective(glm::radians(45.0f), 16.0f / 9.0f, .7f, 20.0f) *
-        glm::lookAt(eye, glm::vec3(.0f, 1.0f, .0f), glm::vec3(.0f, 1.0f, .0f));
+        glm::lookAt(eye, cameraCenter, glm::vec3(.0f, 1.0f, .0f));
     glm::mat4 model = glm::rotate(glm::radians(45.0f), glm::vec3(.0f, 1.0f, .0f)) * glm::rotate(glm::radians(-90.0f), glm::vec3(1.0f, .0f, .0f));
     glUniformMatrix4fv(glGetUniformLocation(defaultShader, "model"), 1, false, glm::value_ptr(model));
     glUniformMatrix4fv(glGetUniformLocation(defaultShader, "viewproj"), 1, false, glm::value_ptr(viewProj));
     glUniform3f(glGetUniformLocation(defaultShader, "viewPos"), eye.x, eye.y, eye.z);
+    glUniform1i(glGetUniformLocation(defaultShader, "textured"), textured);
+    glBindTexture(GL_TEXTURE_2D, texture);
     glBindVertexArray(modelVAO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, modelElementBuffer);
     glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, (void *)(vertexOffset * sizeof(unsigned int)));
@@ -157,6 +161,7 @@ Model loadIQM(const char *filename) {
 
         float positions[header.num_vertexes * 3];
         float normals[header.num_vertexes * 3];
+        float texCoords[header.num_vertexes * 2];
         for (int i = 0;i < header.num_vertexarrays;i++) {
             if (vertArray[i].type == IQM_POSITION) {
                 fseek(file, vertArray[i].offset, SEEK_SET);
@@ -166,17 +171,23 @@ Model loadIQM(const char *filename) {
                 fseek(file, vertArray[i].offset, SEEK_SET);
                 fread(normals, sizeof(float), header.num_vertexes * 3, file);
             }
+            else if (vertArray[i].type == IQM_TEXCOORD) {
+                fseek(file, vertArray[i].offset, SEEK_SET);
+                fread(texCoords, sizeof(float), header.num_vertexes * 2, file);
+            }
         }
+
+
         for (int i = 0;i < header.num_vertexes;i++) {
             positionBuffer.push_back(glm::vec3(positions[3 * i], positions[3 * i + 1], positions[3 * i + 2]));
             normalBuffer.push_back(glm::vec3(normals[3 * i], normals[3 * i + 1], normals[3 * i + 2]));
+            texCoordBuffer.push_back(glm::vec2(texCoords[2 * i], texCoords[2 * i + 1]));
         }
         delete vertArray;
     }
 
-    m.vertexOffset = indexBuffer.size();
     //read face indices
-
+    m.vertexOffset = indexBuffer.size();
     if (header.ofs_triangles > 0) {
         unsigned int *indices = new unsigned int[header.num_triangles * 3];
         fseek(file, header.ofs_triangles, SEEK_SET);
@@ -189,8 +200,27 @@ Model loadIQM(const char *filename) {
         delete indices;
     }
     m.vertexCount = indexBuffer.size() - m.vertexOffset;
+
     fclose(file);
     return m;
+}
+
+GLuint loadTexture(const char *filename) {
+    int width, height, compCount;
+    unsigned char *texData = stbi_load(filename, &width, &height, &compCount, 0);
+    if (texData == NULL) {
+        std::cout << "Failed to load texture " << filename << "\n";
+        return 0;
+    }
+    GLuint texID;
+    glGenTextures(1, &texID);
+    glBindTexture(GL_TEXTURE_2D, texID);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texData);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    stbi_image_free(texData);
+    return texID;
 }
 
 
@@ -200,6 +230,8 @@ void uploadBuffers() {
     glBufferData(GL_ARRAY_BUFFER, positionBuffer.size() * sizeof(glm::vec3), &positionBuffer[0], GL_DYNAMIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, modelVBO[1]);
     glBufferData(GL_ARRAY_BUFFER, normalBuffer.size() * sizeof(glm::vec3), &normalBuffer[0], GL_DYNAMIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, modelVBO[2]);
+    glBufferData(GL_ARRAY_BUFFER, texCoordBuffer.size() * sizeof(glm::vec2), &texCoordBuffer[0], GL_DYNAMIC_DRAW);
     //element buffer
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, modelElementBuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBuffer.size() * sizeof(unsigned int), &indexBuffer[0], GL_STATIC_DRAW);
