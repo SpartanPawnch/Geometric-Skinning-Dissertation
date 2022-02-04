@@ -15,7 +15,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/MinGW/bin/addr2line.exe"
+			"value" : "C:/Users/marti/mingw64/bin/addr2line.exe"
 		},
 		{
 			"name" : "CMAKE_AR",
@@ -31,7 +31,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/MinGW/bin/ar.exe"
+			"value" : "C:/Users/marti/mingw64/bin/ar.exe"
 		},
 		{
 			"name" : "CMAKE_BUILD_TYPE",
@@ -79,7 +79,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "21"
+			"value" : "22"
 		},
 		{
 			"name" : "CMAKE_CACHE_PATCH_VERSION",
@@ -91,7 +91,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "3"
+			"value" : "2"
 		},
 		{
 			"name" : "CMAKE_COLOR_MAKEFILE",
@@ -155,11 +155,11 @@
 				},
 				{
 					"name" : "HELPSTRING",
-					"value" : "No help, variable specified on the command line."
+					"value" : "CXX compiler"
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/MinGW/bin/g++.exe"
+			"value" : "C:/Users/marti/mingw64/bin/g++.exe"
 		},
 		{
 			"name" : "CMAKE_CXX_COMPILER_AR",
@@ -175,7 +175,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/MinGW/bin/gcc-ar.exe"
+			"value" : "C:/Users/marti/mingw64/bin/gcc-ar.exe"
 		},
 		{
 			"name" : "CMAKE_CXX_COMPILER_RANLIB",
@@ -191,7 +191,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/MinGW/bin/gcc-ranlib.exe"
+			"value" : "C:/Users/marti/mingw64/bin/gcc-ranlib.exe"
 		},
 		{
 			"name" : "CMAKE_CXX_FLAGS",
@@ -299,7 +299,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/MinGW/bin/gcc.exe"
+			"value" : "C:/Users/marti/mingw64-seh/bin/x86_64-w64-mingw32-accel-nvptx-none-gcc.exe"
 		},
 		{
 			"name" : "CMAKE_DLLTOOL",
@@ -315,7 +315,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/MinGW/bin/dlltool.exe"
+			"value" : "C:/Users/marti/mingw64/bin/dlltool.exe"
 		},
 		{
 			"name" : "CMAKE_EDIT_COMMAND",
@@ -543,7 +543,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/MinGW/bin/ld.exe"
+			"value" : "C:/Users/marti/mingw64/bin/ld.exe"
 		},
 		{
 			"name" : "CMAKE_MAKE_PROGRAM",
@@ -559,7 +559,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/MinGW/bin/mingw32-make.exe"
+			"value" : "C:/Users/marti/mingw64/bin/mingw32-make.exe"
 		},
 		{
 			"name" : "CMAKE_MODULE_LINKER_FLAGS",
@@ -655,7 +655,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/MinGW/bin/nm.exe"
+			"value" : "C:/Users/marti/mingw64/bin/nm.exe"
 		},
 		{
 			"name" : "CMAKE_NUMBER_OF_MAKEFILES",
@@ -683,7 +683,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/MinGW/bin/objcopy.exe"
+			"value" : "C:/Users/marti/mingw64/bin/objcopy.exe"
 		},
 		{
 			"name" : "CMAKE_OBJDUMP",
@@ -699,7 +699,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/MinGW/bin/objdump.exe"
+			"value" : "C:/Users/marti/mingw64/bin/objdump.exe"
 		},
 		{
 			"name" : "CMAKE_PLATFORM_INFO_INITIALIZED",
@@ -763,7 +763,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/MinGW/bin/ranlib.exe"
+			"value" : "C:/Users/marti/mingw64/bin/ranlib.exe"
 		},
 		{
 			"name" : "CMAKE_RC_COMPILER",
@@ -779,7 +779,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/MinGW/bin/windres.exe"
+			"value" : "C:/Users/marti/mingw64/bin/windres.exe"
 		},
 		{
 			"name" : "CMAKE_RC_COMPILER_WORKS",
@@ -887,7 +887,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/MinGW/bin/readelf.exe"
+			"value" : "C:/Users/marti/mingw64/bin/readelf.exe"
 		},
 		{
 			"name" : "CMAKE_ROOT",
@@ -899,7 +899,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Program Files/CMake/share/cmake-3.21"
+			"value" : "C:/Program Files/CMake/share/cmake-3.22"
 		},
 		{
 			"name" : "CMAKE_SHARED_LINKER_FLAGS",
@@ -1107,7 +1107,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/MinGW/bin/strip.exe"
+			"value" : "C:/Users/marti/mingw64/bin/strip.exe"
 		},
 		{
 			"name" : "CMAKE_VERBOSE_MAKEFILE",

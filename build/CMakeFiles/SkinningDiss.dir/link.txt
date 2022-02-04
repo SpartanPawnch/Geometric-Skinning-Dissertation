@@ -1,3 +1,3 @@
 "C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\SkinningDiss.dir/objects.a
-C:\MinGW\bin\ar.exe qc CMakeFiles\SkinningDiss.dir/objects.a @CMakeFiles\SkinningDiss.dir\objects1.rsp
-C:\MinGW\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\SkinningDiss.dir/objects.a -Wl,--no-whole-archive -o SkinningDiss.exe -Wl,--out-implib,libSkinningDiss.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\SkinningDiss.dir\linklibs.rsp
+C:\Users\marti\mingw64\bin\ar.exe qc CMakeFiles\SkinningDiss.dir/objects.a @CMakeFiles\SkinningDiss.dir\objects1.rsp
+C:\Users\marti\mingw64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\SkinningDiss.dir/objects.a -Wl,--no-whole-archive -o SkinningDiss.exe -Wl,--out-implib,libSkinningDiss.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\SkinningDiss.dir\linklibs.rsp
