@@ -4,12 +4,6 @@
 #include<glm/mat4x4.hpp>
 #include<glm/gtc/quaternion.hpp>
 #include<glm/gtx/quaternion.hpp>
-struct Joint
-{
-    glm::mat4x4 offset;
-    int parent;
-};
-
 
 struct Pose
 {
@@ -24,8 +18,9 @@ struct Model {
 
     GLuint texture = 0;
     bool textured = false;
-    std::vector<Joint> joints;
-    int rootJoint;
+    std::vector<glm::mat3x4> jointsMatrices;
+    std::vector<glm::mat3x4> inverseJointMatrices;
+
     std::vector<Pose> poses;
 
 

@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "UnitTests.exe"
+			"path" : "SkinningDiss.exe"
 		},
 		{
-			"path" : "UnitTests.pdb"
+			"path" : "SkinningDiss.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -29,7 +29,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 4,
+				"line" : 3,
 				"parent" : 0
 			},
 			{
@@ -41,7 +41,7 @@
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 13,
+				"line" : 14,
 				"parent" : 0
 			}
 		]
@@ -65,11 +65,12 @@
 			"language" : "CXX",
 			"sourceIndexes" : 
 			[
-				0
+				0,
+				1
 			]
 		}
 	],
-	"id" : "UnitTests::@6890427a1f51a3e7e1df",
+	"id" : "SkinningDiss::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -104,8 +105,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "UnitTests",
-	"nameOnDisk" : "UnitTests.exe",
+	"name" : "SkinningDiss",
+	"nameOnDisk" : "SkinningDiss.exe",
 	"paths" : 
 	{
 		"build" : ".",
@@ -117,7 +118,8 @@
 			"name" : "Source Files",
 			"sourceIndexes" : 
 			[
-				0
+				0,
+				1
 			]
 		}
 	],
@@ -126,7 +128,13 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/unittests.cpp",
+			"path" : "src/main.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/modelloader.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

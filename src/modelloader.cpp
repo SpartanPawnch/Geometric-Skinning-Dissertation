@@ -208,17 +208,30 @@ Model loadIQM(const char *filename) {
         iqmjoint joints[header.num_joints];
         fseek(file,header.ofs_joints,SEEK_SET);
         fread(joints,sizeof(iqmjoint),header.num_joints,file);
-        m.joints.resize(header.num_joints);
         
+        //evaluate local-space offsets
+        glm::mat4 localJoints[header.num_joints];
+        glm::mat4 inverseLocalJoints[header.num_joints];
+
+        m.jointsMatrices.reserve(header.num_joints);
+        m.inverseJointMatrices.reserve(header.num_joints);
+
         for(int i=0;i<header.num_joints;i++){
-            m.joints[i].offset=glm::translate(glm::mat4(1.0f),glm::vec3(joints[i].translate[0],joints[i].translate[1],joints[i].translate[2]))
+            localJoints[i]=glm::translate(glm::mat4(1.0f),glm::vec3(joints[i].translate[0],joints[i].translate[1],joints[i].translate[2]))
             *glm::toMat4(glm::quat(joints[i].rotate[0],joints[i].rotate[1],joints[i].rotate[2],joints[i].rotate[3]))*
             glm::scale(glm::mat4(1.0f),glm::vec3(joints[i].scale[0],joints[i].scale[1],joints[i].scale[2]));
-            m.joints[i].parent=joints[i].parent;
-            if(joints[i].parent<0){
-                m.rootJoint=i;
+            inverseLocalJoints[i]=glm::inverse(localJoints[i]);
+
+            if(joints[i].parent>=0){
+                //add parent offset
+                localJoints[i]=localJoints[joints[i].parent]*localJoints[i];    
+                inverseLocalJoints[i]=inverseLocalJoints[i]*inverseLocalJoints[joints[i].parent];
             }
+            
+            m.jointsMatrices[i]=localJoints[i];
+            m.inverseJointMatrices[i]=inverseLocalJoints[i];
         }
+
     }
 
 
