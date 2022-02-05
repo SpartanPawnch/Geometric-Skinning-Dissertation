@@ -18,11 +18,13 @@ struct Model {
 
     GLuint texture = 0;
     bool textured = false;
+
     std::vector<glm::mat3x4> jointsMatrices;
     std::vector<glm::mat3x4> inverseJointMatrices;
 
-    std::vector<Pose> poses;
-
+    unsigned int weightsPerVertex=0;
+    std::vector<float> vertexWeights;
+    std::vector<unsigned int> weightIndices; //index of joint weight is applied to
 
     void draw();
 };

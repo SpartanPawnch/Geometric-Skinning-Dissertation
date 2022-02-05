@@ -18,6 +18,7 @@ static std::vector<glm::vec3> normalBuffer;
 static std::vector<glm::vec2> texCoordBuffer;
 static std::vector<unsigned int>indexBuffer;
 
+
 static GLuint modelVAO;
 static GLuint modelVBO[3];
 static GLuint modelElementBuffer;
@@ -177,6 +178,18 @@ Model loadIQM(const char *filename) {
                 fseek(file, vertArray[i].offset, SEEK_SET);
                 fread(texCoords, sizeof(float), header.num_vertexes * 2, file);
             }
+            else if (vertArray[i].type == IQM_BLENDWEIGHTS){
+                fseek(file,vertArray[i].offset,SEEK_SET);
+                m.weightsPerVertex=vertArray[i].size;
+                m.vertexWeights.resize(vertArray[i].size*header.num_vertexes);
+                fread(&m.vertexWeights[0],sizeof(float),header.num_vertexes*vertArray[i].size,file);
+            }
+            else if(vertArray[i].type==IQM_BLENDINDEXES){
+                fseek(file,vertArray[i].offset,SEEK_SET);
+                m.weightsPerVertex=vertArray[i].size;
+                m.weightIndices.resize(header.num_vertexes*vertArray[i].size);
+                fread(&m.weightIndices[0],sizeof(unsigned int),header.num_vertexes*vertArray[i].size,file);
+            }
         }
 
 
@@ -227,7 +240,7 @@ Model loadIQM(const char *filename) {
                 localJoints[i]=localJoints[joints[i].parent]*localJoints[i];    
                 inverseLocalJoints[i]=inverseLocalJoints[i]*inverseLocalJoints[joints[i].parent];
             }
-            
+
             m.jointsMatrices[i]=localJoints[i];
             m.inverseJointMatrices[i]=inverseLocalJoints[i];
         }
