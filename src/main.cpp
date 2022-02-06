@@ -39,9 +39,17 @@ int main() {
     longboi.textured = true;
     uploadBuffers();
 
-
-
+    float animtime=.0f,lasttime=glfwGetTime();
     while (!glfwWindowShouldClose(window)) {
+        float frametime=glfwGetTime()-lasttime;
+        lasttime+=frametime;
+        animtime+=60*frametime;
+
+        while(animtime>=(float)longboi.poses.size()/longboi.posesPerFrame){
+            animtime-=longboi.poses.size()/longboi.posesPerFrame;
+        }
+        longboi.animate(animtime);
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         longboi.draw();
         glfwSwapBuffers(window);

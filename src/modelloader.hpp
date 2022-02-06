@@ -5,31 +5,40 @@
 #include<glm/gtc/quaternion.hpp>
 #include<glm/gtx/quaternion.hpp>
 
-struct Pose
-{
-    glm::vec3 position;
-    glm::quat rotation;
-    glm::vec3 scale;
+struct Joint{
+    glm::mat4 matrix;
+    glm::mat4 inverse;
 };
 
 struct Model {
+    //rendering
     unsigned int vertexOffset;
     unsigned int vertexCount;
 
+    //textures
     GLuint texture = 0;
     bool textured = false;
 
-    std::vector<glm::mat3x4> jointsMatrices;
-    std::vector<glm::mat3x4> inverseJointMatrices;
+
+    //animation
+    //TODO refactor
+    std::vector<glm::vec3> baseVertices;
+
+    std::vector<Joint> joints;
 
     unsigned int weightsPerVertex=0;
-    std::vector<float> vertexWeights;
+    std::vector<float> vertexWeights; //weights are unsigned bytes
     std::vector<unsigned int> weightIndices; //index of joint weight is applied to
 
+    unsigned int posesPerFrame=0;
+    std::vector<glm::mat4> poses;
+
+    void animate(float frame);
     void draw();
 };
 
 void graphicsInit();
+void setAspectRatio(float ratio);
 Model loadIQM(const char *filename);
 GLuint loadTexture(const char *filename);
 void uploadBuffers();

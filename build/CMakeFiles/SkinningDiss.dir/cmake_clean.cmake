@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/SkinningDiss.dir/src/animation.cpp.obj"
+  "CMakeFiles/SkinningDiss.dir/src/animation.cpp.obj.d"
   "CMakeFiles/SkinningDiss.dir/src/main.cpp.obj"
   "CMakeFiles/SkinningDiss.dir/src/main.cpp.obj.d"
   "CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj"

@@ -141,6 +141,30 @@ UnitTests/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\UnitTests.dir\build.make CMakeFiles/UnitTests.dir/build
 .PHONY : UnitTests/fast
 
+src/animation.obj: src/animation.cpp.obj
+.PHONY : src/animation.obj
+
+# target to build an object file
+src/animation.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/src/animation.cpp.obj
+.PHONY : src/animation.cpp.obj
+
+src/animation.i: src/animation.cpp.i
+.PHONY : src/animation.i
+
+# target to preprocess a source file
+src/animation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/src/animation.cpp.i
+.PHONY : src/animation.cpp.i
+
+src/animation.s: src/animation.cpp.s
+.PHONY : src/animation.s
+
+# target to generate assembly for a file
+src/animation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/src/animation.cpp.s
+.PHONY : src/animation.cpp.s
+
 src/main.obj: src/main.cpp.obj
 .PHONY : src/main.obj
 
@@ -223,6 +247,9 @@ help:
 	@echo ... rebuild_cache
 	@echo ... SkinningDiss
 	@echo ... UnitTests
+	@echo ... src/animation.obj
+	@echo ... src/animation.i
+	@echo ... src/animation.s
 	@echo ... src/main.obj
 	@echo ... src/main.i
 	@echo ... src/main.s

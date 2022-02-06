@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 project(SkinningDiss CXX)
-add_executable(${PROJECT_NAME} src/main.cpp src/modelloader.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp src/animation.cpp src/modelloader.cpp )
 add_executable(UnitTests src/unittests.cpp)
 if(WIN32)
     message(STATUS "Using Windows library targets")

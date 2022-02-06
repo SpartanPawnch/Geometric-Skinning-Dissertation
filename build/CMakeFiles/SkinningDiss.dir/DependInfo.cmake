@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "C:/Users/marti/Documents/DissProject/src/animation.cpp" "CMakeFiles/SkinningDiss.dir/src/animation.cpp.obj" "gcc" "CMakeFiles/SkinningDiss.dir/src/animation.cpp.obj.d"
   "C:/Users/marti/Documents/DissProject/src/main.cpp" "CMakeFiles/SkinningDiss.dir/src/main.cpp.obj" "gcc" "CMakeFiles/SkinningDiss.dir/src/main.cpp.obj.d"
   "C:/Users/marti/Documents/DissProject/src/modelloader.cpp" "CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj" "gcc" "CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj.d"
   )

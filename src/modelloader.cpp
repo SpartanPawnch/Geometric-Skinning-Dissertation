@@ -12,6 +12,8 @@
 #include<vector>
 #include<iostream>
 
+#include "animation.h"
+
 //Buffers
 static std::vector<glm::vec3> positionBuffer;
 static std::vector<glm::vec3> normalBuffer;
@@ -124,15 +126,19 @@ void graphicsInit() {
 
 static glm::vec3 cameraCenter = glm::vec3(.0f, 1.0f, .0f);
 static glm::vec3 eye = glm::vec3(.0f, 2.0f, 5.0f);
+static float aspectRatio=16.0f / 9.0f;
+void setAspectRatio(float ratio){
+    aspectRatio=ratio;
+}
 
 void Model::draw() {
     glLoadIdentity();
 
 
     glUseProgram(defaultShader);
-    glm::mat4 viewProj = glm::perspective(glm::radians(45.0f), 16.0f / 9.0f, .7f, 20.0f) *
+    glm::mat4 viewProj = glm::perspective(glm::radians(45.0f), aspectRatio, .7f, 20.0f) *
         glm::lookAt(eye, cameraCenter, glm::vec3(.0f, 1.0f, .0f));
-    glm::mat4 model = glm::rotate(glm::radians(45.0f), glm::vec3(.0f, 1.0f, .0f)) * glm::rotate(glm::radians(-90.0f), glm::vec3(1.0f, .0f, .0f));
+    glm::mat4 model =  glm::rotate(glm::radians(-45.0f), glm::vec3(.0f, 1.0f, .0f))*glm::rotate(glm::radians(-90.0f), glm::vec3(1.0f, .0f, .0f));
     glUniformMatrix4fv(glGetUniformLocation(defaultShader, "model"), 1, false, glm::value_ptr(model));
     glUniformMatrix4fv(glGetUniformLocation(defaultShader, "viewproj"), 1, false, glm::value_ptr(viewProj));
     glUniform3f(glGetUniformLocation(defaultShader, "viewPos"), eye.x, eye.y, eye.z);
@@ -141,6 +147,14 @@ void Model::draw() {
     glBindVertexArray(modelVAO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, modelElementBuffer);
     glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, (void *)(vertexOffset * sizeof(unsigned int)));
+}
+
+void Model::animate(float frame){
+    //compute new positions
+    animateLBS(&baseVertices[0],baseVertices.size(),&positionBuffer[vertexOffset],&poses[((int)frame)*posesPerFrame],&vertexWeights[0],&weightIndices[0],weightsPerVertex);
+    //reupload buffer
+    glBindBuffer(GL_ARRAY_BUFFER, modelVBO[0]);
+    glBufferSubData(GL_ARRAY_BUFFER, vertexOffset*sizeof(glm::vec3),baseVertices.size() * sizeof(glm::vec3), &positionBuffer[vertexOffset]);
 }
 
 
@@ -165,6 +179,8 @@ Model loadIQM(const char *filename) {
         float positions[header.num_vertexes * 3];
         float normals[header.num_vertexes * 3];
         float texCoords[header.num_vertexes * 2];
+        unsigned char *blendWeights=nullptr;
+        unsigned char *blendIndices=nullptr;
         for (int i = 0;i < header.num_vertexarrays;i++) {
             if (vertArray[i].type == IQM_POSITION) {
                 fseek(file, vertArray[i].offset, SEEK_SET);
@@ -181,24 +197,35 @@ Model loadIQM(const char *filename) {
             else if (vertArray[i].type == IQM_BLENDWEIGHTS){
                 fseek(file,vertArray[i].offset,SEEK_SET);
                 m.weightsPerVertex=vertArray[i].size;
-                m.vertexWeights.resize(vertArray[i].size*header.num_vertexes);
-                fread(&m.vertexWeights[0],sizeof(float),header.num_vertexes*vertArray[i].size,file);
+                blendWeights=new unsigned char[header.num_vertexes*vertArray[i].size];
+                fread(blendWeights,sizeof(unsigned char),header.num_vertexes*vertArray[i].size,file);
             }
             else if(vertArray[i].type==IQM_BLENDINDEXES){
                 fseek(file,vertArray[i].offset,SEEK_SET);
                 m.weightsPerVertex=vertArray[i].size;
-                m.weightIndices.resize(header.num_vertexes*vertArray[i].size);
-                fread(&m.weightIndices[0],sizeof(unsigned int),header.num_vertexes*vertArray[i].size,file);
+                blendIndices=new unsigned char[header.num_vertexes*vertArray[i].size];
+                fread(blendIndices,sizeof(unsigned char),header.num_vertexes*vertArray[i].size,file);
             }
         }
 
 
         for (int i = 0;i < header.num_vertexes;i++) {
             positionBuffer.push_back(glm::vec3(positions[3 * i], positions[3 * i + 1], positions[3 * i + 2]));
+            m.baseVertices.push_back(glm::vec3(positions[3 * i], positions[3 * i + 1], positions[3 * i + 2]));
             normalBuffer.push_back(glm::vec3(normals[3 * i], normals[3 * i + 1], normals[3 * i + 2]));
             texCoordBuffer.push_back(glm::vec2(texCoords[2 * i], texCoords[2 * i + 1]));
+            if(blendWeights!=nullptr&&blendIndices!=nullptr){
+                for(int j=0;j<m.weightsPerVertex;j++){
+                    m.vertexWeights.push_back(blendWeights[i*m.weightsPerVertex+j]/255.0f);
+                    m.weightIndices.push_back(blendIndices[i*m.weightsPerVertex+j]);
+                }
+            }
         }
-        delete vertArray;
+        if(blendWeights!=nullptr)
+            delete[] blendWeights;
+        if(blendIndices!=nullptr)
+            delete[] blendIndices;
+        delete[] vertArray;
     }
 
     //read face indices
@@ -212,7 +239,7 @@ Model loadIQM(const char *filename) {
             indexBuffer.push_back(indices[3 * i + 1]);
             indexBuffer.push_back(indices[3 * i]);
         }
-        delete indices;
+        delete[] indices;
     }
     m.vertexCount = indexBuffer.size() - m.vertexOffset;
 
@@ -226,13 +253,12 @@ Model loadIQM(const char *filename) {
         glm::mat4 localJoints[header.num_joints];
         glm::mat4 inverseLocalJoints[header.num_joints];
 
-        m.jointsMatrices.reserve(header.num_joints);
-        m.inverseJointMatrices.reserve(header.num_joints);
+        m.joints.reserve(header.num_joints);
 
         for(int i=0;i<header.num_joints;i++){
-            localJoints[i]=glm::translate(glm::mat4(1.0f),glm::vec3(joints[i].translate[0],joints[i].translate[1],joints[i].translate[2]))
-            *glm::toMat4(glm::quat(joints[i].rotate[0],joints[i].rotate[1],joints[i].rotate[2],joints[i].rotate[3]))*
-            glm::scale(glm::mat4(1.0f),glm::vec3(joints[i].scale[0],joints[i].scale[1],joints[i].scale[2]));
+            localJoints[i]=glm::translate(glm::vec3(joints[i].translate[0],joints[i].translate[1],joints[i].translate[2]))
+                *glm::toMat4(glm::quat(joints[i].rotate[3],joints[i].rotate[0],joints[i].rotate[1],joints[i].rotate[2]))*
+                glm::scale(glm::vec3(joints[i].scale[0],joints[i].scale[1],joints[i].scale[2]));
             inverseLocalJoints[i]=glm::inverse(localJoints[i]);
 
             if(joints[i].parent>=0){
@@ -241,10 +267,87 @@ Model loadIQM(const char *filename) {
                 inverseLocalJoints[i]=inverseLocalJoints[i]*inverseLocalJoints[joints[i].parent];
             }
 
-            m.jointsMatrices[i]=localJoints[i];
-            m.inverseJointMatrices[i]=inverseLocalJoints[i];
+            m.joints[i].matrix=localJoints[i];
+            m.joints[i].inverse=inverseLocalJoints[i];
+            
         }
+    }
 
+    if(header.ofs_poses>0){
+        iqmpose poses[header.num_poses];
+        fseek(file,header.ofs_poses,SEEK_SET);
+        fread(poses,sizeof(iqmpose),header.num_poses,file);
+
+        unsigned short framedata[header.num_frames*header.num_framechannels];
+        int framedataIterator=0;
+        fseek(file,header.ofs_frames,SEEK_SET);
+        fread(framedata,sizeof(unsigned short),header.num_frames*header.num_framechannels,file);
+        
+        m.posesPerFrame=header.num_poses;
+        m.poses.resize(header.num_poses*header.num_frames);
+
+        for(int i=0;i<header.num_frames;i++){
+            for(int j=0;j<header.num_poses;j++){
+
+                //compute offsets
+                glm::vec3 position=glm::vec3(poses[j].channeloffset[0],poses[j].channeloffset[1],poses[j].channeloffset[2]);
+                glm::quat rotation=glm::quat(poses[j].channeloffset[6],poses[j].channeloffset[3],
+                    poses[j].channeloffset[4],poses[j].channeloffset[5]);
+                glm::vec3 scale=glm::vec3(poses[j].channeloffset[7],poses[j].channeloffset[8],poses[j].channeloffset[9]);
+
+                //add scaled data
+                if(poses[j].mask&0x01){
+                    position[0]+=framedata[framedataIterator]*poses[j].channelscale[0];
+                    framedataIterator++;
+                }
+                if(poses[j].mask&0x02){
+                    position[1]+=framedata[framedataIterator]*poses[j].channelscale[1];
+                    framedataIterator++;
+                }
+                if(poses[j].mask&0x04){
+                    position[2]+=framedata[framedataIterator]*poses[j].channelscale[2];
+                    framedataIterator++;
+                }
+                if(poses[j].mask&0x08){
+                    rotation.x+=framedata[framedataIterator]*poses[j].channelscale[3];
+                    framedataIterator++;
+                }
+                if(poses[j].mask&0x10){
+                    rotation.y+=framedata[framedataIterator]*poses[j].channelscale[4];
+                    framedataIterator++;
+                }
+                if(poses[j].mask&0x20){
+                    rotation.z+=framedata[framedataIterator]*poses[j].channelscale[5];
+                    framedataIterator++;
+                }
+                if(poses[j].mask&0x40){
+                    rotation.w+=framedata[framedataIterator]*poses[j].channelscale[6];
+                    framedataIterator++;
+                }
+                if(poses[j].mask&0x80){
+                    scale[0]+=framedata[framedataIterator]*poses[j].channelscale[7];
+                    framedataIterator++;
+                }
+                if(poses[j].mask&0x100){
+                    scale[1]+=framedata[framedataIterator]*poses[j].channelscale[8];
+                    framedataIterator++;
+                }
+                if(poses[j].mask&0x200){
+                    scale[2]+=framedata[framedataIterator]*poses[j].channelscale[9];
+                    framedataIterator++;
+                }
+
+
+
+
+                glm::mat4 pose=glm::translate(position)*glm::toMat4(glm::normalize(rotation))*glm::scale(scale)*m.joints[j].inverse;
+                if(poses[j].parent>=0)
+                    pose=m.poses[i*m.posesPerFrame+poses[j].parent]*m.joints[poses[j].parent].matrix*pose;
+
+                m.poses[i*m.posesPerFrame+j]=pose;
+            }
+        }
+        
     }
 
 

@@ -6,6 +6,11 @@
 },
 {
   "directory": "C:/Users/marti/Documents/DissProject/build",
+  "command": "C:\\Users\\marti\\mingw64\\bin\\g++.exe -DROOTDIR=\\\"C:/Users/marti/Documents/DissProject\\\"  -g -o CMakeFiles\\SkinningDiss.dir\\src\\animation.cpp.obj -c C:\\Users\\marti\\Documents\\DissProject\\src\\animation.cpp",
+  "file": "C:/Users/marti/Documents/DissProject/src/animation.cpp"
+},
+{
+  "directory": "C:/Users/marti/Documents/DissProject/build",
   "command": "C:\\Users\\marti\\mingw64\\bin\\g++.exe -DROOTDIR=\\\"C:/Users/marti/Documents/DissProject\\\"  -g -o CMakeFiles\\SkinningDiss.dir\\src\\modelloader.cpp.obj -c C:\\Users\\marti\\Documents\\DissProject\\src\\modelloader.cpp",
   "file": "C:/Users/marti/Documents/DissProject/src/modelloader.cpp"
 },
