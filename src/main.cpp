@@ -45,10 +45,14 @@ int main() {
         lasttime+=frametime;
         animtime+=60*frametime;
 
-        while(animtime>=(float)longboi.poses.size()/longboi.posesPerFrame){
-            animtime-=longboi.poses.size()/longboi.posesPerFrame;
+        while(animtime>=(float)longboi.animationData.poses.size()/longboi.animationData.posesPerFrame){
+            animtime-=longboi.animationData.poses.size()/longboi.animationData.posesPerFrame;
         }
         longboi.animate(animtime);
+
+        int width,height;
+        glfwGetFramebufferSize(window,&width,&height);
+        setAspectRatio((float)width/height);
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         longboi.draw();

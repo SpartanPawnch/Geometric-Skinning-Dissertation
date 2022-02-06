@@ -5,6 +5,8 @@
 #include<glm/gtc/quaternion.hpp>
 #include<glm/gtx/quaternion.hpp>
 
+#include "animation.h"
+
 struct Joint{
     glm::mat4 matrix;
     glm::mat4 inverse;
@@ -15,23 +17,15 @@ struct Model {
     unsigned int vertexOffset;
     unsigned int vertexCount;
 
+    //offset for drawing buffers
+    unsigned int bufferOffset;
+
     //textures
     GLuint texture = 0;
     bool textured = false;
 
-
-    //animation
-    //TODO refactor
-    std::vector<glm::vec3> baseVertices;
-
+    AnimationData animationData;
     std::vector<Joint> joints;
-
-    unsigned int weightsPerVertex=0;
-    std::vector<float> vertexWeights; //weights are unsigned bytes
-    std::vector<unsigned int> weightIndices; //index of joint weight is applied to
-
-    unsigned int posesPerFrame=0;
-    std::vector<glm::mat4> poses;
 
     void animate(float frame);
     void draw();

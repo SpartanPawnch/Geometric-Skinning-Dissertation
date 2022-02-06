@@ -261,6 +261,7 @@ CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj: \
  C:/Users/marti/mingw64/x86_64-w64-mingw32/include/glm/gtx/component_wise.inl \
  C:/Users/marti/mingw64/x86_64-w64-mingw32/include/glm/gtx/norm.inl \
  C:/Users/marti/mingw64/x86_64-w64-mingw32/include/glm/gtx/quaternion.inl \
+ C:\Users\marti\Documents\DissProject\src\animation.h \
  C:/Users/marti/Documents/DissProject/external/iqm.h \
  C:/Users/marti/Documents/DissProject/external/stb_image.h \
  C:/Users/marti/mingw64/x86_64-w64-mingw32/include/stdio.h \
@@ -354,5 +355,4 @@ CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj: \
  C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/basic_ios.tcc \
  C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/ostream.tcc \
  C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/istream \
- C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/istream.tcc \
- C:\Users\marti\Documents\DissProject\src\animation.h
+ C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/istream.tcc

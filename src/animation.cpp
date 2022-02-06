@@ -2,17 +2,29 @@
 #include <glm/mat4x4.hpp>
 #include <iostream>
 
-void animateLBS(const glm::vec3 *baseVertices, const int vertexCount, glm::vec3 *deformedVertices,
-    const glm::mat4 *poses, const float *weights, const unsigned int *indices, 
-    const int weightsPerVertex){
-    
-    for(int i=0;i<vertexCount;i++){
-        deformedVertices[i]=glm::vec3(0.0f);
+void AnimationData::deformPositionLBS(glm::vec3 *target, float frame){
+    glm::mat4 *currentFrame=&poses[((int)frame)*posesPerFrame];
+
+    for(int i=0;i<baseVertices.size();i++){
+        target[i]=glm::vec3(0.0f);
         for(int j=0;j<weightsPerVertex;j++){
-            glm::vec3 deformContribution=poses[indices[i*weightsPerVertex+j]]*
+            glm::vec3 deformContribution=currentFrame[weightIndices[i*weightsPerVertex+j]]*
                 glm::vec4(baseVertices[i],1.0f);
             
-            deformedVertices[i]+=weights[i*weightsPerVertex+j]*deformContribution;
+            target[i]+=vertexWeights[i*weightsPerVertex+j]*deformContribution;
+        }
+    }
+}
+void AnimationData::deformNormalLBS(glm::vec3 *target, float frame){
+    glm::mat4 *currentFrame=&poses[((int)frame)*posesPerFrame];
+
+    for(int i=0;i<baseNormals.size();i++){
+        target[i]=glm::vec3(0.0f);
+        for(int j=0;j<weightsPerVertex;j++){
+            glm::vec3 deformContribution=glm::mat3(currentFrame[weightIndices[i*
+                weightsPerVertex+j]])*baseNormals[i];
+            
+            target[i]+=vertexWeights[i*weightsPerVertex+j]*deformContribution;
         }
     }
 }

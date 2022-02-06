@@ -151,10 +151,13 @@ void Model::draw() {
 
 void Model::animate(float frame){
     //compute new positions
-    animateLBS(&baseVertices[0],baseVertices.size(),&positionBuffer[vertexOffset],&poses[((int)frame)*posesPerFrame],&vertexWeights[0],&weightIndices[0],weightsPerVertex);
+    animationData.deformPositionLBS(&positionBuffer[bufferOffset],frame);
+    animationData.deformNormalLBS(&normalBuffer[bufferOffset],frame);
     //reupload buffer
     glBindBuffer(GL_ARRAY_BUFFER, modelVBO[0]);
-    glBufferSubData(GL_ARRAY_BUFFER, vertexOffset*sizeof(glm::vec3),baseVertices.size() * sizeof(glm::vec3), &positionBuffer[vertexOffset]);
+    glBufferSubData(GL_ARRAY_BUFFER, bufferOffset*sizeof(glm::vec3),animationData.baseVertices.size() * sizeof(glm::vec3), &positionBuffer[bufferOffset]);
+    glBindBuffer(GL_ARRAY_BUFFER, modelVBO[1]);
+    glBufferSubData(GL_ARRAY_BUFFER, bufferOffset*sizeof(glm::vec3),animationData.baseVertices.size() * sizeof(glm::vec3), &normalBuffer[bufferOffset]);
 }
 
 
@@ -169,6 +172,7 @@ Model loadIQM(const char *filename) {
     iqmheader header;
     fread(&header, sizeof(header), 1, file);
 
+    m.bufferOffset=positionBuffer.size();
 
     //read vertex arrays
     if (header.ofs_vertexarrays > 0) {
@@ -196,13 +200,13 @@ Model loadIQM(const char *filename) {
             }
             else if (vertArray[i].type == IQM_BLENDWEIGHTS){
                 fseek(file,vertArray[i].offset,SEEK_SET);
-                m.weightsPerVertex=vertArray[i].size;
+                m.animationData.weightsPerVertex=vertArray[i].size;
                 blendWeights=new unsigned char[header.num_vertexes*vertArray[i].size];
                 fread(blendWeights,sizeof(unsigned char),header.num_vertexes*vertArray[i].size,file);
             }
             else if(vertArray[i].type==IQM_BLENDINDEXES){
                 fseek(file,vertArray[i].offset,SEEK_SET);
-                m.weightsPerVertex=vertArray[i].size;
+                m.animationData.weightsPerVertex=vertArray[i].size;
                 blendIndices=new unsigned char[header.num_vertexes*vertArray[i].size];
                 fread(blendIndices,sizeof(unsigned char),header.num_vertexes*vertArray[i].size,file);
             }
@@ -211,13 +215,14 @@ Model loadIQM(const char *filename) {
 
         for (int i = 0;i < header.num_vertexes;i++) {
             positionBuffer.push_back(glm::vec3(positions[3 * i], positions[3 * i + 1], positions[3 * i + 2]));
-            m.baseVertices.push_back(glm::vec3(positions[3 * i], positions[3 * i + 1], positions[3 * i + 2]));
+            m.animationData.baseVertices.push_back(glm::vec3(positions[3 * i], positions[3 * i + 1], positions[3 * i + 2]));
             normalBuffer.push_back(glm::vec3(normals[3 * i], normals[3 * i + 1], normals[3 * i + 2]));
+            m.animationData.baseNormals.push_back(glm::vec3(normals[3 * i], normals[3 * i + 1], normals[3 * i + 2]));
             texCoordBuffer.push_back(glm::vec2(texCoords[2 * i], texCoords[2 * i + 1]));
             if(blendWeights!=nullptr&&blendIndices!=nullptr){
-                for(int j=0;j<m.weightsPerVertex;j++){
-                    m.vertexWeights.push_back(blendWeights[i*m.weightsPerVertex+j]/255.0f);
-                    m.weightIndices.push_back(blendIndices[i*m.weightsPerVertex+j]);
+                for(int j=0;j<m.animationData.weightsPerVertex;j++){
+                    m.animationData.vertexWeights.push_back(blendWeights[i*m.animationData.weightsPerVertex+j]/255.0f);
+                    m.animationData.weightIndices.push_back(blendIndices[i*m.animationData.weightsPerVertex+j]);
                 }
             }
         }
@@ -283,8 +288,8 @@ Model loadIQM(const char *filename) {
         fseek(file,header.ofs_frames,SEEK_SET);
         fread(framedata,sizeof(unsigned short),header.num_frames*header.num_framechannels,file);
         
-        m.posesPerFrame=header.num_poses;
-        m.poses.resize(header.num_poses*header.num_frames);
+        m.animationData.posesPerFrame=header.num_poses;
+        m.animationData.poses.resize(header.num_poses*header.num_frames);
 
         for(int i=0;i<header.num_frames;i++){
             for(int j=0;j<header.num_poses;j++){
@@ -342,9 +347,9 @@ Model loadIQM(const char *filename) {
 
                 glm::mat4 pose=glm::translate(position)*glm::toMat4(glm::normalize(rotation))*glm::scale(scale)*m.joints[j].inverse;
                 if(poses[j].parent>=0)
-                    pose=m.poses[i*m.posesPerFrame+poses[j].parent]*m.joints[poses[j].parent].matrix*pose;
+                    pose=m.animationData.poses[i*m.animationData.posesPerFrame+poses[j].parent]*m.joints[poses[j].parent].matrix*pose;
 
-                m.poses[i*m.posesPerFrame+j]=pose;
+                m.animationData.poses[i*m.animationData.posesPerFrame+j]=pose;
             }
         }
         
