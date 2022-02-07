@@ -4,7 +4,7 @@
 # compile CXX with C:/Users/marti/mingw64/bin/g++.exe
 CXX_DEFINES = -DROOTDIR=\"C:/Users/marti/Documents/DissProject\"
 
-CXX_INCLUDES = 
+CXX_INCLUDES = @CMakeFiles/SkinningDiss.dir/includes_CXX.rsp
 
-CXX_FLAGS = -g
+CXX_FLAGS = -O2 -g -DNDEBUG
 

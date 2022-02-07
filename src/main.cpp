@@ -1,6 +1,14 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include<iostream>
+#include <imgui.h>
+#include <imgui_impl_opengl2.h>
+#include <imgui_impl_glfw.h>
+
+
+#include <iostream>
+
+#define GLM_FORCE_PRECISION_LOWP_FLOAT
+#define GLM_FORCE_INLINE
 
 #include "modelloader.hpp"
 
@@ -19,6 +27,8 @@ int main() {
     window = glfwCreateWindow(1600, 900, "Skinning Dissertation", NULL, NULL);
 
     glfwMakeContextCurrent(window);
+
+    //swap buffers to avoid the window not responding
     glClearColor(.7f, .7f, .7f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glfwSwapBuffers(window);
@@ -31,8 +41,16 @@ int main() {
         return 1;
     }
 
-
     graphicsInit();
+
+    //setup Imgui
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io=ImGui::GetIO();
+
+    ImGui_ImplGlfw_InitForOpenGL(window,true);
+    ImGui_ImplOpenGL2_Init();
+
     //load models
     Model longboi = loadIQM(ROOTDIR "/assets/longboi.iqm");
     longboi.texture = loadTexture(ROOTDIR "/assets/longboi_texture.png");
@@ -41,26 +59,64 @@ int main() {
 
     float animtime=.0f,lasttime=glfwGetTime();
     while (!glfwWindowShouldClose(window)) {
+        static bool paused=false;
+
+        //State Processing
         float frametime=glfwGetTime()-lasttime;
         lasttime+=frametime;
-        animtime+=60*frametime;
+        animtime+=!paused*60*frametime;
+        animtime-=floor(animtime/(longboi.animationData.poses.size()/longboi.animationData.posesPerFrame))*animtime;
 
-        while(animtime>=(float)longboi.animationData.poses.size()/longboi.animationData.posesPerFrame){
-            animtime-=longboi.animationData.poses.size()/longboi.animationData.posesPerFrame;
-        }
-        longboi.animate(animtime);
 
+        //UI Input
+        ImGui_ImplOpenGL2_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+
+        ImGui::Begin("Timeline",nullptr,ImGuiWindowFlags_AlwaysAutoResize);
+        ImGui::Text("%d vertices, %.2f FPS",longboi.animationData.baseNormals.size(),io.Framerate);
+        if(ImGui::Button("Pause"))
+            paused=!paused;
+        ImGui::SameLine();
+        ImGui::SliderFloat("##timeline",&animtime,0.0f,
+            longboi.animationData.poses.size()/longboi.animationData.posesPerFrame);
+        ImGui::End();
+
+
+        if(!paused)
+            longboi.animate(animtime);
+
+
+        //Rendering
+        ImGui::Render();
+        
         //adapt to window resize
         int width,height;
         glfwGetFramebufferSize(window,&width,&height);
         setAspectRatio((float)width/height);
-        glViewport(0,0,width,height);
+        glViewport(0,0,width,height);        
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         longboi.draw();
+
+        //cleanup opengl state for ImGui
+        glUseProgram(0);
+        glBindVertexArray(0);
+        glBindBuffer(GL_ARRAY_BUFFER,0);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
+
+        ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
+
+    ImGui_ImplOpenGL2_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+
+    glfwDestroyWindow(window);
+    glfwTerminate();
 
     return 0;
 }

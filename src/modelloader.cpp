@@ -118,6 +118,9 @@ void graphicsInit() {
     glDeleteShader(fragShader);
 
     //GL settings
+    glDisable(GL_NORMALIZE);
+    glDisable(GL_LIGHTING);
+    glDisable(GL_LIGHT0);
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_MULTISAMPLE);
@@ -138,7 +141,7 @@ void Model::draw() {
     glUseProgram(defaultShader);
     glm::mat4 viewProj = glm::perspective(glm::radians(45.0f), aspectRatio, .7f, 20.0f) *
         glm::lookAt(eye, cameraCenter, glm::vec3(.0f, 1.0f, .0f));
-    glm::mat4 model =  glm::rotate(glm::radians(-45.0f), glm::vec3(.0f, 1.0f, .0f))*glm::rotate(glm::radians(-90.0f), glm::vec3(1.0f, .0f, .0f));
+    glm::mat4 model =  glm::rotate(glm::radians(-5.0f), glm::vec3(.0f, 1.0f, .0f))*glm::rotate(glm::radians(-90.0f), glm::vec3(1.0f, .0f, .0f));
     glUniformMatrix4fv(glGetUniformLocation(defaultShader, "model"), 1, false, glm::value_ptr(model));
     glUniformMatrix4fv(glGetUniformLocation(defaultShader, "viewproj"), 1, false, glm::value_ptr(viewProj));
     glUniform3f(glGetUniformLocation(defaultShader, "viewPos"), eye.x, eye.y, eye.z);
@@ -347,9 +350,10 @@ Model loadIQM(const char *filename) {
 
                 glm::mat4 pose=glm::translate(position)*glm::toMat4(glm::normalize(rotation))*glm::scale(scale)*m.joints[j].inverse;
                 if(poses[j].parent>=0)
-                    pose=m.animationData.poses[i*m.animationData.posesPerFrame+poses[j].parent]*m.joints[poses[j].parent].matrix*pose;
+                    pose=(glm::mat4x3)m.animationData.poses[i*m.animationData.posesPerFrame+poses[j].parent]*m.joints[poses[j].parent].matrix*pose;
 
-                m.animationData.poses[i*m.animationData.posesPerFrame+j]=pose;
+                m.animationData.poses[i*m.animationData.posesPerFrame+j].rotscale=glm::mat3(pose);
+                m.animationData.poses[i*m.animationData.posesPerFrame+j].translate=glm::mat4x3(pose)[3];
             }
         }
         

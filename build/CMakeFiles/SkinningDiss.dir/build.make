@@ -69,6 +69,7 @@ include CMakeFiles/SkinningDiss.dir/progress.make
 include CMakeFiles/SkinningDiss.dir/flags.make
 
 CMakeFiles/SkinningDiss.dir/src/main.cpp.obj: CMakeFiles/SkinningDiss.dir/flags.make
+CMakeFiles/SkinningDiss.dir/src/main.cpp.obj: CMakeFiles/SkinningDiss.dir/includes_CXX.rsp
 CMakeFiles/SkinningDiss.dir/src/main.cpp.obj: ../src/main.cpp
 CMakeFiles/SkinningDiss.dir/src/main.cpp.obj: CMakeFiles/SkinningDiss.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\marti\Documents\DissProject\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/SkinningDiss.dir/src/main.cpp.obj"
@@ -83,6 +84,7 @@ CMakeFiles/SkinningDiss.dir/src/main.cpp.s: cmake_force
 	C:\Users\marti\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\marti\Documents\DissProject\src\main.cpp -o CMakeFiles\SkinningDiss.dir\src\main.cpp.s
 
 CMakeFiles/SkinningDiss.dir/src/animation.cpp.obj: CMakeFiles/SkinningDiss.dir/flags.make
+CMakeFiles/SkinningDiss.dir/src/animation.cpp.obj: CMakeFiles/SkinningDiss.dir/includes_CXX.rsp
 CMakeFiles/SkinningDiss.dir/src/animation.cpp.obj: ../src/animation.cpp
 CMakeFiles/SkinningDiss.dir/src/animation.cpp.obj: CMakeFiles/SkinningDiss.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\marti\Documents\DissProject\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/SkinningDiss.dir/src/animation.cpp.obj"
@@ -97,6 +99,7 @@ CMakeFiles/SkinningDiss.dir/src/animation.cpp.s: cmake_force
 	C:\Users\marti\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\marti\Documents\DissProject\src\animation.cpp -o CMakeFiles\SkinningDiss.dir\src\animation.cpp.s
 
 CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj: CMakeFiles/SkinningDiss.dir/flags.make
+CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj: CMakeFiles/SkinningDiss.dir/includes_CXX.rsp
 CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj: ../src/modelloader.cpp
 CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj: CMakeFiles/SkinningDiss.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\marti\Documents\DissProject\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj"
@@ -123,6 +126,7 @@ SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/src/main.cpp.obj
 SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/src/animation.cpp.obj
 SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj
 SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/build.make
+SkinningDiss.exe: libIMGUI.a
 SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/linklibs.rsp
 SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/objects1.rsp
 SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/link.txt

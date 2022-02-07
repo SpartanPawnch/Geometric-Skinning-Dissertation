@@ -3,26 +3,27 @@
 #include <iostream>
 
 void AnimationData::deformPositionLBS(glm::vec3 *target, float frame){
-    glm::mat4 *currentFrame=&poses[((int)frame)*posesPerFrame];
+    Pose *currentFrame=&poses[((int)frame)*posesPerFrame];
 
     for(int i=0;i<baseVertices.size();i++){
         target[i]=glm::vec3(0.0f);
         for(int j=0;j<weightsPerVertex;j++){
-            glm::vec3 deformContribution=currentFrame[weightIndices[i*weightsPerVertex+j]]*
-                glm::vec4(baseVertices[i],1.0f);
+            glm::vec3 deformContribution=currentFrame[weightIndices[i*
+                weightsPerVertex+j]].rotscale*baseVertices[i]+
+                currentFrame[weightIndices[i*weightsPerVertex+j]].translate;
             
             target[i]+=vertexWeights[i*weightsPerVertex+j]*deformContribution;
         }
     }
 }
 void AnimationData::deformNormalLBS(glm::vec3 *target, float frame){
-    glm::mat4 *currentFrame=&poses[((int)frame)*posesPerFrame];
+    Pose *currentFrame=&poses[((int)frame)*posesPerFrame];
 
     for(int i=0;i<baseNormals.size();i++){
         target[i]=glm::vec3(0.0f);
         for(int j=0;j<weightsPerVertex;j++){
-            glm::vec3 deformContribution=glm::mat3(currentFrame[weightIndices[i*
-                weightsPerVertex+j]])*baseNormals[i];
+            glm::vec3 deformContribution=currentFrame[weightIndices[i*
+                weightsPerVertex+j]].rotscale*baseNormals[i];
             
             target[i]+=vertexWeights[i*weightsPerVertex+j]*deformContribution;
         }

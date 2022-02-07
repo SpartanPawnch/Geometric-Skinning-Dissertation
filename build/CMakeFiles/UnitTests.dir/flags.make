@@ -6,5 +6,5 @@ CXX_DEFINES = -DROOTDIR=\"C:/Users/marti/Documents/DissProject\"
 
 CXX_INCLUDES = 
 
-CXX_FLAGS = -g
+CXX_FLAGS = -O2 -g -DNDEBUG
 

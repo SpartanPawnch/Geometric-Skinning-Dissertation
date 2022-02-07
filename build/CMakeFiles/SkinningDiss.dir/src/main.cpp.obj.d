@@ -18,10 +18,31 @@ CMakeFiles/SkinningDiss.dir/src/main.cpp.obj: \
  C:/Users/marti/mingw64/x86_64-w64-mingw32/include/GL/glu.h \
  C:/Users/marti/mingw64/x86_64-w64-mingw32/include/GL/gl.h \
  C:/Users/marti/mingw64/x86_64-w64-mingw32/include/GLFW/glfw3.h \
- C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/iostream \
+ C:/Users/marti/Documents/DissProject/external/imgui/imgui.h \
+ C:/Users/marti/Documents/DissProject/external/imgui/imconfig.h \
+ C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/float.h \
+ C:/Users/marti/mingw64/x86_64-w64-mingw32/include/float.h \
+ C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/stdarg.h \
+ C:/Users/marti/mingw64/x86_64-w64-mingw32/include/stdarg.h \
+ C:/Users/marti/mingw64/x86_64-w64-mingw32/include/_mingw_stdarg.h \
+ C:/Users/marti/mingw64/x86_64-w64-mingw32/include/string.h \
+ C:/Users/marti/mingw64/x86_64-w64-mingw32/include/sec_api/string_s.h \
+ C:/Users/marti/mingw64/x86_64-w64-mingw32/include/assert.h \
+ C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/stdlib.h \
+ C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cstdlib \
  C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32/bits/c++config.h \
  C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32/bits/os_defines.h \
  C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32/bits/cpu_defines.h \
+ C:/Users/marti/mingw64/x86_64-w64-mingw32/include/stdlib.h \
+ C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed/limits.h \
+ C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed/syslimits.h \
+ C:/Users/marti/mingw64/x86_64-w64-mingw32/include/limits.h \
+ C:/Users/marti/mingw64/x86_64-w64-mingw32/include/sec_api/stdlib_s.h \
+ C:/Users/marti/mingw64/x86_64-w64-mingw32/include/malloc.h \
+ C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/std_abs.h \
+ C:/Users/marti/Documents/DissProject/external/imgui/backends/imgui_impl_opengl2.h \
+ C:/Users/marti/Documents/DissProject/external/imgui/backends/imgui_impl_glfw.h \
+ C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/iostream \
  C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/ostream \
  C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/ios \
  C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/iosfwd \
@@ -78,9 +99,6 @@ CMakeFiles/SkinningDiss.dir/src/main.cpp.obj: \
  C:/Users/marti/mingw64/x86_64-w64-mingw32/include/sys/types.h \
  C:/Users/marti/mingw64/x86_64-w64-mingw32/include/process.h \
  C:/Users/marti/mingw64/x86_64-w64-mingw32/include/corecrt_startup.h \
- C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed/limits.h \
- C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed/syslimits.h \
- C:/Users/marti/mingw64/x86_64-w64-mingw32/include/limits.h \
  C:/Users/marti/mingw64/x86_64-w64-mingw32/include/signal.h \
  C:/Users/marti/mingw64/x86_64-w64-mingw32/include/pthread_signal.h \
  C:/Users/marti/mingw64/x86_64-w64-mingw32/include/sys/timeb.h \
@@ -103,12 +121,6 @@ CMakeFiles/SkinningDiss.dir/src/main.cpp.obj: \
  C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/ext/alloc_traits.h \
  C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/alloc_traits.h \
  C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/ext/string_conversions.h \
- C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cstdlib \
- C:/Users/marti/mingw64/x86_64-w64-mingw32/include/stdlib.h \
- C:/Users/marti/mingw64/x86_64-w64-mingw32/include/sec_api/stdlib_s.h \
- C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/stdlib.h \
- C:/Users/marti/mingw64/x86_64-w64-mingw32/include/malloc.h \
- C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/std_abs.h \
  C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cstdio \
  C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cerrno \
  C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/functional_hash.h \
@@ -145,7 +157,6 @@ CMakeFiles/SkinningDiss.dir/src/main.cpp.obj: \
  C:/Users/marti/mingw64/x86_64-w64-mingw32/include/glm/detail/qualifier.hpp \
  C:/Users/marti/mingw64/x86_64-w64-mingw32/include/glm/detail/setup.hpp \
  C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cassert \
- C:/Users/marti/mingw64/x86_64-w64-mingw32/include/assert.h \
  C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cstddef \
  C:/Users/marti/mingw64/x86_64-w64-mingw32/include/glm/simd/platform.h \
  C:/Users/marti/mingw64/x86_64-w64-mingw32/include/glm/detail/type_vec4.inl \
@@ -311,8 +322,6 @@ CMakeFiles/SkinningDiss.dir/src/main.cpp.obj: \
  C:/Users/marti/mingw64/x86_64-w64-mingw32/include/glm/glm.hpp \
  C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/climits \
  C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cfloat \
- C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/float.h \
- C:/Users/marti/mingw64/x86_64-w64-mingw32/include/float.h \
  C:/Users/marti/mingw64/x86_64-w64-mingw32/include/glm/fwd.hpp \
  C:/Users/marti/mingw64/x86_64-w64-mingw32/include/glm/packing.hpp \
  C:/Users/marti/mingw64/x86_64-w64-mingw32/include/glm/detail/func_packing.inl \
