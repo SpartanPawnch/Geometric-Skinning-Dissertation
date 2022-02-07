@@ -50,9 +50,11 @@ int main() {
         }
         longboi.animate(animtime);
 
+        //adapt to window resize
         int width,height;
         glfwGetFramebufferSize(window,&width,&height);
         setAspectRatio((float)width/height);
+        glViewport(0,0,width,height);
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         longboi.draw();
