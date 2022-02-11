@@ -27,6 +27,10 @@ struct Model {
     AnimationData animationData;
     std::vector<Joint> joints;
 
+    std::vector<AnimationClip> clips;
+    std::vector<std::string> clipNames;
+    int currentClip=-1;
+
     void animate(float frame);
     void draw();
 };

@@ -154,8 +154,14 @@ void Model::draw() {
 
 void Model::animate(float frame){
     //compute new positions
-    animationData.deformPositionLBS(&positionBuffer[bufferOffset],frame);
-    animationData.deformNormalLBS(&normalBuffer[bufferOffset],frame);
+    if(currentClip>=0){
+        animationData.deformPositionLBS(&positionBuffer[bufferOffset],frame,clips[currentClip]);
+        animationData.deformNormalLBS(&normalBuffer[bufferOffset],frame,clips[currentClip]);
+    }
+    else{
+        animationData.deformPositionLBS(&positionBuffer[bufferOffset],frame);
+        animationData.deformNormalLBS(&normalBuffer[bufferOffset],frame);
+    }
     //reupload buffer
     glBindBuffer(GL_ARRAY_BUFFER, modelVBO[0]);
     glBufferSubData(GL_ARRAY_BUFFER, bufferOffset*sizeof(glm::vec3),animationData.baseVertices.size() * sizeof(glm::vec3), &positionBuffer[bufferOffset]);
@@ -357,6 +363,31 @@ Model loadIQM(const char *filename) {
             }
         }
         
+    }
+
+    //load animation names
+    char animNames[header.num_text];
+    if(header.ofs_text>0){
+        fseek(file,header.ofs_text,SEEK_SET);
+        fread(animNames,sizeof(char),header.num_text,file);
+    }
+
+    //read animations
+    if(header.ofs_anims>0){
+        iqmanim anims[header.num_anims];
+        fseek(file,header.ofs_anims,SEEK_SET);
+        fread(anims,sizeof(iqmanim),header.num_anims,file);
+        m.clips.reserve(header.num_anims);
+        m.clipNames.reserve(header.num_anims);
+        for(int i=0;i<header.num_anims;i++){
+            AnimationClip clip={
+                .offset=anims[i].first_frame,
+                .length=anims[i].num_frames,
+                .framerate=anims[i].framerate
+            };
+            m.clips.push_back(clip);
+            m.clipNames.push_back(std::string(&animNames[anims[i].name]));
+        }
     }
 
 

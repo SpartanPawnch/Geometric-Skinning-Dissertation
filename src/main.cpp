@@ -56,16 +56,18 @@ int main() {
     longboi.texture = loadTexture(ROOTDIR "/assets/longboi_texture.png");
     longboi.textured = true;
     uploadBuffers();
+    longboi.currentClip=1;
 
     float animtime=.0f,lasttime=glfwGetTime();
+    bool paused=false;    
     while (!glfwWindowShouldClose(window)) {
-        static bool paused=false;
+        bool seeking=false;
 
         //State Processing
         float frametime=glfwGetTime()-lasttime;
         lasttime+=frametime;
-        animtime+=!paused*60*frametime;
-        animtime-=floor(animtime/(longboi.animationData.poses.size()/longboi.animationData.posesPerFrame))*animtime;
+        animtime+=!paused*frametime*longboi.clips[longboi.currentClip].framerate;
+        animtime=fmodf(animtime,longboi.clips[longboi.currentClip].length);
 
 
         //UI Input
@@ -74,16 +76,33 @@ int main() {
         ImGui::NewFrame();
 
         ImGui::Begin("Timeline",nullptr,ImGuiWindowFlags_AlwaysAutoResize);
+
+        if(ImGui::BeginCombo("##animselector",longboi.clipNames[longboi.currentClip].c_str())){
+            for(int i=0;i<longboi.clipNames.size();i++){
+                bool isSelected=(i==longboi.currentClip);
+                if(ImGui::Selectable(longboi.clipNames[i].c_str(),isSelected)){
+                    longboi.currentClip=i;
+                }
+                if(isSelected)
+                    ImGui::SetItemDefaultFocus();
+            }
+            ImGui::EndCombo();
+        }
+        ImGui::SameLine();
         ImGui::Text("%d vertices, %.2f FPS",longboi.animationData.baseNormals.size(),io.Framerate);
-        if(ImGui::Button("Pause"))
+        const char* pauseLabels[2]={"Pause","Unpause"};
+
+        if(ImGui::Button(pauseLabels[paused]))
             paused=!paused;
         ImGui::SameLine();
-        ImGui::SliderFloat("##timeline",&animtime,0.0f,
-            longboi.animationData.poses.size()/longboi.animationData.posesPerFrame);
+        if(ImGui::SliderFloat("##timeline",&animtime,0.0f,
+            longboi.clips[longboi.currentClip].length)){
+            seeking=true;
+        }
         ImGui::End();
 
 
-        if(!paused)
+        if(!paused||seeking)
             longboi.animate(animtime);
 
 

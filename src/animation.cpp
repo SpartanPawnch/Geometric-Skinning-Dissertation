@@ -16,6 +16,10 @@ void AnimationData::deformPositionLBS(glm::vec3 *target, float frame){
         }
     }
 }
+void AnimationData::deformPositionLBS(glm::vec3 *target, float frame, const AnimationClip &clip){
+    float absoluteFrame=clip.offset+fmodf(frame,clip.length);
+    deformPositionLBS(target,absoluteFrame);
+}
 void AnimationData::deformNormalLBS(glm::vec3 *target, float frame){
     Pose *currentFrame=&poses[((int)frame)*posesPerFrame];
 
@@ -28,4 +32,8 @@ void AnimationData::deformNormalLBS(glm::vec3 *target, float frame){
             target[i]+=vertexWeights[i*weightsPerVertex+j]*deformContribution;
         }
     }
+}
+void AnimationData::deformNormalLBS(glm::vec3 *target, float frame, const AnimationClip &clip){
+    float absoluteFrame=clip.offset+fmodf(frame,clip.length);
+    deformNormalLBS(target,absoluteFrame);
 }
