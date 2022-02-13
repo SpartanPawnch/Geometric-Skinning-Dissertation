@@ -28,4 +28,5 @@ struct AnimationData{
     void deformPositionLBS(glm::vec3 *target,float frame, const AnimationClip &clip);
     void deformNormalLBS(glm::vec3 *target,float frame);
     void deformNormalLBS(glm::vec3 *target,float frame, const AnimationClip &clip);
+    void clear();
 };

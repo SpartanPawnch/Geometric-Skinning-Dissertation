@@ -139,7 +139,7 @@ void Model::draw() {
 
 
     glUseProgram(defaultShader);
-    glm::mat4 viewProj = glm::perspective(glm::radians(45.0f), aspectRatio, .7f, 20.0f) *
+    glm::mat4 viewProj = glm::perspective(glm::radians(45.0f), aspectRatio, 1.0f, 10.0f) *
         glm::lookAt(eye, cameraCenter, glm::vec3(.0f, 1.0f, .0f));
     glm::mat4 model =  glm::rotate(glm::radians(-5.0f), glm::vec3(.0f, 1.0f, .0f))*glm::rotate(glm::radians(-90.0f), glm::vec3(1.0f, .0f, .0f));
     glUniformMatrix4fv(glGetUniformLocation(defaultShader, "model"), 1, false, glm::value_ptr(model));
@@ -167,6 +167,20 @@ void Model::animate(float frame){
     glBufferSubData(GL_ARRAY_BUFFER, bufferOffset*sizeof(glm::vec3),animationData.baseVertices.size() * sizeof(glm::vec3), &positionBuffer[bufferOffset]);
     glBindBuffer(GL_ARRAY_BUFFER, modelVBO[1]);
     glBufferSubData(GL_ARRAY_BUFFER, bufferOffset*sizeof(glm::vec3),animationData.baseVertices.size() * sizeof(glm::vec3), &normalBuffer[bufferOffset]);
+}
+
+void Model::clear(){
+    vertexOffset=0;
+    vertexCount=0;
+    bufferOffset=0;
+    textured=false;
+    glDeleteTextures(1,&texture);
+    texture=0;
+    joints.clear();
+    clips.clear();
+    clipNames.clear();
+    currentClip=-1;
+    animationData.clear();
 }
 
 
@@ -426,4 +440,11 @@ void uploadBuffers() {
     //element buffer
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, modelElementBuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBuffer.size() * sizeof(unsigned int), &indexBuffer[0], GL_STATIC_DRAW);
+}
+
+void clearBuffers(){
+    positionBuffer.clear();
+    normalBuffer.clear();
+    texCoordBuffer.clear();
+    indexBuffer.clear();
 }

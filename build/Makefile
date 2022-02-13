@@ -129,6 +129,19 @@ IMGUI/fast:
 .PHONY : IMGUI/fast
 
 #=============================================================================
+# Target rules for targets named NFD
+
+# Build rule for target.
+NFD: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 NFD
+.PHONY : NFD
+
+# fast build rule for target.
+NFD/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\NFD.dir\build.make CMakeFiles/NFD.dir/build
+.PHONY : NFD/fast
+
+#=============================================================================
 # Target rules for targets named SkinningDiss
 
 # Build rule for target.
@@ -298,6 +311,54 @@ external/imgui/imgui_widgets.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\IMGUI.dir\build.make CMakeFiles/IMGUI.dir/external/imgui/imgui_widgets.cpp.s
 .PHONY : external/imgui/imgui_widgets.cpp.s
 
+external/nativefiledialog/src/nfd_common.obj: external/nativefiledialog/src/nfd_common.c.obj
+.PHONY : external/nativefiledialog/src/nfd_common.obj
+
+# target to build an object file
+external/nativefiledialog/src/nfd_common.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\NFD.dir\build.make CMakeFiles/NFD.dir/external/nativefiledialog/src/nfd_common.c.obj
+.PHONY : external/nativefiledialog/src/nfd_common.c.obj
+
+external/nativefiledialog/src/nfd_common.i: external/nativefiledialog/src/nfd_common.c.i
+.PHONY : external/nativefiledialog/src/nfd_common.i
+
+# target to preprocess a source file
+external/nativefiledialog/src/nfd_common.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\NFD.dir\build.make CMakeFiles/NFD.dir/external/nativefiledialog/src/nfd_common.c.i
+.PHONY : external/nativefiledialog/src/nfd_common.c.i
+
+external/nativefiledialog/src/nfd_common.s: external/nativefiledialog/src/nfd_common.c.s
+.PHONY : external/nativefiledialog/src/nfd_common.s
+
+# target to generate assembly for a file
+external/nativefiledialog/src/nfd_common.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\NFD.dir\build.make CMakeFiles/NFD.dir/external/nativefiledialog/src/nfd_common.c.s
+.PHONY : external/nativefiledialog/src/nfd_common.c.s
+
+external/nativefiledialog/src/nfd_win.obj: external/nativefiledialog/src/nfd_win.cpp.obj
+.PHONY : external/nativefiledialog/src/nfd_win.obj
+
+# target to build an object file
+external/nativefiledialog/src/nfd_win.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\NFD.dir\build.make CMakeFiles/NFD.dir/external/nativefiledialog/src/nfd_win.cpp.obj
+.PHONY : external/nativefiledialog/src/nfd_win.cpp.obj
+
+external/nativefiledialog/src/nfd_win.i: external/nativefiledialog/src/nfd_win.cpp.i
+.PHONY : external/nativefiledialog/src/nfd_win.i
+
+# target to preprocess a source file
+external/nativefiledialog/src/nfd_win.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\NFD.dir\build.make CMakeFiles/NFD.dir/external/nativefiledialog/src/nfd_win.cpp.i
+.PHONY : external/nativefiledialog/src/nfd_win.cpp.i
+
+external/nativefiledialog/src/nfd_win.s: external/nativefiledialog/src/nfd_win.cpp.s
+.PHONY : external/nativefiledialog/src/nfd_win.s
+
+# target to generate assembly for a file
+external/nativefiledialog/src/nfd_win.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\NFD.dir\build.make CMakeFiles/NFD.dir/external/nativefiledialog/src/nfd_win.cpp.s
+.PHONY : external/nativefiledialog/src/nfd_win.cpp.s
+
 src/animation.obj: src/animation.cpp.obj
 .PHONY : src/animation.obj
 
@@ -403,6 +464,7 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... IMGUI
+	@echo ... NFD
 	@echo ... SkinningDiss
 	@echo ... UnitTests
 	@echo ... external/imgui/backends/imgui_impl_glfw.obj
@@ -423,6 +485,12 @@ help:
 	@echo ... external/imgui/imgui_widgets.obj
 	@echo ... external/imgui/imgui_widgets.i
 	@echo ... external/imgui/imgui_widgets.s
+	@echo ... external/nativefiledialog/src/nfd_common.obj
+	@echo ... external/nativefiledialog/src/nfd_common.i
+	@echo ... external/nativefiledialog/src/nfd_common.s
+	@echo ... external/nativefiledialog/src/nfd_win.obj
+	@echo ... external/nativefiledialog/src/nfd_win.i
+	@echo ... external/nativefiledialog/src/nfd_win.s
 	@echo ... src/animation.obj
 	@echo ... src/animation.i
 	@echo ... src/animation.s

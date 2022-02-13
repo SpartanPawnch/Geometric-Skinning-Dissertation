@@ -3,6 +3,7 @@
 #include <imgui.h>
 #include <imgui_impl_opengl2.h>
 #include <imgui_impl_glfw.h>
+#include <nfd.h>
 
 
 #include <iostream>
@@ -51,12 +52,14 @@ int main() {
     ImGui_ImplGlfw_InitForOpenGL(window,true);
     ImGui_ImplOpenGL2_Init();
 
+    const ImGuiViewport *mainViewport=ImGui::GetMainViewport();
+
     //load models
-    Model longboi = loadIQM(ROOTDIR "/assets/longboi.iqm");
-    longboi.texture = loadTexture(ROOTDIR "/assets/longboi_texture.png");
-    longboi.textured = true;
+    Model activeModel = loadIQM(ROOTDIR "/assets/longboi.iqm");
+    activeModel.texture = loadTexture(ROOTDIR "/assets/longboi_texture.png");
+    activeModel.textured = true;
     uploadBuffers();
-    longboi.currentClip=1;
+    activeModel.currentClip=1;
 
     float animtime=.0f,lasttime=glfwGetTime();
     bool paused=false;    
@@ -66,8 +69,12 @@ int main() {
         //State Processing
         float frametime=glfwGetTime()-lasttime;
         lasttime+=frametime;
-        animtime+=!paused*frametime*longboi.clips[longboi.currentClip].framerate;
-        animtime=fmodf(animtime,longboi.clips[longboi.currentClip].length);
+        animtime+=!paused*frametime*activeModel.clips[activeModel.currentClip].framerate;
+        animtime=fmodf(animtime,activeModel.clips[activeModel.currentClip].length);
+
+        //get window parameters
+        int width,height;
+        glfwGetFramebufferSize(window,&width,&height);
 
 
         //UI Input
@@ -75,48 +82,78 @@ int main() {
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        ImGui::Begin("Timeline",nullptr,ImGuiWindowFlags_AlwaysAutoResize);
-
-        if(ImGui::BeginCombo("##animselector",longboi.clipNames[longboi.currentClip].c_str())){
-            for(int i=0;i<longboi.clipNames.size();i++){
-                bool isSelected=(i==longboi.currentClip);
-                if(ImGui::Selectable(longboi.clipNames[i].c_str(),isSelected)){
-                    longboi.currentClip=i;
+        {
+            //top menubar
+            if(ImGui::BeginMainMenuBar()){
+                if(ImGui::BeginMenu("File")){
+                    if(ImGui::MenuItem("Open Model")){
+                        nfdchar_t* path=NULL;
+                        nfdresult_t result=NFD_OpenDialog("iqm",NULL,&path);
+                        if(result==NFD_OKAY){
+                            activeModel.clear();
+                            clearBuffers();
+                            activeModel=loadIQM(path);
+                            uploadBuffers();
+                        }
+                    }
+                    if(ImGui::MenuItem("Open Texture")){
+                        nfdchar_t* path=NULL;
+                        nfdresult_t result=NFD_OpenDialog("png",NULL,&path);
+                        if(result==NFD_OKAY){
+                            activeModel.texture=loadTexture(path);
+                            activeModel.textured=true;
+                        }
+                    }
+                    ImGui::EndMenu();
+                    ImGui::EndMainMenuBar();
                 }
-                if(isSelected)
-                    ImGui::SetItemDefaultFocus();
             }
-            ImGui::EndCombo();
-        }
-        ImGui::SameLine();
-        ImGui::Text("%d vertices, %.2f FPS",longboi.animationData.baseNormals.size(),io.Framerate);
-        const char* pauseLabels[2]={"Pause","Unpause"};
 
-        if(ImGui::Button(pauseLabels[paused]))
-            paused=!paused;
-        ImGui::SameLine();
-        if(ImGui::SliderFloat("##timeline",&animtime,0.0f,
-            longboi.clips[longboi.currentClip].length)){
-            seeking=true;
-        }
-        ImGui::End();
 
+
+            //timeline
+            ImGui::SetNextWindowPos(ImVec2(mainViewport->WorkPos.x+width/2.0f-300.0f,mainViewport->WorkPos.y+height-100.0f),true);
+            ImGui::Begin("Timeline",nullptr,ImGuiWindowFlags_AlwaysAutoResize);
+            
+            const char* animationDropdownText=(activeModel.currentClip>=0 ? activeModel.clipNames[activeModel.currentClip].c_str():"[all]");
+            if(ImGui::BeginCombo("##animselector",animationDropdownText)){
+                for(int i=0;i<activeModel.clipNames.size();i++){
+                    bool isSelected=(i==activeModel.currentClip);
+                    if(ImGui::Selectable(activeModel.clipNames[i].c_str(),isSelected)){
+                        activeModel.currentClip=i;
+                    }
+                    if(isSelected)
+                        ImGui::SetItemDefaultFocus();
+                }
+                ImGui::EndCombo();
+            }
+            ImGui::SameLine();
+            ImGui::Text("%d vertices, %.2f FPS",activeModel.animationData.baseNormals.size(),io.Framerate);
+            const char* pauseLabels[2]={"Pause","Unpause"};
+
+            if(ImGui::Button(pauseLabels[paused]))
+                paused=!paused;
+            ImGui::SameLine();
+            if(ImGui::SliderFloat("##timeline",&animtime,0.0f,
+                activeModel.clips[activeModel.currentClip].length)){
+                seeking=true;
+            }
+            ImGui::End();
+        }
 
         if(!paused||seeking)
-            longboi.animate(animtime);
+            activeModel.animate(animtime);
 
 
         //Rendering
         ImGui::Render();
         
         //adapt to window resize
-        int width,height;
-        glfwGetFramebufferSize(window,&width,&height);
         setAspectRatio((float)width/height);
         glViewport(0,0,width,height);        
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        longboi.draw();
+        activeModel.draw();
 
         //cleanup opengl state for ImGui
         glUseProgram(0);

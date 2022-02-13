@@ -14,11 +14,11 @@ struct Joint{
 
 struct Model {
     //rendering
-    unsigned int vertexOffset;
-    unsigned int vertexCount;
+    unsigned int vertexOffset=0;
+    unsigned int vertexCount=0;
 
     //offset for drawing buffers
-    unsigned int bufferOffset;
+    unsigned int bufferOffset=0;
 
     //textures
     GLuint texture = 0;
@@ -33,6 +33,8 @@ struct Model {
 
     void animate(float frame);
     void draw();
+    //reset state to default
+    void clear();
 };
 
 void graphicsInit();
@@ -40,3 +42,4 @@ void setAspectRatio(float ratio);
 Model loadIQM(const char *filename);
 GLuint loadTexture(const char *filename);
 void uploadBuffers();
+void clearBuffers();

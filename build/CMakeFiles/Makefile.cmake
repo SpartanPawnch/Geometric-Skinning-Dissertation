@@ -7,6 +7,7 @@ set(CMAKE_DEPENDS_GENERATOR "MinGW Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
+  "C:/Program Files/CMake/share/cmake-3.22/Modules/CMakeCInformation.cmake"
   "C:/Program Files/CMake/share/cmake-3.22/Modules/CMakeCXXInformation.cmake"
   "C:/Program Files/CMake/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake"
   "C:/Program Files/CMake/share/cmake-3.22/Modules/CMakeGenericSystem.cmake"
@@ -16,8 +17,11 @@ set(CMAKE_MAKEFILE_DEPENDS
   "C:/Program Files/CMake/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake"
   "C:/Program Files/CMake/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake"
   "C:/Program Files/CMake/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake"
+  "C:/Program Files/CMake/share/cmake-3.22/Modules/Compiler/GNU-C.cmake"
   "C:/Program Files/CMake/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake"
   "C:/Program Files/CMake/share/cmake-3.22/Modules/Compiler/GNU.cmake"
+  "C:/Program Files/CMake/share/cmake-3.22/Modules/Platform/Windows-GNU-C-ABI.cmake"
+  "C:/Program Files/CMake/share/cmake-3.22/Modules/Platform/Windows-GNU-C.cmake"
   "C:/Program Files/CMake/share/cmake-3.22/Modules/Platform/Windows-GNU-CXX-ABI.cmake"
   "C:/Program Files/CMake/share/cmake-3.22/Modules/Platform/Windows-GNU-CXX.cmake"
   "C:/Program Files/CMake/share/cmake-3.22/Modules/Platform/Windows-GNU.cmake"
@@ -25,6 +29,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "C:/Program Files/CMake/share/cmake-3.22/Modules/Platform/Windows.cmake"
   "C:/Program Files/CMake/share/cmake-3.22/Modules/Platform/WindowsPaths.cmake"
   "../CMakeLists.txt"
+  "CMakeFiles/3.22.2/CMakeCCompiler.cmake"
   "CMakeFiles/3.22.2/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.22.2/CMakeRCCompiler.cmake"
   "CMakeFiles/3.22.2/CMakeSystem.cmake"
@@ -44,6 +49,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/IMGUI.dir/DependInfo.cmake"
+  "CMakeFiles/NFD.dir/DependInfo.cmake"
   "CMakeFiles/SkinningDiss.dir/DependInfo.cmake"
   "CMakeFiles/UnitTests.dir/DependInfo.cmake"
   )

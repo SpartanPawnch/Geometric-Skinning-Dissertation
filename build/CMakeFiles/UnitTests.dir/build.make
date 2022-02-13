@@ -72,15 +72,15 @@ CMakeFiles/UnitTests.dir/src/unittests.cpp.obj: CMakeFiles/UnitTests.dir/flags.m
 CMakeFiles/UnitTests.dir/src/unittests.cpp.obj: ../src/unittests.cpp
 CMakeFiles/UnitTests.dir/src/unittests.cpp.obj: CMakeFiles/UnitTests.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\marti\Documents\DissProject\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/UnitTests.dir/src/unittests.cpp.obj"
-	C:\Users\marti\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/UnitTests.dir/src/unittests.cpp.obj -MF CMakeFiles\UnitTests.dir\src\unittests.cpp.obj.d -o CMakeFiles\UnitTests.dir\src\unittests.cpp.obj -c C:\Users\marti\Documents\DissProject\src\unittests.cpp
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/UnitTests.dir/src/unittests.cpp.obj -MF CMakeFiles\UnitTests.dir\src\unittests.cpp.obj.d -o CMakeFiles\UnitTests.dir\src\unittests.cpp.obj -c C:\Users\marti\Documents\DissProject\src\unittests.cpp
 
 CMakeFiles/UnitTests.dir/src/unittests.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/UnitTests.dir/src/unittests.cpp.i"
-	C:\Users\marti\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\marti\Documents\DissProject\src\unittests.cpp > CMakeFiles\UnitTests.dir\src\unittests.cpp.i
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\marti\Documents\DissProject\src\unittests.cpp > CMakeFiles\UnitTests.dir\src\unittests.cpp.i
 
 CMakeFiles/UnitTests.dir/src/unittests.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/UnitTests.dir/src/unittests.cpp.s"
-	C:\Users\marti\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\marti\Documents\DissProject\src\unittests.cpp -o CMakeFiles\UnitTests.dir\src\unittests.cpp.s
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\marti\Documents\DissProject\src\unittests.cpp -o CMakeFiles\UnitTests.dir\src\unittests.cpp.s
 
 # Object files for target UnitTests
 UnitTests_OBJECTS = \

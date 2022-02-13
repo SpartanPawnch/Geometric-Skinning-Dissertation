@@ -37,3 +37,12 @@ void AnimationData::deformNormalLBS(glm::vec3 *target, float frame, const Animat
     float absoluteFrame=clip.offset+fmodf(frame,clip.length);
     deformNormalLBS(target,absoluteFrame);
 }
+void AnimationData::clear(){
+    baseVertices.clear();
+    baseNormals.clear();
+    poses.clear();
+    vertexWeights.clear();
+    weightIndices.clear();
+    weightsPerVertex=0;
+    posesPerFrame=0;
+}

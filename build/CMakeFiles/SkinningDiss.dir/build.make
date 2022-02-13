@@ -73,45 +73,45 @@ CMakeFiles/SkinningDiss.dir/src/main.cpp.obj: CMakeFiles/SkinningDiss.dir/includ
 CMakeFiles/SkinningDiss.dir/src/main.cpp.obj: ../src/main.cpp
 CMakeFiles/SkinningDiss.dir/src/main.cpp.obj: CMakeFiles/SkinningDiss.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\marti\Documents\DissProject\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/SkinningDiss.dir/src/main.cpp.obj"
-	C:\Users\marti\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SkinningDiss.dir/src/main.cpp.obj -MF CMakeFiles\SkinningDiss.dir\src\main.cpp.obj.d -o CMakeFiles\SkinningDiss.dir\src\main.cpp.obj -c C:\Users\marti\Documents\DissProject\src\main.cpp
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SkinningDiss.dir/src/main.cpp.obj -MF CMakeFiles\SkinningDiss.dir\src\main.cpp.obj.d -o CMakeFiles\SkinningDiss.dir\src\main.cpp.obj -c C:\Users\marti\Documents\DissProject\src\main.cpp
 
 CMakeFiles/SkinningDiss.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkinningDiss.dir/src/main.cpp.i"
-	C:\Users\marti\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\marti\Documents\DissProject\src\main.cpp > CMakeFiles\SkinningDiss.dir\src\main.cpp.i
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\marti\Documents\DissProject\src\main.cpp > CMakeFiles\SkinningDiss.dir\src\main.cpp.i
 
 CMakeFiles/SkinningDiss.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkinningDiss.dir/src/main.cpp.s"
-	C:\Users\marti\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\marti\Documents\DissProject\src\main.cpp -o CMakeFiles\SkinningDiss.dir\src\main.cpp.s
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\marti\Documents\DissProject\src\main.cpp -o CMakeFiles\SkinningDiss.dir\src\main.cpp.s
 
 CMakeFiles/SkinningDiss.dir/src/animation.cpp.obj: CMakeFiles/SkinningDiss.dir/flags.make
 CMakeFiles/SkinningDiss.dir/src/animation.cpp.obj: CMakeFiles/SkinningDiss.dir/includes_CXX.rsp
 CMakeFiles/SkinningDiss.dir/src/animation.cpp.obj: ../src/animation.cpp
 CMakeFiles/SkinningDiss.dir/src/animation.cpp.obj: CMakeFiles/SkinningDiss.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\marti\Documents\DissProject\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/SkinningDiss.dir/src/animation.cpp.obj"
-	C:\Users\marti\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SkinningDiss.dir/src/animation.cpp.obj -MF CMakeFiles\SkinningDiss.dir\src\animation.cpp.obj.d -o CMakeFiles\SkinningDiss.dir\src\animation.cpp.obj -c C:\Users\marti\Documents\DissProject\src\animation.cpp
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SkinningDiss.dir/src/animation.cpp.obj -MF CMakeFiles\SkinningDiss.dir\src\animation.cpp.obj.d -o CMakeFiles\SkinningDiss.dir\src\animation.cpp.obj -c C:\Users\marti\Documents\DissProject\src\animation.cpp
 
 CMakeFiles/SkinningDiss.dir/src/animation.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkinningDiss.dir/src/animation.cpp.i"
-	C:\Users\marti\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\marti\Documents\DissProject\src\animation.cpp > CMakeFiles\SkinningDiss.dir\src\animation.cpp.i
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\marti\Documents\DissProject\src\animation.cpp > CMakeFiles\SkinningDiss.dir\src\animation.cpp.i
 
 CMakeFiles/SkinningDiss.dir/src/animation.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkinningDiss.dir/src/animation.cpp.s"
-	C:\Users\marti\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\marti\Documents\DissProject\src\animation.cpp -o CMakeFiles\SkinningDiss.dir\src\animation.cpp.s
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\marti\Documents\DissProject\src\animation.cpp -o CMakeFiles\SkinningDiss.dir\src\animation.cpp.s
 
 CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj: CMakeFiles/SkinningDiss.dir/flags.make
 CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj: CMakeFiles/SkinningDiss.dir/includes_CXX.rsp
 CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj: ../src/modelloader.cpp
 CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj: CMakeFiles/SkinningDiss.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\marti\Documents\DissProject\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj"
-	C:\Users\marti\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj -MF CMakeFiles\SkinningDiss.dir\src\modelloader.cpp.obj.d -o CMakeFiles\SkinningDiss.dir\src\modelloader.cpp.obj -c C:\Users\marti\Documents\DissProject\src\modelloader.cpp
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj -MF CMakeFiles\SkinningDiss.dir\src\modelloader.cpp.obj.d -o CMakeFiles\SkinningDiss.dir\src\modelloader.cpp.obj -c C:\Users\marti\Documents\DissProject\src\modelloader.cpp
 
 CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.i"
-	C:\Users\marti\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\marti\Documents\DissProject\src\modelloader.cpp > CMakeFiles\SkinningDiss.dir\src\modelloader.cpp.i
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\marti\Documents\DissProject\src\modelloader.cpp > CMakeFiles\SkinningDiss.dir\src\modelloader.cpp.i
 
 CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.s"
-	C:\Users\marti\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\marti\Documents\DissProject\src\modelloader.cpp -o CMakeFiles\SkinningDiss.dir\src\modelloader.cpp.s
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\marti\Documents\DissProject\src\modelloader.cpp -o CMakeFiles\SkinningDiss.dir\src\modelloader.cpp.s
 
 # Object files for target SkinningDiss
 SkinningDiss_OBJECTS = \
@@ -127,6 +127,7 @@ SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/src/animation.cpp.obj
 SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj
 SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/build.make
 SkinningDiss.exe: libIMGUI.a
+SkinningDiss.exe: libNFD.a
 SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/linklibs.rsp
 SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/objects1.rsp
 SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/link.txt

@@ -310,6 +310,7 @@ CMakeFiles/SkinningDiss.dir/src/main.cpp.obj: ../src/main.cpp \
   C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/std_abs.h \
   ../external/imgui/backends/imgui_impl_opengl2.h \
   ../external/imgui/backends/imgui_impl_glfw.h \
+  ../external/nativefiledialog/src/include/nfd.h \
   C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/iostream \
   C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/ostream \
   C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/ios \
@@ -1589,6 +1590,8 @@ C:/Users/marti/mingw64/x86_64-w64-mingw32/include/glm/detail/func_packing.inl:
 C:/Users/marti/mingw64/x86_64-w64-mingw32/include/sec_api/string_s.h:
 
 ../external/imgui/backends/imgui_impl_opengl2.h:
+
+../external/nativefiledialog/src/include/nfd.h:
 
 ../src/modelloader.hpp:
 
