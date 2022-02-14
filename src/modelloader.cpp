@@ -376,7 +376,7 @@ Model loadIQM(const char *filename) {
                 m.animationData.poses[i*m.animationData.posesPerFrame+j].translate=glm::mat4x3(pose)[3];
             }
         }
-        
+        m.animatable=true;
     }
 
     //load animation names

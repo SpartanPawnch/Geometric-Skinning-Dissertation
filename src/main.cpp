@@ -69,9 +69,17 @@ int main() {
         //State Processing
         float frametime=glfwGetTime()-lasttime;
         lasttime+=frametime;
-        animtime+=!paused*frametime*activeModel.clips[activeModel.currentClip].framerate;
-        animtime=fmodf(animtime,activeModel.clips[activeModel.currentClip].length);
 
+        float animationDuration,framerate=60.0f;
+        if(activeModel.currentClip>=0){
+            framerate=activeModel.clips[activeModel.currentClip].framerate;
+            animationDuration=activeModel.clips[activeModel.currentClip].length;
+        }
+        else{
+            animationDuration=((float)activeModel.animationData.poses.size())/activeModel.animationData.posesPerFrame;
+        }
+        animtime+=!paused*frametime*framerate;
+        animtime=fmodf(animtime,animationDuration);
         //get window parameters
         int width,height;
         glfwGetFramebufferSize(window,&width,&height);
@@ -94,6 +102,7 @@ int main() {
                             clearBuffers();
                             activeModel=loadIQM(path);
                             uploadBuffers();
+                            animtime=.0f;
                         }
                     }
                     if(ImGui::MenuItem("Open Texture")){
@@ -116,32 +125,34 @@ int main() {
             ImGui::Begin("Timeline",nullptr,ImGuiWindowFlags_AlwaysAutoResize);
             
             const char* animationDropdownText=(activeModel.currentClip>=0 ? activeModel.clipNames[activeModel.currentClip].c_str():"[all]");
-            if(ImGui::BeginCombo("##animselector",animationDropdownText)){
+            if(activeModel.animatable&&ImGui::BeginCombo("##animselector",animationDropdownText)){
                 for(int i=0;i<activeModel.clipNames.size();i++){
                     bool isSelected=(i==activeModel.currentClip);
-                    if(ImGui::Selectable(activeModel.clipNames[i].c_str(),isSelected)){
+                    if(ImGui::Selectable(activeModel.clipNames[i].c_str(),isSelected))
                         activeModel.currentClip=i;
-                    }
                     if(isSelected)
                         ImGui::SetItemDefaultFocus();
                 }
+                bool isSelected=-1;
+                if(ImGui::Selectable("[all]",isSelected))
+                        activeModel.currentClip=-1;
+                if(isSelected)
+                    ImGui::SetItemDefaultFocus();
+                
                 ImGui::EndCombo();
             }
             ImGui::SameLine();
             ImGui::Text("%d vertices, %.2f FPS",activeModel.animationData.baseNormals.size(),io.Framerate);
             const char* pauseLabels[2]={"Pause","Unpause"};
-
             if(ImGui::Button(pauseLabels[paused]))
                 paused=!paused;
             ImGui::SameLine();
-            if(ImGui::SliderFloat("##timeline",&animtime,0.0f,
-                activeModel.clips[activeModel.currentClip].length)){
+            if(activeModel.animatable&&ImGui::SliderFloat("##timeline",&animtime,0.0f,animationDuration))
                 seeking=true;
-            }
             ImGui::End();
         }
 
-        if(!paused||seeking)
+        if(activeModel.animatable&&(!paused||seeking))
             activeModel.animate(animtime);
 
 

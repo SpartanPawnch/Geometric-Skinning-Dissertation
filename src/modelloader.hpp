@@ -24,6 +24,7 @@ struct Model {
     GLuint texture = 0;
     bool textured = false;
 
+    bool animatable=false;
     AnimationData animationData;
     std::vector<Joint> joints;
 

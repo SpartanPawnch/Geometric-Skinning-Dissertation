@@ -44,5 +44,5 @@ void AnimationData::clear(){
     vertexWeights.clear();
     weightIndices.clear();
     weightsPerVertex=0;
-    posesPerFrame=0;
+    posesPerFrame=1;
 }
