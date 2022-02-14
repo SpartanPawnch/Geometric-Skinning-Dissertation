@@ -116,32 +116,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named IMGUI
-
-# Build rule for target.
-IMGUI: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 IMGUI
-.PHONY : IMGUI
-
-# fast build rule for target.
-IMGUI/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\IMGUI.dir\build.make CMakeFiles/IMGUI.dir/build
-.PHONY : IMGUI/fast
-
-#=============================================================================
-# Target rules for targets named NFD
-
-# Build rule for target.
-NFD: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 NFD
-.PHONY : NFD
-
-# fast build rule for target.
-NFD/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\NFD.dir\build.make CMakeFiles/NFD.dir/build
-.PHONY : NFD/fast
-
-#=============================================================================
 # Target rules for targets named SkinningDiss
 
 # Build rule for target.
@@ -172,7 +146,7 @@ external/imgui/backends/imgui_impl_glfw.obj: external/imgui/backends/imgui_impl_
 
 # target to build an object file
 external/imgui/backends/imgui_impl_glfw.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\IMGUI.dir\build.make CMakeFiles/IMGUI.dir/external/imgui/backends/imgui_impl_glfw.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_glfw.cpp.obj
 .PHONY : external/imgui/backends/imgui_impl_glfw.cpp.obj
 
 external/imgui/backends/imgui_impl_glfw.i: external/imgui/backends/imgui_impl_glfw.cpp.i
@@ -180,7 +154,7 @@ external/imgui/backends/imgui_impl_glfw.i: external/imgui/backends/imgui_impl_gl
 
 # target to preprocess a source file
 external/imgui/backends/imgui_impl_glfw.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\IMGUI.dir\build.make CMakeFiles/IMGUI.dir/external/imgui/backends/imgui_impl_glfw.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_glfw.cpp.i
 .PHONY : external/imgui/backends/imgui_impl_glfw.cpp.i
 
 external/imgui/backends/imgui_impl_glfw.s: external/imgui/backends/imgui_impl_glfw.cpp.s
@@ -188,7 +162,7 @@ external/imgui/backends/imgui_impl_glfw.s: external/imgui/backends/imgui_impl_gl
 
 # target to generate assembly for a file
 external/imgui/backends/imgui_impl_glfw.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\IMGUI.dir\build.make CMakeFiles/IMGUI.dir/external/imgui/backends/imgui_impl_glfw.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_glfw.cpp.s
 .PHONY : external/imgui/backends/imgui_impl_glfw.cpp.s
 
 external/imgui/backends/imgui_impl_opengl2.obj: external/imgui/backends/imgui_impl_opengl2.cpp.obj
@@ -196,7 +170,7 @@ external/imgui/backends/imgui_impl_opengl2.obj: external/imgui/backends/imgui_im
 
 # target to build an object file
 external/imgui/backends/imgui_impl_opengl2.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\IMGUI.dir\build.make CMakeFiles/IMGUI.dir/external/imgui/backends/imgui_impl_opengl2.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_opengl2.cpp.obj
 .PHONY : external/imgui/backends/imgui_impl_opengl2.cpp.obj
 
 external/imgui/backends/imgui_impl_opengl2.i: external/imgui/backends/imgui_impl_opengl2.cpp.i
@@ -204,7 +178,7 @@ external/imgui/backends/imgui_impl_opengl2.i: external/imgui/backends/imgui_impl
 
 # target to preprocess a source file
 external/imgui/backends/imgui_impl_opengl2.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\IMGUI.dir\build.make CMakeFiles/IMGUI.dir/external/imgui/backends/imgui_impl_opengl2.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_opengl2.cpp.i
 .PHONY : external/imgui/backends/imgui_impl_opengl2.cpp.i
 
 external/imgui/backends/imgui_impl_opengl2.s: external/imgui/backends/imgui_impl_opengl2.cpp.s
@@ -212,7 +186,7 @@ external/imgui/backends/imgui_impl_opengl2.s: external/imgui/backends/imgui_impl
 
 # target to generate assembly for a file
 external/imgui/backends/imgui_impl_opengl2.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\IMGUI.dir\build.make CMakeFiles/IMGUI.dir/external/imgui/backends/imgui_impl_opengl2.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_opengl2.cpp.s
 .PHONY : external/imgui/backends/imgui_impl_opengl2.cpp.s
 
 external/imgui/imgui.obj: external/imgui/imgui.cpp.obj
@@ -220,7 +194,7 @@ external/imgui/imgui.obj: external/imgui/imgui.cpp.obj
 
 # target to build an object file
 external/imgui/imgui.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\IMGUI.dir\build.make CMakeFiles/IMGUI.dir/external/imgui/imgui.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/external/imgui/imgui.cpp.obj
 .PHONY : external/imgui/imgui.cpp.obj
 
 external/imgui/imgui.i: external/imgui/imgui.cpp.i
@@ -228,7 +202,7 @@ external/imgui/imgui.i: external/imgui/imgui.cpp.i
 
 # target to preprocess a source file
 external/imgui/imgui.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\IMGUI.dir\build.make CMakeFiles/IMGUI.dir/external/imgui/imgui.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/external/imgui/imgui.cpp.i
 .PHONY : external/imgui/imgui.cpp.i
 
 external/imgui/imgui.s: external/imgui/imgui.cpp.s
@@ -236,15 +210,39 @@ external/imgui/imgui.s: external/imgui/imgui.cpp.s
 
 # target to generate assembly for a file
 external/imgui/imgui.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\IMGUI.dir\build.make CMakeFiles/IMGUI.dir/external/imgui/imgui.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/external/imgui/imgui.cpp.s
 .PHONY : external/imgui/imgui.cpp.s
+
+external/imgui/imgui_demo.obj: external/imgui/imgui_demo.cpp.obj
+.PHONY : external/imgui/imgui_demo.obj
+
+# target to build an object file
+external/imgui/imgui_demo.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/external/imgui/imgui_demo.cpp.obj
+.PHONY : external/imgui/imgui_demo.cpp.obj
+
+external/imgui/imgui_demo.i: external/imgui/imgui_demo.cpp.i
+.PHONY : external/imgui/imgui_demo.i
+
+# target to preprocess a source file
+external/imgui/imgui_demo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/external/imgui/imgui_demo.cpp.i
+.PHONY : external/imgui/imgui_demo.cpp.i
+
+external/imgui/imgui_demo.s: external/imgui/imgui_demo.cpp.s
+.PHONY : external/imgui/imgui_demo.s
+
+# target to generate assembly for a file
+external/imgui/imgui_demo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/external/imgui/imgui_demo.cpp.s
+.PHONY : external/imgui/imgui_demo.cpp.s
 
 external/imgui/imgui_draw.obj: external/imgui/imgui_draw.cpp.obj
 .PHONY : external/imgui/imgui_draw.obj
 
 # target to build an object file
 external/imgui/imgui_draw.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\IMGUI.dir\build.make CMakeFiles/IMGUI.dir/external/imgui/imgui_draw.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/external/imgui/imgui_draw.cpp.obj
 .PHONY : external/imgui/imgui_draw.cpp.obj
 
 external/imgui/imgui_draw.i: external/imgui/imgui_draw.cpp.i
@@ -252,7 +250,7 @@ external/imgui/imgui_draw.i: external/imgui/imgui_draw.cpp.i
 
 # target to preprocess a source file
 external/imgui/imgui_draw.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\IMGUI.dir\build.make CMakeFiles/IMGUI.dir/external/imgui/imgui_draw.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/external/imgui/imgui_draw.cpp.i
 .PHONY : external/imgui/imgui_draw.cpp.i
 
 external/imgui/imgui_draw.s: external/imgui/imgui_draw.cpp.s
@@ -260,7 +258,7 @@ external/imgui/imgui_draw.s: external/imgui/imgui_draw.cpp.s
 
 # target to generate assembly for a file
 external/imgui/imgui_draw.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\IMGUI.dir\build.make CMakeFiles/IMGUI.dir/external/imgui/imgui_draw.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/external/imgui/imgui_draw.cpp.s
 .PHONY : external/imgui/imgui_draw.cpp.s
 
 external/imgui/imgui_tables.obj: external/imgui/imgui_tables.cpp.obj
@@ -268,7 +266,7 @@ external/imgui/imgui_tables.obj: external/imgui/imgui_tables.cpp.obj
 
 # target to build an object file
 external/imgui/imgui_tables.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\IMGUI.dir\build.make CMakeFiles/IMGUI.dir/external/imgui/imgui_tables.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/external/imgui/imgui_tables.cpp.obj
 .PHONY : external/imgui/imgui_tables.cpp.obj
 
 external/imgui/imgui_tables.i: external/imgui/imgui_tables.cpp.i
@@ -276,7 +274,7 @@ external/imgui/imgui_tables.i: external/imgui/imgui_tables.cpp.i
 
 # target to preprocess a source file
 external/imgui/imgui_tables.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\IMGUI.dir\build.make CMakeFiles/IMGUI.dir/external/imgui/imgui_tables.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/external/imgui/imgui_tables.cpp.i
 .PHONY : external/imgui/imgui_tables.cpp.i
 
 external/imgui/imgui_tables.s: external/imgui/imgui_tables.cpp.s
@@ -284,7 +282,7 @@ external/imgui/imgui_tables.s: external/imgui/imgui_tables.cpp.s
 
 # target to generate assembly for a file
 external/imgui/imgui_tables.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\IMGUI.dir\build.make CMakeFiles/IMGUI.dir/external/imgui/imgui_tables.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/external/imgui/imgui_tables.cpp.s
 .PHONY : external/imgui/imgui_tables.cpp.s
 
 external/imgui/imgui_widgets.obj: external/imgui/imgui_widgets.cpp.obj
@@ -292,7 +290,7 @@ external/imgui/imgui_widgets.obj: external/imgui/imgui_widgets.cpp.obj
 
 # target to build an object file
 external/imgui/imgui_widgets.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\IMGUI.dir\build.make CMakeFiles/IMGUI.dir/external/imgui/imgui_widgets.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/external/imgui/imgui_widgets.cpp.obj
 .PHONY : external/imgui/imgui_widgets.cpp.obj
 
 external/imgui/imgui_widgets.i: external/imgui/imgui_widgets.cpp.i
@@ -300,7 +298,7 @@ external/imgui/imgui_widgets.i: external/imgui/imgui_widgets.cpp.i
 
 # target to preprocess a source file
 external/imgui/imgui_widgets.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\IMGUI.dir\build.make CMakeFiles/IMGUI.dir/external/imgui/imgui_widgets.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/external/imgui/imgui_widgets.cpp.i
 .PHONY : external/imgui/imgui_widgets.cpp.i
 
 external/imgui/imgui_widgets.s: external/imgui/imgui_widgets.cpp.s
@@ -308,56 +306,32 @@ external/imgui/imgui_widgets.s: external/imgui/imgui_widgets.cpp.s
 
 # target to generate assembly for a file
 external/imgui/imgui_widgets.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\IMGUI.dir\build.make CMakeFiles/IMGUI.dir/external/imgui/imgui_widgets.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/external/imgui/imgui_widgets.cpp.s
 .PHONY : external/imgui/imgui_widgets.cpp.s
 
-external/nativefiledialog/src/nfd_common.obj: external/nativefiledialog/src/nfd_common.c.obj
-.PHONY : external/nativefiledialog/src/nfd_common.obj
+external/tinyfiledialogs/tinyfiledialogs.obj: external/tinyfiledialogs/tinyfiledialogs.c.obj
+.PHONY : external/tinyfiledialogs/tinyfiledialogs.obj
 
 # target to build an object file
-external/nativefiledialog/src/nfd_common.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\NFD.dir\build.make CMakeFiles/NFD.dir/external/nativefiledialog/src/nfd_common.c.obj
-.PHONY : external/nativefiledialog/src/nfd_common.c.obj
+external/tinyfiledialogs/tinyfiledialogs.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/external/tinyfiledialogs/tinyfiledialogs.c.obj
+.PHONY : external/tinyfiledialogs/tinyfiledialogs.c.obj
 
-external/nativefiledialog/src/nfd_common.i: external/nativefiledialog/src/nfd_common.c.i
-.PHONY : external/nativefiledialog/src/nfd_common.i
-
-# target to preprocess a source file
-external/nativefiledialog/src/nfd_common.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\NFD.dir\build.make CMakeFiles/NFD.dir/external/nativefiledialog/src/nfd_common.c.i
-.PHONY : external/nativefiledialog/src/nfd_common.c.i
-
-external/nativefiledialog/src/nfd_common.s: external/nativefiledialog/src/nfd_common.c.s
-.PHONY : external/nativefiledialog/src/nfd_common.s
-
-# target to generate assembly for a file
-external/nativefiledialog/src/nfd_common.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\NFD.dir\build.make CMakeFiles/NFD.dir/external/nativefiledialog/src/nfd_common.c.s
-.PHONY : external/nativefiledialog/src/nfd_common.c.s
-
-external/nativefiledialog/src/nfd_win.obj: external/nativefiledialog/src/nfd_win.cpp.obj
-.PHONY : external/nativefiledialog/src/nfd_win.obj
-
-# target to build an object file
-external/nativefiledialog/src/nfd_win.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\NFD.dir\build.make CMakeFiles/NFD.dir/external/nativefiledialog/src/nfd_win.cpp.obj
-.PHONY : external/nativefiledialog/src/nfd_win.cpp.obj
-
-external/nativefiledialog/src/nfd_win.i: external/nativefiledialog/src/nfd_win.cpp.i
-.PHONY : external/nativefiledialog/src/nfd_win.i
+external/tinyfiledialogs/tinyfiledialogs.i: external/tinyfiledialogs/tinyfiledialogs.c.i
+.PHONY : external/tinyfiledialogs/tinyfiledialogs.i
 
 # target to preprocess a source file
-external/nativefiledialog/src/nfd_win.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\NFD.dir\build.make CMakeFiles/NFD.dir/external/nativefiledialog/src/nfd_win.cpp.i
-.PHONY : external/nativefiledialog/src/nfd_win.cpp.i
+external/tinyfiledialogs/tinyfiledialogs.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/external/tinyfiledialogs/tinyfiledialogs.c.i
+.PHONY : external/tinyfiledialogs/tinyfiledialogs.c.i
 
-external/nativefiledialog/src/nfd_win.s: external/nativefiledialog/src/nfd_win.cpp.s
-.PHONY : external/nativefiledialog/src/nfd_win.s
+external/tinyfiledialogs/tinyfiledialogs.s: external/tinyfiledialogs/tinyfiledialogs.c.s
+.PHONY : external/tinyfiledialogs/tinyfiledialogs.s
 
 # target to generate assembly for a file
-external/nativefiledialog/src/nfd_win.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\NFD.dir\build.make CMakeFiles/NFD.dir/external/nativefiledialog/src/nfd_win.cpp.s
-.PHONY : external/nativefiledialog/src/nfd_win.cpp.s
+external/tinyfiledialogs/tinyfiledialogs.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/external/tinyfiledialogs/tinyfiledialogs.c.s
+.PHONY : external/tinyfiledialogs/tinyfiledialogs.c.s
 
 src/animation.obj: src/animation.cpp.obj
 .PHONY : src/animation.obj
@@ -463,8 +437,6 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... IMGUI
-	@echo ... NFD
 	@echo ... SkinningDiss
 	@echo ... UnitTests
 	@echo ... external/imgui/backends/imgui_impl_glfw.obj
@@ -476,6 +448,9 @@ help:
 	@echo ... external/imgui/imgui.obj
 	@echo ... external/imgui/imgui.i
 	@echo ... external/imgui/imgui.s
+	@echo ... external/imgui/imgui_demo.obj
+	@echo ... external/imgui/imgui_demo.i
+	@echo ... external/imgui/imgui_demo.s
 	@echo ... external/imgui/imgui_draw.obj
 	@echo ... external/imgui/imgui_draw.i
 	@echo ... external/imgui/imgui_draw.s
@@ -485,12 +460,9 @@ help:
 	@echo ... external/imgui/imgui_widgets.obj
 	@echo ... external/imgui/imgui_widgets.i
 	@echo ... external/imgui/imgui_widgets.s
-	@echo ... external/nativefiledialog/src/nfd_common.obj
-	@echo ... external/nativefiledialog/src/nfd_common.i
-	@echo ... external/nativefiledialog/src/nfd_common.s
-	@echo ... external/nativefiledialog/src/nfd_win.obj
-	@echo ... external/nativefiledialog/src/nfd_win.i
-	@echo ... external/nativefiledialog/src/nfd_win.s
+	@echo ... external/tinyfiledialogs/tinyfiledialogs.obj
+	@echo ... external/tinyfiledialogs/tinyfiledialogs.i
+	@echo ... external/tinyfiledialogs/tinyfiledialogs.s
 	@echo ... src/animation.obj
 	@echo ... src/animation.i
 	@echo ... src/animation.s

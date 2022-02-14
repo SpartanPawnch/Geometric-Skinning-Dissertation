@@ -3,7 +3,6 @@
 #include <imgui.h>
 #include <imgui_impl_opengl2.h>
 #include <imgui_impl_glfw.h>
-#include <nfd.h>
 
 
 #include <iostream>
@@ -12,6 +11,7 @@
 #define GLM_FORCE_INLINE
 
 #include "modelloader.hpp"
+#include "../external/tinyfiledialogs/tinyfiledialogs.h"
 
 int main() {
     //setup window
@@ -95,9 +95,9 @@ int main() {
             if(ImGui::BeginMainMenuBar()){
                 if(ImGui::BeginMenu("File")){
                     if(ImGui::MenuItem("Open Model")){
-                        nfdchar_t* path=NULL;
-                        nfdresult_t result=NFD_OpenDialog("iqm",NULL,&path);
-                        if(result==NFD_OKAY){
+                        const char* filter="*.iqm";
+                        const char* path=tinyfd_openFileDialog(NULL,NULL,1,&filter,NULL,0);
+                        if(path!=NULL){
                             activeModel.clear();
                             clearBuffers();
                             activeModel=loadIQM(path);
@@ -106,9 +106,9 @@ int main() {
                         }
                     }
                     if(ImGui::MenuItem("Open Texture")){
-                        nfdchar_t* path=NULL;
-                        nfdresult_t result=NFD_OpenDialog("png",NULL,&path);
-                        if(result==NFD_OKAY){
+                        const char* filter="*.png";
+                        const char* path=tinyfd_openFileDialog(NULL,NULL,1,&filter,NULL,0);
+                        if(path!=NULL){
                             activeModel.texture=loadTexture(path);
                             activeModel.textured=true;
                         }
@@ -122,7 +122,7 @@ int main() {
 
             //timeline
             ImGui::SetNextWindowPos(ImVec2(mainViewport->WorkPos.x+width/2.0f-300.0f,mainViewport->WorkPos.y+height-100.0f),true);
-            ImGui::Begin("Timeline",nullptr,ImGuiWindowFlags_AlwaysAutoResize);
+            ImGui::Begin("Timeline",NULL,ImGuiWindowFlags_AlwaysAutoResize);
             
             const char* animationDropdownText=(activeModel.currentClip>=0 ? activeModel.clipNames[activeModel.currentClip].c_str():"[all]");
             if(activeModel.animatable&&ImGui::BeginCombo("##animselector",animationDropdownText)){

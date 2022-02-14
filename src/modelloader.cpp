@@ -206,8 +206,8 @@ Model loadIQM(const char *filename) {
         float positions[header.num_vertexes * 3];
         float normals[header.num_vertexes * 3];
         float texCoords[header.num_vertexes * 2];
-        unsigned char *blendWeights=nullptr;
-        unsigned char *blendIndices=nullptr;
+        unsigned char *blendWeights=NULL;
+        unsigned char *blendIndices=NULL;
         for (int i = 0;i < header.num_vertexarrays;i++) {
             if (vertArray[i].type == IQM_POSITION) {
                 fseek(file, vertArray[i].offset, SEEK_SET);
@@ -242,16 +242,16 @@ Model loadIQM(const char *filename) {
             normalBuffer.push_back(glm::vec3(normals[3 * i], normals[3 * i + 1], normals[3 * i + 2]));
             m.animationData.baseNormals.push_back(glm::vec3(normals[3 * i], normals[3 * i + 1], normals[3 * i + 2]));
             texCoordBuffer.push_back(glm::vec2(texCoords[2 * i], texCoords[2 * i + 1]));
-            if(blendWeights!=nullptr&&blendIndices!=nullptr){
+            if(blendWeights!=NULL&&blendIndices!=NULL){
                 for(int j=0;j<m.animationData.weightsPerVertex;j++){
                     m.animationData.vertexWeights.push_back(blendWeights[i*m.animationData.weightsPerVertex+j]/255.0f);
                     m.animationData.weightIndices.push_back(blendIndices[i*m.animationData.weightsPerVertex+j]);
                 }
             }
         }
-        if(blendWeights!=nullptr)
+        if(blendWeights!=NULL)
             delete[] blendWeights;
-        if(blendIndices!=nullptr)
+        if(blendIndices!=NULL)
             delete[] blendIndices;
         delete[] vertArray;
     }

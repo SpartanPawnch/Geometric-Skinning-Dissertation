@@ -42,7 +42,6 @@ CMakeFiles/SkinningDiss.dir/src/main.cpp.obj: \
  C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/std_abs.h \
  C:/Users/marti/Documents/DissProject/external/imgui/backends/imgui_impl_opengl2.h \
  C:/Users/marti/Documents/DissProject/external/imgui/backends/imgui_impl_glfw.h \
- C:/Users/marti/Documents/DissProject/external/nativefiledialog/src/include/nfd.h \
  C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/iostream \
  C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/ostream \
  C:/Users/marti/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/ios \
@@ -338,4 +337,5 @@ CMakeFiles/SkinningDiss.dir/src/main.cpp.obj: \
  C:/Users/marti/mingw64/x86_64-w64-mingw32/include/glm/gtx/component_wise.inl \
  C:/Users/marti/mingw64/x86_64-w64-mingw32/include/glm/gtx/norm.inl \
  C:/Users/marti/mingw64/x86_64-w64-mingw32/include/glm/gtx/quaternion.inl \
- C:\Users\marti\Documents\DissProject\src\animation.h
+ C:\Users\marti\Documents\DissProject\src\animation.h \
+ C:/Users/marti/Documents/DissProject/external/tinyfiledialogs/tinyfiledialogs.h

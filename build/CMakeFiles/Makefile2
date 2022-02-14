@@ -62,8 +62,6 @@ CMAKE_BINARY_DIR = C:\Users\marti\Documents\DissProject\build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/IMGUI.dir/all
-all: CMakeFiles/NFD.dir/all
 all: CMakeFiles/SkinningDiss.dir/all
 all: CMakeFiles/UnitTests.dir/all
 .PHONY : all
@@ -73,78 +71,23 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/IMGUI.dir/clean
-clean: CMakeFiles/NFD.dir/clean
 clean: CMakeFiles/SkinningDiss.dir/clean
 clean: CMakeFiles/UnitTests.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/IMGUI.dir
-
-# All Build rule for target.
-CMakeFiles/IMGUI.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\IMGUI.dir\build.make CMakeFiles/IMGUI.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\IMGUI.dir\build.make CMakeFiles/IMGUI.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\marti\Documents\DissProject\build\CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target IMGUI"
-.PHONY : CMakeFiles/IMGUI.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/IMGUI.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\marti\Documents\DissProject\build\CMakeFiles 7
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/IMGUI.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\marti\Documents\DissProject\build\CMakeFiles 0
-.PHONY : CMakeFiles/IMGUI.dir/rule
-
-# Convenience name for target.
-IMGUI: CMakeFiles/IMGUI.dir/rule
-.PHONY : IMGUI
-
-# clean rule for target.
-CMakeFiles/IMGUI.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\IMGUI.dir\build.make CMakeFiles/IMGUI.dir/clean
-.PHONY : CMakeFiles/IMGUI.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/NFD.dir
-
-# All Build rule for target.
-CMakeFiles/NFD.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\NFD.dir\build.make CMakeFiles/NFD.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\NFD.dir\build.make CMakeFiles/NFD.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\marti\Documents\DissProject\build\CMakeFiles --progress-num=8,9,10 "Built target NFD"
-.PHONY : CMakeFiles/NFD.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/NFD.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\marti\Documents\DissProject\build\CMakeFiles 3
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/NFD.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\marti\Documents\DissProject\build\CMakeFiles 0
-.PHONY : CMakeFiles/NFD.dir/rule
-
-# Convenience name for target.
-NFD: CMakeFiles/NFD.dir/rule
-.PHONY : NFD
-
-# clean rule for target.
-CMakeFiles/NFD.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\NFD.dir\build.make CMakeFiles/NFD.dir/clean
-.PHONY : CMakeFiles/NFD.dir/clean
-
-#=============================================================================
 # Target rules for target CMakeFiles/SkinningDiss.dir
 
 # All Build rule for target.
-CMakeFiles/SkinningDiss.dir/all: CMakeFiles/IMGUI.dir/all
-CMakeFiles/SkinningDiss.dir/all: CMakeFiles/NFD.dir/all
+CMakeFiles/SkinningDiss.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\SkinningDiss.dir\build.make CMakeFiles/SkinningDiss.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\marti\Documents\DissProject\build\CMakeFiles --progress-num=11,12,13,14 "Built target SkinningDiss"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\marti\Documents\DissProject\build\CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12 "Built target SkinningDiss"
 .PHONY : CMakeFiles/SkinningDiss.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/SkinningDiss.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\marti\Documents\DissProject\build\CMakeFiles 14
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\marti\Documents\DissProject\build\CMakeFiles 12
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/SkinningDiss.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\marti\Documents\DissProject\build\CMakeFiles 0
 .PHONY : CMakeFiles/SkinningDiss.dir/rule
@@ -165,7 +108,7 @@ CMakeFiles/SkinningDiss.dir/clean:
 CMakeFiles/UnitTests.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\UnitTests.dir\build.make CMakeFiles/UnitTests.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\UnitTests.dir\build.make CMakeFiles/UnitTests.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\marti\Documents\DissProject\build\CMakeFiles --progress-num=15,16 "Built target UnitTests"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\marti\Documents\DissProject\build\CMakeFiles --progress-num=13,14 "Built target UnitTests"
 .PHONY : CMakeFiles/UnitTests.dir/all
 
 # Build rule for subdir invocation for target.

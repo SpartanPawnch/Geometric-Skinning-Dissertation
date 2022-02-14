@@ -4,3 +4,6 @@
 [submodule "external/nativefiledialog"]
 	path = external/nativefiledialog
 	url = https://github.com/mlabbe/nativefiledialog.git
+[submodule "external/tinyfiledialogs"]
+	path = external/tinyfiledialogs
+	url = thttps://github.com/native-toolkit/tinyfiledialogs.git

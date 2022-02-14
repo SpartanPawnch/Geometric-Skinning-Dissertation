@@ -113,11 +113,139 @@ CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.s"
 	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\marti\Documents\DissProject\src\modelloader.cpp -o CMakeFiles\SkinningDiss.dir\src\modelloader.cpp.s
 
+CMakeFiles/SkinningDiss.dir/external/tinyfiledialogs/tinyfiledialogs.c.obj: CMakeFiles/SkinningDiss.dir/flags.make
+CMakeFiles/SkinningDiss.dir/external/tinyfiledialogs/tinyfiledialogs.c.obj: CMakeFiles/SkinningDiss.dir/includes_C.rsp
+CMakeFiles/SkinningDiss.dir/external/tinyfiledialogs/tinyfiledialogs.c.obj: ../external/tinyfiledialogs/tinyfiledialogs.c
+CMakeFiles/SkinningDiss.dir/external/tinyfiledialogs/tinyfiledialogs.c.obj: CMakeFiles/SkinningDiss.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\marti\Documents\DissProject\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/SkinningDiss.dir/external/tinyfiledialogs/tinyfiledialogs.c.obj"
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SkinningDiss.dir/external/tinyfiledialogs/tinyfiledialogs.c.obj -MF CMakeFiles\SkinningDiss.dir\external\tinyfiledialogs\tinyfiledialogs.c.obj.d -o CMakeFiles\SkinningDiss.dir\external\tinyfiledialogs\tinyfiledialogs.c.obj -c C:\Users\marti\Documents\DissProject\external\tinyfiledialogs\tinyfiledialogs.c
+
+CMakeFiles/SkinningDiss.dir/external/tinyfiledialogs/tinyfiledialogs.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/SkinningDiss.dir/external/tinyfiledialogs/tinyfiledialogs.c.i"
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\marti\Documents\DissProject\external\tinyfiledialogs\tinyfiledialogs.c > CMakeFiles\SkinningDiss.dir\external\tinyfiledialogs\tinyfiledialogs.c.i
+
+CMakeFiles/SkinningDiss.dir/external/tinyfiledialogs/tinyfiledialogs.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/SkinningDiss.dir/external/tinyfiledialogs/tinyfiledialogs.c.s"
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\marti\Documents\DissProject\external\tinyfiledialogs\tinyfiledialogs.c -o CMakeFiles\SkinningDiss.dir\external\tinyfiledialogs\tinyfiledialogs.c.s
+
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui.cpp.obj: CMakeFiles/SkinningDiss.dir/flags.make
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui.cpp.obj: CMakeFiles/SkinningDiss.dir/includes_CXX.rsp
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui.cpp.obj: ../external/imgui/imgui.cpp
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui.cpp.obj: CMakeFiles/SkinningDiss.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\marti\Documents\DissProject\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/SkinningDiss.dir/external/imgui/imgui.cpp.obj"
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SkinningDiss.dir/external/imgui/imgui.cpp.obj -MF CMakeFiles\SkinningDiss.dir\external\imgui\imgui.cpp.obj.d -o CMakeFiles\SkinningDiss.dir\external\imgui\imgui.cpp.obj -c C:\Users\marti\Documents\DissProject\external\imgui\imgui.cpp
+
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkinningDiss.dir/external/imgui/imgui.cpp.i"
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\marti\Documents\DissProject\external\imgui\imgui.cpp > CMakeFiles\SkinningDiss.dir\external\imgui\imgui.cpp.i
+
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkinningDiss.dir/external/imgui/imgui.cpp.s"
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\marti\Documents\DissProject\external\imgui\imgui.cpp -o CMakeFiles\SkinningDiss.dir\external\imgui\imgui.cpp.s
+
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui_demo.cpp.obj: CMakeFiles/SkinningDiss.dir/flags.make
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui_demo.cpp.obj: CMakeFiles/SkinningDiss.dir/includes_CXX.rsp
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui_demo.cpp.obj: ../external/imgui/imgui_demo.cpp
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui_demo.cpp.obj: CMakeFiles/SkinningDiss.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\marti\Documents\DissProject\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/SkinningDiss.dir/external/imgui/imgui_demo.cpp.obj"
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SkinningDiss.dir/external/imgui/imgui_demo.cpp.obj -MF CMakeFiles\SkinningDiss.dir\external\imgui\imgui_demo.cpp.obj.d -o CMakeFiles\SkinningDiss.dir\external\imgui\imgui_demo.cpp.obj -c C:\Users\marti\Documents\DissProject\external\imgui\imgui_demo.cpp
+
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui_demo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkinningDiss.dir/external/imgui/imgui_demo.cpp.i"
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\marti\Documents\DissProject\external\imgui\imgui_demo.cpp > CMakeFiles\SkinningDiss.dir\external\imgui\imgui_demo.cpp.i
+
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui_demo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkinningDiss.dir/external/imgui/imgui_demo.cpp.s"
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\marti\Documents\DissProject\external\imgui\imgui_demo.cpp -o CMakeFiles\SkinningDiss.dir\external\imgui\imgui_demo.cpp.s
+
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui_draw.cpp.obj: CMakeFiles/SkinningDiss.dir/flags.make
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui_draw.cpp.obj: CMakeFiles/SkinningDiss.dir/includes_CXX.rsp
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui_draw.cpp.obj: ../external/imgui/imgui_draw.cpp
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui_draw.cpp.obj: CMakeFiles/SkinningDiss.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\marti\Documents\DissProject\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/SkinningDiss.dir/external/imgui/imgui_draw.cpp.obj"
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SkinningDiss.dir/external/imgui/imgui_draw.cpp.obj -MF CMakeFiles\SkinningDiss.dir\external\imgui\imgui_draw.cpp.obj.d -o CMakeFiles\SkinningDiss.dir\external\imgui\imgui_draw.cpp.obj -c C:\Users\marti\Documents\DissProject\external\imgui\imgui_draw.cpp
+
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui_draw.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkinningDiss.dir/external/imgui/imgui_draw.cpp.i"
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\marti\Documents\DissProject\external\imgui\imgui_draw.cpp > CMakeFiles\SkinningDiss.dir\external\imgui\imgui_draw.cpp.i
+
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui_draw.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkinningDiss.dir/external/imgui/imgui_draw.cpp.s"
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\marti\Documents\DissProject\external\imgui\imgui_draw.cpp -o CMakeFiles\SkinningDiss.dir\external\imgui\imgui_draw.cpp.s
+
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui_tables.cpp.obj: CMakeFiles/SkinningDiss.dir/flags.make
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui_tables.cpp.obj: CMakeFiles/SkinningDiss.dir/includes_CXX.rsp
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui_tables.cpp.obj: ../external/imgui/imgui_tables.cpp
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui_tables.cpp.obj: CMakeFiles/SkinningDiss.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\marti\Documents\DissProject\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/SkinningDiss.dir/external/imgui/imgui_tables.cpp.obj"
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SkinningDiss.dir/external/imgui/imgui_tables.cpp.obj -MF CMakeFiles\SkinningDiss.dir\external\imgui\imgui_tables.cpp.obj.d -o CMakeFiles\SkinningDiss.dir\external\imgui\imgui_tables.cpp.obj -c C:\Users\marti\Documents\DissProject\external\imgui\imgui_tables.cpp
+
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui_tables.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkinningDiss.dir/external/imgui/imgui_tables.cpp.i"
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\marti\Documents\DissProject\external\imgui\imgui_tables.cpp > CMakeFiles\SkinningDiss.dir\external\imgui\imgui_tables.cpp.i
+
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui_tables.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkinningDiss.dir/external/imgui/imgui_tables.cpp.s"
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\marti\Documents\DissProject\external\imgui\imgui_tables.cpp -o CMakeFiles\SkinningDiss.dir\external\imgui\imgui_tables.cpp.s
+
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui_widgets.cpp.obj: CMakeFiles/SkinningDiss.dir/flags.make
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui_widgets.cpp.obj: CMakeFiles/SkinningDiss.dir/includes_CXX.rsp
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui_widgets.cpp.obj: ../external/imgui/imgui_widgets.cpp
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui_widgets.cpp.obj: CMakeFiles/SkinningDiss.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\marti\Documents\DissProject\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/SkinningDiss.dir/external/imgui/imgui_widgets.cpp.obj"
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SkinningDiss.dir/external/imgui/imgui_widgets.cpp.obj -MF CMakeFiles\SkinningDiss.dir\external\imgui\imgui_widgets.cpp.obj.d -o CMakeFiles\SkinningDiss.dir\external\imgui\imgui_widgets.cpp.obj -c C:\Users\marti\Documents\DissProject\external\imgui\imgui_widgets.cpp
+
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui_widgets.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkinningDiss.dir/external/imgui/imgui_widgets.cpp.i"
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\marti\Documents\DissProject\external\imgui\imgui_widgets.cpp > CMakeFiles\SkinningDiss.dir\external\imgui\imgui_widgets.cpp.i
+
+CMakeFiles/SkinningDiss.dir/external/imgui/imgui_widgets.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkinningDiss.dir/external/imgui/imgui_widgets.cpp.s"
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\marti\Documents\DissProject\external\imgui\imgui_widgets.cpp -o CMakeFiles\SkinningDiss.dir\external\imgui\imgui_widgets.cpp.s
+
+CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_opengl2.cpp.obj: CMakeFiles/SkinningDiss.dir/flags.make
+CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_opengl2.cpp.obj: CMakeFiles/SkinningDiss.dir/includes_CXX.rsp
+CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_opengl2.cpp.obj: ../external/imgui/backends/imgui_impl_opengl2.cpp
+CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_opengl2.cpp.obj: CMakeFiles/SkinningDiss.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\marti\Documents\DissProject\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_opengl2.cpp.obj"
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_opengl2.cpp.obj -MF CMakeFiles\SkinningDiss.dir\external\imgui\backends\imgui_impl_opengl2.cpp.obj.d -o CMakeFiles\SkinningDiss.dir\external\imgui\backends\imgui_impl_opengl2.cpp.obj -c C:\Users\marti\Documents\DissProject\external\imgui\backends\imgui_impl_opengl2.cpp
+
+CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_opengl2.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_opengl2.cpp.i"
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\marti\Documents\DissProject\external\imgui\backends\imgui_impl_opengl2.cpp > CMakeFiles\SkinningDiss.dir\external\imgui\backends\imgui_impl_opengl2.cpp.i
+
+CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_opengl2.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_opengl2.cpp.s"
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\marti\Documents\DissProject\external\imgui\backends\imgui_impl_opengl2.cpp -o CMakeFiles\SkinningDiss.dir\external\imgui\backends\imgui_impl_opengl2.cpp.s
+
+CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_glfw.cpp.obj: CMakeFiles/SkinningDiss.dir/flags.make
+CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_glfw.cpp.obj: CMakeFiles/SkinningDiss.dir/includes_CXX.rsp
+CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_glfw.cpp.obj: ../external/imgui/backends/imgui_impl_glfw.cpp
+CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_glfw.cpp.obj: CMakeFiles/SkinningDiss.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\marti\Documents\DissProject\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_glfw.cpp.obj"
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_glfw.cpp.obj -MF CMakeFiles\SkinningDiss.dir\external\imgui\backends\imgui_impl_glfw.cpp.obj.d -o CMakeFiles\SkinningDiss.dir\external\imgui\backends\imgui_impl_glfw.cpp.obj -c C:\Users\marti\Documents\DissProject\external\imgui\backends\imgui_impl_glfw.cpp
+
+CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_glfw.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_glfw.cpp.i"
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\marti\Documents\DissProject\external\imgui\backends\imgui_impl_glfw.cpp > CMakeFiles\SkinningDiss.dir\external\imgui\backends\imgui_impl_glfw.cpp.i
+
+CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_glfw.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_glfw.cpp.s"
+	C:\Users\marti\mingw64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\marti\Documents\DissProject\external\imgui\backends\imgui_impl_glfw.cpp -o CMakeFiles\SkinningDiss.dir\external\imgui\backends\imgui_impl_glfw.cpp.s
+
 # Object files for target SkinningDiss
 SkinningDiss_OBJECTS = \
 "CMakeFiles/SkinningDiss.dir/src/main.cpp.obj" \
 "CMakeFiles/SkinningDiss.dir/src/animation.cpp.obj" \
-"CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj"
+"CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj" \
+"CMakeFiles/SkinningDiss.dir/external/tinyfiledialogs/tinyfiledialogs.c.obj" \
+"CMakeFiles/SkinningDiss.dir/external/imgui/imgui.cpp.obj" \
+"CMakeFiles/SkinningDiss.dir/external/imgui/imgui_demo.cpp.obj" \
+"CMakeFiles/SkinningDiss.dir/external/imgui/imgui_draw.cpp.obj" \
+"CMakeFiles/SkinningDiss.dir/external/imgui/imgui_tables.cpp.obj" \
+"CMakeFiles/SkinningDiss.dir/external/imgui/imgui_widgets.cpp.obj" \
+"CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_opengl2.cpp.obj" \
+"CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_glfw.cpp.obj"
 
 # External object files for target SkinningDiss
 SkinningDiss_EXTERNAL_OBJECTS =
@@ -125,13 +253,19 @@ SkinningDiss_EXTERNAL_OBJECTS =
 SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/src/main.cpp.obj
 SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/src/animation.cpp.obj
 SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/src/modelloader.cpp.obj
+SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/external/tinyfiledialogs/tinyfiledialogs.c.obj
+SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/external/imgui/imgui.cpp.obj
+SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/external/imgui/imgui_demo.cpp.obj
+SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/external/imgui/imgui_draw.cpp.obj
+SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/external/imgui/imgui_tables.cpp.obj
+SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/external/imgui/imgui_widgets.cpp.obj
+SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_opengl2.cpp.obj
+SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/external/imgui/backends/imgui_impl_glfw.cpp.obj
 SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/build.make
-SkinningDiss.exe: libIMGUI.a
-SkinningDiss.exe: libNFD.a
 SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/linklibs.rsp
 SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/objects1.rsp
 SkinningDiss.exe: CMakeFiles/SkinningDiss.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\marti\Documents\DissProject\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable SkinningDiss.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\marti\Documents\DissProject\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable SkinningDiss.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\SkinningDiss.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

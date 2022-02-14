@@ -3,39 +3,29 @@ project(SkinningDiss CXX C)
 
 #setup Imgui
 set(IMGUIDIR "external/imgui")
-add_library(IMGUI STATIC)
+# add_library(IMGUI STATIC)
+include_directories(${IMGUIDIR} ${IMGUIDIR}/backends)
+aux_source_directory("${IMGUIDIR}/" IMGUICORE)
+set(IMGUIBACKENDS "${IMGUIDIR}/backends/imgui_impl_opengl2.cpp" "${IMGUIDIR}/backends/imgui_impl_glfw.cpp")
 
-target_sources(IMGUI
-    PRIVATE
-    ${IMGUIDIR}/imgui.cpp
-    ${IMGUIDIR}/imgui_draw.cpp
-    ${IMGUIDIR}/imgui_widgets.cpp
-    ${IMGUIDIR}/imgui_tables.cpp
+#target_sources(IMGUI
+#     PRIVATE
+#     ${IMGUIDIR}/imgui.cpp
+#     ${IMGUIDIR}/imgui_draw.cpp
+#     ${IMGUIDIR}/imgui_widgets.cpp
+#     ${IMGUIDIR}/imgui_tables.cpp
 
-    PRIVATE
-    ${IMGUIDIR}/backends/imgui_impl_opengl2.cpp
-    ${IMGUIDIR}/backends/imgui_impl_glfw.cpp
-)
-target_include_directories(IMGUI
-    PUBLIC ${IMGUIDIR}
-    PUBLIC ${IMGUIDIR}/backends
-)
-
-set(NFDDIR "external/nativefiledialog/src")
-add_library(NFD STATIC)
-
-target_sources(NFD
-    PRIVATE
-    ${NFDDIR}/nfd_common.c
-    ${NFDDIR}/nfd_win.cpp
-)
-target_include_directories(NFD
-    PUBLIC ${NFDDIR}
-    PUBLIC ${NFDDIR}/include
-)
+#     PRIVATE
+#     ${IMGUIDIR}/backends/imgui_impl_opengl2.cpp
+#     ${IMGUIDIR}/backends/imgui_impl_glfw.cpp
+# )
+# target_include_directories(IMGUI
+#     PUBLIC ${IMGUIDIR}
+#     PUBLIC ${IMGUIDIR}/backends
+# )
 
 #setup executables
-add_executable(${PROJECT_NAME} src/main.cpp src/animation.cpp src/modelloader.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp src/animation.cpp src/modelloader.cpp external/tinyfiledialogs/tinyfiledialogs.c ${IMGUICORE} ${IMGUIBACKENDS})
 add_executable(UnitTests src/unittests.cpp)
 
 #compatibility
@@ -43,7 +33,6 @@ if(WIN32)
     message(STATUS "Using Windows library targets")
     target_link_libraries(${PROJECT_NAME} glfw3 opengl32 glew32)
     target_link_libraries(UnitTests glfw3 opengl32 glew32)
-    target_link_libraries(IMGUI opengl32)
 
     if(CMAKE_BUILD_TYPE==RELEASE)
         #hide console
@@ -52,11 +41,17 @@ if(WIN32)
 
 else()
     message(STATUS "Using Linux library targets")
+
+    #setup internal glfw
+    set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+    set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+    set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+    add_subdirectory("external/glfw-3.3.6")
+
     target_link_libraries(${PROJECT_NAME} glfw GL GLEW)
     target_link_libraries(UnitTests glfw GL GLEW)
-    target_link_libraries(IMGUI GL)
 endif()
-target_link_libraries(${PROJECT_NAME} IMGUI NFD)
+# target_link_libraries(${PROJECT_NAME} IMGUI)
 target_compile_definitions(${PROJECT_NAME} PUBLIC ROOTDIR="${CMAKE_CURRENT_SOURCE_DIR}")
 target_compile_definitions(UnitTests PUBLIC ROOTDIR="${CMAKE_CURRENT_SOURCE_DIR}")
 

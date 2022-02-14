@@ -4,7 +4,7 @@
 # compile CXX with C:/Users/marti/mingw64/bin/x86_64-w64-mingw32-g++.exe
 CXX_DEFINES = -DROOTDIR=\"C:/Users/marti/Documents/DissProject\"
 
-CXX_INCLUDES = 
+CXX_INCLUDES = @CMakeFiles/UnitTests.dir/includes_CXX.rsp
 
 CXX_FLAGS = -O2 -g -DNDEBUG
 
