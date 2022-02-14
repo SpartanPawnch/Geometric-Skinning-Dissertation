@@ -370,7 +370,7 @@ Model loadIQM(const char *filename) {
 
                 glm::mat4 pose=glm::translate(position)*glm::toMat4(glm::normalize(rotation))*glm::scale(scale)*m.joints[j].inverse;
                 if(poses[j].parent>=0)
-                    pose=(glm::mat4x3)m.animationData.poses[i*m.animationData.posesPerFrame+poses[j].parent]*m.joints[poses[j].parent].matrix*pose;
+                    pose=(glm::mat4)(glm::mat4x3)m.animationData.poses[i*m.animationData.posesPerFrame+poses[j].parent]*m.joints[poses[j].parent].matrix*pose;
 
                 m.animationData.poses[i*m.animationData.posesPerFrame+j].rotscale=glm::mat3(pose);
                 m.animationData.poses[i*m.animationData.posesPerFrame+j].translate=glm::mat4x3(pose)[3];

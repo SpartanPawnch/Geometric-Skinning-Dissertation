@@ -4,7 +4,7 @@
 #include <imgui_impl_opengl2.h>
 #include <imgui_impl_glfw.h>
 
-
+#include <math.h>
 #include <iostream>
 
 #define GLM_FORCE_PRECISION_LOWP_FLOAT
@@ -70,12 +70,12 @@ int main() {
         float frametime=glfwGetTime()-lasttime;
         lasttime+=frametime;
 
-        float animationDuration,framerate=60.0f;
+        float animationDuration=1.0f,framerate=60.0f;
         if(activeModel.currentClip>=0){
             framerate=activeModel.clips[activeModel.currentClip].framerate;
             animationDuration=activeModel.clips[activeModel.currentClip].length;
         }
-        else{
+        else if(activeModel.animatable){
             animationDuration=((float)activeModel.animationData.poses.size())/activeModel.animationData.posesPerFrame;
         }
         animtime+=!paused*frametime*framerate;
@@ -114,42 +114,45 @@ int main() {
                         }
                     }
                     ImGui::EndMenu();
-                    ImGui::EndMainMenuBar();
                 }
+                ImGui::EndMainMenuBar();
             }
 
 
 
             //timeline
             ImGui::SetNextWindowPos(ImVec2(mainViewport->WorkPos.x+width/2.0f-300.0f,mainViewport->WorkPos.y+height-100.0f),true);
-            ImGui::Begin("Timeline",NULL,ImGuiWindowFlags_AlwaysAutoResize);
             
-            const char* animationDropdownText=(activeModel.currentClip>=0 ? activeModel.clipNames[activeModel.currentClip].c_str():"[all]");
-            if(activeModel.animatable&&ImGui::BeginCombo("##animselector",animationDropdownText)){
-                for(int i=0;i<activeModel.clipNames.size();i++){
-                    bool isSelected=(i==activeModel.currentClip);
-                    if(ImGui::Selectable(activeModel.clipNames[i].c_str(),isSelected))
-                        activeModel.currentClip=i;
+            if(ImGui::Begin("Timeline",NULL,ImGuiWindowFlags_AlwaysAutoResize)){
+            
+                const char* animationDropdownText=(activeModel.currentClip>=0 ? activeModel.clipNames[activeModel.currentClip].c_str():"[all]");
+                if(activeModel.animatable&&ImGui::BeginCombo("##animselector",animationDropdownText)){
+                    for(int i=0;i<activeModel.clipNames.size();i++){
+                        bool isSelected=(i==activeModel.currentClip);
+                        if(ImGui::Selectable(activeModel.clipNames[i].c_str(),isSelected))
+                            activeModel.currentClip=i;
+                        if(isSelected)
+                            ImGui::SetItemDefaultFocus();
+                    }
+                    bool isSelected=-1;
+                    if(ImGui::Selectable("[all]",isSelected))
+                            activeModel.currentClip=-1;
                     if(isSelected)
                         ImGui::SetItemDefaultFocus();
+
+                    ImGui::EndCombo();
                 }
-                bool isSelected=-1;
-                if(ImGui::Selectable("[all]",isSelected))
-                        activeModel.currentClip=-1;
-                if(isSelected)
-                    ImGui::SetItemDefaultFocus();
-                
-                ImGui::EndCombo();
+                ImGui::SameLine();
+                ImGui::Text("%d vertices, %.2f FPS",activeModel.animationData.baseNormals.size(),io.Framerate);
+                const char* pauseLabels[2]={"Pause","Unpause"};
+                if(ImGui::Button(pauseLabels[paused]))
+                    paused=!paused;
+                ImGui::SameLine();
+                if(activeModel.animatable)
+                    if(ImGui::SliderFloat("##timeline",&animtime,0.0f,animationDuration))
+                        seeking=true;
+                ImGui::End();
             }
-            ImGui::SameLine();
-            ImGui::Text("%d vertices, %.2f FPS",activeModel.animationData.baseNormals.size(),io.Framerate);
-            const char* pauseLabels[2]={"Pause","Unpause"};
-            if(ImGui::Button(pauseLabels[paused]))
-                paused=!paused;
-            ImGui::SameLine();
-            if(activeModel.animatable&&ImGui::SliderFloat("##timeline",&animtime,0.0f,animationDuration))
-                seeking=true;
-            ImGui::End();
         }
 
         if(activeModel.animatable&&(!paused||seeking))

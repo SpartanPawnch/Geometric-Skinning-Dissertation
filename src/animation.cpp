@@ -1,5 +1,7 @@
 #include "animation.h"
 #include <glm/mat4x4.hpp>
+
+#include <math.h>
 #include <iostream>
 
 void AnimationData::deformPositionLBS(glm::vec3 *target, float frame){

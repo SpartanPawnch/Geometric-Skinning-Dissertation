@@ -8,25 +8,11 @@ include_directories(${IMGUIDIR} ${IMGUIDIR}/backends)
 aux_source_directory("${IMGUIDIR}/" IMGUICORE)
 set(IMGUIBACKENDS "${IMGUIDIR}/backends/imgui_impl_opengl2.cpp" "${IMGUIDIR}/backends/imgui_impl_glfw.cpp")
 
-#target_sources(IMGUI
-#     PRIVATE
-#     ${IMGUIDIR}/imgui.cpp
-#     ${IMGUIDIR}/imgui_draw.cpp
-#     ${IMGUIDIR}/imgui_widgets.cpp
-#     ${IMGUIDIR}/imgui_tables.cpp
 
-#     PRIVATE
-#     ${IMGUIDIR}/backends/imgui_impl_opengl2.cpp
-#     ${IMGUIDIR}/backends/imgui_impl_glfw.cpp
-# )
-# target_include_directories(IMGUI
-#     PUBLIC ${IMGUIDIR}
-#     PUBLIC ${IMGUIDIR}/backends
-# )
 
 #setup executables
 add_executable(${PROJECT_NAME} src/main.cpp src/animation.cpp src/modelloader.cpp external/tinyfiledialogs/tinyfiledialogs.c ${IMGUICORE} ${IMGUIBACKENDS})
-add_executable(UnitTests src/unittests.cpp)
+add_executable(UnitTests src/unittests.cpp src/animation.cpp)
 
 #compatibility
 if(WIN32)
