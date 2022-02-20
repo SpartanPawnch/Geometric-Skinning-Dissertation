@@ -121,7 +121,7 @@ bool testCubeDiff() {
 }
 
 bool expectValue(const glm::vec3 &actual, const glm::vec3 &expected, const char* name){
-    if(actual!=expected){
+    if(fabs(glm::length(actual-expected))>std::numeric_limits<float>::epsilon()){
         std::cout<<"FAILED\n \tExpected "<<name<<" value ("<<expected.x<<","<<expected.y<<","<<expected.z<<")\n";
         std::cout<<"\tGot: ("<<actual.x<<","<<actual.y<<","<<actual.z<<")\n";
         return false;
@@ -159,7 +159,7 @@ bool testArcballEye(){
     camera.up=startingUp;
     camera.rotateArcball(glm::vec2(.0f),glm::vec2(.5f,.0f));
 
-    const glm::vec3 finalEye(sin(glm::radians(60.0f)),.0f,cos(glm::radians(60.0f)));
+    const glm::vec3 finalEye(sin(glm::radians(120.0f)),.0f,cos(glm::radians(120.0f)));
     if(!expectValue(camera.eye,finalEye,"eye"))
         return false;
 
@@ -177,7 +177,7 @@ bool testArcballEye2(){
     camera.up=startingUp;
     camera.rotateArcball(glm::vec2(.0f),glm::vec2(.0f,.5f));
 
-    const glm::vec3 finalEye(.0f,sin(glm::radians(60.0f)),cos(glm::radians(60.0f)));
+    const glm::vec3 finalEye(.0f,sin(glm::radians(120.0f)),cos(glm::radians(120.0f)));
     if(!expectValue(camera.eye,finalEye,"eye"))
         return false;
     std::cout<<"PASSED\n";
@@ -211,7 +211,7 @@ bool testArcballUp2(){
     camera.up=startingUp;
     camera.rotateArcball(glm::vec2(.0f),glm::vec2(.0f,.5f));
 
-    const glm::vec3 finalUp(.0f,cos(glm::radians(60.0f)),sin(glm::radians(60.0f)));
+    const glm::vec3 finalUp(.0f,cos(glm::radians(120.0f)),-sin(glm::radians(120.0f)));
     if(!expectValue(camera.up,finalUp,"up"))
         return false;
     std::cout<<"PASSED\n";

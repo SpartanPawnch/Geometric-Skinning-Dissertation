@@ -1,6 +1,7 @@
 #pragma once
 #include<glm/gtc/quaternion.hpp>
 #include<glm/vec3.hpp>
+#include<glm/mat4x4.hpp>
 
 struct Camera{
     glm::vec3 eye;
@@ -20,4 +21,5 @@ struct Camera{
     void rotateArcball(const glm::vec2 &cursorStart, const glm::vec2 &cursorEnd);
     void pan(glm::vec2 cursorDelta);
     void zoom(float scrollDelta);
+    glm::mat4 getMatrix();
 };
