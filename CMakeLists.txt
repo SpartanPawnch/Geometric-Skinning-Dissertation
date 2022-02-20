@@ -11,8 +11,9 @@ set(IMGUIBACKENDS "${IMGUIDIR}/backends/imgui_impl_opengl2.cpp" "${IMGUIDIR}/bac
 
 
 #setup executables
-add_executable(${PROJECT_NAME} src/main.cpp src/animation.cpp src/modelloader.cpp external/tinyfiledialogs/tinyfiledialogs.c ${IMGUICORE} ${IMGUIBACKENDS})
-add_executable(UnitTests src/unittests.cpp src/animation.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp src/animation.cpp src/modelloader.cpp src/camera.cpp 
+    external/tinyfiledialogs/tinyfiledialogs.c ${IMGUICORE} ${IMGUIBACKENDS})
+add_executable(UnitTests src/unittests.cpp src/animation.cpp src/camera.cpp)
 
 #compatibility
 if(WIN32)

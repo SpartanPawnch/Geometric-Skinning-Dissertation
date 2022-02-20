@@ -1,17 +1,21 @@
 #include <iostream>
 #include <glm/vec3.hpp>
 #include "modelloader.cpp"
+#include "camera.hpp"
+
+//simple macro to copy function name as string literal
+#define TEST(f) f,#f
 
 int totalTests;
 int successfulTests;
 
-void runTest(bool(*test)(void)) {
+void runTest(bool(*test)(void),const char *testName) {
+    std::cout<<"Running "<<testName<<"... ";
     totalTests++;
     successfulTests += test();
 }
 
 bool testVertexData() {
-    std::cout << "Testing vertex loading... ";
     positionBuffer.clear();
     normalBuffer.clear();
     indexBuffer.clear();
@@ -112,16 +116,130 @@ bool testVertexData() {
 }
 
 bool testCubeDiff() {
-    std::cout << "Testing cube diff: TODO";
+    std::cout << "TODO\n";
     return true;
 }
 
+bool expectValue(const glm::vec3 &actual, const glm::vec3 &expected, const char* name){
+    if(actual!=expected){
+        std::cout<<"FAILED\n \tExpected "<<name<<" value ("<<expected.x<<","<<expected.y<<","<<expected.z<<")\n";
+        std::cout<<"\tGot: ("<<actual.x<<","<<actual.y<<","<<actual.z<<")\n";
+        return false;
+    }
+    return true;
+}
+
+bool testArcballNull(){
+    Camera camera;
+    const glm::vec3 startingEye(.0f,.0f,1.0f);
+    const glm::vec3 startingCenter(.0f);
+    const glm::vec3 startingUp(.0f,1.0f,.0f);
+    camera.eye=startingEye;
+    camera.center=startingCenter;
+    camera.up=startingUp;
+    camera.rotateArcball(glm::vec2(.0f),glm::vec2(.0f));
+
+    if(!expectValue(camera.eye,startingEye,"eye"))
+        return false;
+    if(!expectValue(camera.center,startingCenter,"center"))
+        return false;
+    if(!expectValue(camera.up,startingUp,"up"))
+        return false;
+    std::cout<< "PASSED\n";
+    return true;
+}
+
+bool testArcballEye(){
+    Camera camera;
+    const glm::vec3 startingEye(.0f,.0f,1.0f);
+    const glm::vec3 startingCenter(.0f);
+    const glm::vec3 startingUp(.0f,1.0f,.0f);
+    camera.eye=startingEye;
+    camera.center=startingCenter;
+    camera.up=startingUp;
+    camera.rotateArcball(glm::vec2(.0f),glm::vec2(.5f,.0f));
+
+    const glm::vec3 finalEye(sin(glm::radians(60.0f)),.0f,cos(glm::radians(60.0f)));
+    if(!expectValue(camera.eye,finalEye,"eye"))
+        return false;
+
+    std::cout<<"PASSED\n";
+    return true;
+}
+
+bool testArcballEye2(){
+    Camera camera;
+    const glm::vec3 startingEye(.0f,.0f,1.0f);
+    const glm::vec3 startingCenter(.0f);
+    const glm::vec3 startingUp(.0f,1.0f,.0f);
+    camera.eye=startingEye;
+    camera.center=startingCenter;
+    camera.up=startingUp;
+    camera.rotateArcball(glm::vec2(.0f),glm::vec2(.0f,.5f));
+
+    const glm::vec3 finalEye(.0f,sin(glm::radians(60.0f)),cos(glm::radians(60.0f)));
+    if(!expectValue(camera.eye,finalEye,"eye"))
+        return false;
+    std::cout<<"PASSED\n";
+    return true;
+}
+
+bool testArcballUp(){
+    Camera camera;
+    const glm::vec3 startingEye(.0f,.0f,1.0f);
+    const glm::vec3 startingCenter(.0f);
+    const glm::vec3 startingUp(.0f,1.0f,.0f);
+    camera.eye=startingEye;
+    camera.center=startingCenter;
+    camera.up=startingUp;
+    camera.rotateArcball(glm::vec2(.0f),glm::vec2(.5f,.0f));
+
+    //rotating around y axis - should be unchanged
+    if(!expectValue(camera.up,startingUp,"up"))
+        return false;
+    std::cout<<"PASSED\n";
+    return true;
+}
+
+bool testArcballUp2(){
+    Camera camera;
+    const glm::vec3 startingEye(.0f,.0f,1.0f);
+    const glm::vec3 startingCenter(.0f);
+    const glm::vec3 startingUp(.0f,1.0f,.0f);
+    camera.eye=startingEye;
+    camera.center=startingCenter;
+    camera.up=startingUp;
+    camera.rotateArcball(glm::vec2(.0f),glm::vec2(.0f,.5f));
+
+    const glm::vec3 finalUp(.0f,cos(glm::radians(60.0f)),sin(glm::radians(60.0f)));
+    if(!expectValue(camera.up,finalUp,"up"))
+        return false;
+    std::cout<<"PASSED\n";
+    return true;
+}
+
+bool testPan(){
+    std::cout<<"TODO\n";
+    return true;
+}
+
+bool testZoom(){
+    std::cout<<"TODO\n";
+    return true;
+}
 
 int main() {
     totalTests = 0;
     successfulTests = 0;
 
-    runTest(testVertexData);
+    runTest(TEST(testVertexData));
+    runTest(TEST(testArcballNull));
+    runTest(TEST(testArcballEye));
+    runTest(TEST(testArcballEye2));
+    runTest(TEST(testArcballUp));
+    runTest(TEST(testArcballUp2));
+    runTest(TEST(testPan));
+    runTest(TEST(testZoom));
 
 
     std::cout << "Tests Passed: " << successfulTests << "/" << totalTests;
