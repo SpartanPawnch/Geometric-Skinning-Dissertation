@@ -1,4 +1,0 @@
-C:/Users/marti/Documents/DissProject/build/CMakeFiles/SkinningDiss.dir
-C:/Users/marti/Documents/DissProject/build/CMakeFiles/UnitTests.dir
-C:/Users/marti/Documents/DissProject/build/CMakeFiles/edit_cache.dir
-C:/Users/marti/Documents/DissProject/build/CMakeFiles/rebuild_cache.dir
