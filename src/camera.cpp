@@ -55,9 +55,11 @@ void Camera::pan(glm::vec2 cursorDelta) {
     glm::vec3 worldTranslation = cameraInverse() * glm::vec4(cursorScaled.x, cursorScaled.y, .0f, .0f);
     center += worldTranslation;
 }
-void Camera::zoom(float scrollDelta) {}
+void Camera::zoom(float scrollDelta) {
+    cameraZoom = glm::clamp(cameraZoom - scrollDelta, .0001f, 10.0f);
+}
 
 glm::mat4 Camera::getMatrix() {
-    return glm::perspective(glm::radians(45.0f), screenWidth / screenHeight, clipNear, clipFar) *
-        glm::translate(translation) * glm::mat4_cast(orientation) * glm::translate(-center);
+    return glm::perspective(glm::radians(45.0f), screenWidth / screenHeight, cameraZoom * clipNear, cameraZoom * clipFar) *
+        glm::translate(cameraZoom * translation) * glm::mat4_cast(orientation) * glm::translate(-center);
 }

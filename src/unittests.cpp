@@ -128,6 +128,14 @@ bool expectValue(const glm::vec3& actual, const glm::vec3& expected, const char*
     }
     return true;
 }
+bool expectValue(const float actual, float expected, const char* name) {
+    if (fabs(actual - expected) > std::numeric_limits<float>::epsilon()) {
+        std::cout << "FAILED\n \tExpected " << name << " value " << expected << "\n";
+        std::cout << "\tGot: " << actual << "\n";
+        return false;
+    }
+    return true;
+}
 
 bool testArcballNull() {
     const glm::vec3 startingEye(.0f, .0f, 1.0f);
@@ -276,7 +284,30 @@ bool testPan3() {
 
 
 bool testZoom() {
-    std::cout << "TODO\n";
+    const glm::vec3 startingEye(.0f, .0f, 1.0f);
+    const glm::vec3 startingCenter(.0f);
+    const glm::vec3 startingUp(.0f, 1.0f, .0f);
+    Camera camera(startingEye, startingCenter, startingUp);
+
+    camera.zoom(.5f);
+    if (!expectValue(camera.getEye(), glm::vec3(.0f, .0f, .5f), "eye"))
+        return false;
+
+    std::cout << "PASSED\n";
+    return true;
+}
+
+bool testZoomClamp() {
+    const glm::vec3 startingEye(.0f, .0f, 1.0f);
+    const glm::vec3 startingCenter(.0f);
+    const glm::vec3 startingUp(.0f, 1.0f, .0f);
+    Camera camera(startingEye, startingCenter, startingUp);
+
+    camera.zoom(2.0f);
+    if (!expectValue(camera.cameraZoom, .0001f, "zoom"))
+        return false;
+
+    std::cout << "PASSED\n";
     return true;
 }
 
@@ -294,6 +325,7 @@ int main() {
     runTest(TEST(testPan2));
     runTest(TEST(testPan3));
     runTest(TEST(testZoom));
+    runTest(TEST(testZoomClamp));
     runTest(TEST(testArcballSequential));
 
 

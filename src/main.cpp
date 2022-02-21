@@ -63,12 +63,14 @@ int main() {
 
     //animation control variables
     float animtime = .0f, lasttime = glfwGetTime();
-    bool paused = false;\
+    bool paused = false;
 
-        //camera control variables
-        bool mouseWasDown = false;
+    //camera control variables
     glm::vec2 lastMousePos;
     glm::vec2 currentMousePos;
+
+
+    bool mouseWasDown = false;
     bool applyArcball = false;
     bool applyPan = false;
     while (!glfwWindowShouldClose(window)) {
@@ -144,7 +146,7 @@ int main() {
                         if (isSelected)
                             ImGui::SetItemDefaultFocus();
                     }
-                    bool isSelected = -1;
+                    bool isSelected = false;
                     if (ImGui::Selectable("[all]", isSelected))
                         activeModel.currentClip = -1;
                     if (isSelected)
@@ -195,6 +197,8 @@ int main() {
                 mouseWasDown = false;
             }
 
+
+
             //manipulate camera
             if (applyArcball) {
                 sceneCamera.rotateArcball(lastMousePos, currentMousePos);
@@ -204,6 +208,9 @@ int main() {
                 mouseDelta.x *= -1.0f;
                 sceneCamera.pan(mouseDelta);
             }
+
+            const float scrollScale = .05f;
+            sceneCamera.zoom(scrollScale * io.MouseWheel);
         }
 
 
