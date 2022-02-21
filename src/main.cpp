@@ -15,13 +15,13 @@
 
 int main() {
     //setup window
-    GLFWwindow *window;
+    GLFWwindow* window;
     glfwInit();
 
-    #if GLFW_VERSION_MAJOR>=3 && GLFW_VERSION_MINOR>=1
+#if GLFW_VERSION_MAJOR>=3 && GLFW_VERSION_MINOR>=1
     //Supported by glfw 3.1 and onwards
     glfwWindowHint(GLFW_MAXIMIZED, 1);
-    #endif
+#endif
 
     glfwWindowHint(GLFW_SAMPLES, 4);
 
@@ -47,51 +47,52 @@ int main() {
     //setup Imgui
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO& io=ImGui::GetIO();
+    ImGuiIO& io = ImGui::GetIO();
 
-    ImGui_ImplGlfw_InitForOpenGL(window,true);
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL2_Init();
 
-    const ImGuiViewport *mainViewport=ImGui::GetMainViewport();
+    const ImGuiViewport* mainViewport = ImGui::GetMainViewport();
 
     //load models
     Model activeModel = loadIQM(ROOTDIR "/assets/longboi.iqm");
     activeModel.texture = loadTexture(ROOTDIR "/assets/longboi_texture.png");
     activeModel.textured = true;
     uploadBuffers();
-    activeModel.currentClip=1;
+    activeModel.currentClip = 1;
 
     //animation control variables
-    float animtime=.0f,lasttime=glfwGetTime();
-    bool paused=false;\
+    float animtime = .0f, lasttime = glfwGetTime();
+    bool paused = false;\
 
-    //camera control variables
-    bool mouseWasDown=false;
+        //camera control variables
+        bool mouseWasDown = false;
     glm::vec2 lastMousePos;
     glm::vec2 currentMousePos;
-    bool applyArcball=false;
+    bool applyArcball = false;
+    bool applyPan = false;
     while (!glfwWindowShouldClose(window)) {
-        bool seeking=false;
+        bool seeking = false;
 
         //State Processing
-        float frametime=glfwGetTime()-lasttime;
-        lasttime+=frametime;
+        float frametime = glfwGetTime() - lasttime;
+        lasttime += frametime;
 
-        float animationDuration=1.0f,framerate=60.0f;
-        if(activeModel.currentClip>=0){
-            framerate=activeModel.clips[activeModel.currentClip].framerate;
-            animationDuration=activeModel.clips[activeModel.currentClip].length;
+        float animationDuration = 1.0f, framerate = 60.0f;
+        if (activeModel.currentClip >= 0) {
+            framerate = activeModel.clips[activeModel.currentClip].framerate;
+            animationDuration = activeModel.clips[activeModel.currentClip].length;
         }
-        else if(activeModel.animatable){
-            animationDuration=((float)activeModel.animationData.poses.size())/activeModel.animationData.posesPerFrame;
+        else if (activeModel.animatable) {
+            animationDuration = ((float)activeModel.animationData.poses.size()) / activeModel.animationData.posesPerFrame;
         }
-        animtime+=!paused*frametime*framerate;
-        animtime=fmodf(animtime,animationDuration);
+        animtime += !paused * frametime * framerate;
+        animtime = fmodf(animtime, animationDuration);
         //get window parameters
-        int width,height;
-        glfwGetFramebufferSize(window,&width,&height);
-        sceneCamera.screenWidth=width;
-        sceneCamera.screenHeight=height;
+        int width, height;
+        glfwGetFramebufferSize(window, &width, &height);
+        sceneCamera.screenWidth = width;
+        sceneCamera.screenHeight = height;
 
 
         //UI Input
@@ -101,25 +102,25 @@ int main() {
 
         {
             //top menubar
-            if(ImGui::BeginMainMenuBar()){
-                if(ImGui::BeginMenu("File")){
-                    if(ImGui::MenuItem("Open Model")){
-                        const char* filter="*.iqm";
-                        const char* path=tinyfd_openFileDialog(NULL,NULL,1,&filter,NULL,0);
-                        if(path!=NULL){
+            if (ImGui::BeginMainMenuBar()) {
+                if (ImGui::BeginMenu("File")) {
+                    if (ImGui::MenuItem("Open Model")) {
+                        const char* filter = "*.iqm";
+                        const char* path = tinyfd_openFileDialog(NULL, NULL, 1, &filter, NULL, 0);
+                        if (path != NULL) {
                             activeModel.clear();
                             clearBuffers();
-                            activeModel=loadIQM(path);
+                            activeModel = loadIQM(path);
                             uploadBuffers();
-                            animtime=.0f;
+                            animtime = .0f;
                         }
                     }
-                    if(ImGui::MenuItem("Open Texture")){
-                        const char* filter="*.png";
-                        const char* path=tinyfd_openFileDialog(NULL,NULL,1,&filter,NULL,0);
-                        if(path!=NULL){
-                            activeModel.texture=loadTexture(path);
-                            activeModel.textured=true;
+                    if (ImGui::MenuItem("Open Texture")) {
+                        const char* filter = "*.png";
+                        const char* path = tinyfd_openFileDialog(NULL, NULL, 1, &filter, NULL, 0);
+                        if (path != NULL) {
+                            activeModel.texture = loadTexture(path);
+                            activeModel.textured = true;
                         }
                     }
                     ImGui::EndMenu();
@@ -130,74 +131,87 @@ int main() {
 
 
             //timeline
-            ImGui::SetNextWindowPos(ImVec2(mainViewport->WorkPos.x+width/2.0f-300.0f,mainViewport->WorkPos.y+height-100.0f),true);
-            
-            if(ImGui::Begin("Timeline",NULL,ImGuiWindowFlags_AlwaysAutoResize)){
-            
-                const char* animationDropdownText=(activeModel.currentClip>=0 ? activeModel.clipNames[activeModel.currentClip].c_str():"[all]");
-                if(activeModel.animatable&&ImGui::BeginCombo("##animselector",animationDropdownText)){
-                    for(int i=0;i<activeModel.clipNames.size();i++){
-                        bool isSelected=(i==activeModel.currentClip);
-                        if(ImGui::Selectable(activeModel.clipNames[i].c_str(),isSelected))
-                            activeModel.currentClip=i;
-                        if(isSelected)
+            ImGui::SetNextWindowPos(ImVec2(mainViewport->WorkPos.x + width / 2.0f - 300.0f, mainViewport->WorkPos.y + height - 100.0f), true);
+
+            if (ImGui::Begin("Timeline", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
+
+                const char* animationDropdownText = (activeModel.currentClip >= 0 ? activeModel.clipNames[activeModel.currentClip].c_str() : "[all]");
+                if (activeModel.animatable && ImGui::BeginCombo("##animselector", animationDropdownText)) {
+                    for (int i = 0;i < activeModel.clipNames.size();i++) {
+                        bool isSelected = (i == activeModel.currentClip);
+                        if (ImGui::Selectable(activeModel.clipNames[i].c_str(), isSelected))
+                            activeModel.currentClip = i;
+                        if (isSelected)
                             ImGui::SetItemDefaultFocus();
                     }
-                    bool isSelected=-1;
-                    if(ImGui::Selectable("[all]",isSelected))
-                            activeModel.currentClip=-1;
-                    if(isSelected)
+                    bool isSelected = -1;
+                    if (ImGui::Selectable("[all]", isSelected))
+                        activeModel.currentClip = -1;
+                    if (isSelected)
                         ImGui::SetItemDefaultFocus();
 
                     ImGui::EndCombo();
                 }
                 ImGui::SameLine();
-                ImGui::Text("%d vertices, %.2f FPS",activeModel.animationData.baseNormals.size(),io.Framerate);
-                const char* pauseLabels[2]={"Pause","Unpause"};
-                if(ImGui::Button(pauseLabels[paused]))
-                    paused=!paused;
+                ImGui::Text("%d vertices, %.2f FPS", activeModel.animationData.baseNormals.size(), io.Framerate);
+                const char* pauseLabels[2] = { "Pause","Unpause" };
+                if (ImGui::Button(pauseLabels[paused]))
+                    paused = !paused;
                 ImGui::SameLine();
-                if(activeModel.animatable)
-                    if(ImGui::SliderFloat("##timeline",&animtime,0.0f,animationDuration))
-                        seeking=true;
+                if (activeModel.animatable)
+                    if (ImGui::SliderFloat("##timeline", &animtime, 0.0f, animationDuration))
+                        seeking = true;
                 ImGui::End();
             }
         }
 
-        if(activeModel.animatable&&(!paused||seeking))
+        if (activeModel.animatable && (!paused || seeking))
             activeModel.animate(animtime);
 
 
         //Mouse Input
-        {  
+        {
 
-            if(ImGui::IsMouseDown(ImGuiMouseButton_Right)){
+            if (ImGui::IsMouseDown(ImGuiMouseButton_Right)) {
                 //record last position
-                if(mouseWasDown){
-                    lastMousePos=currentMousePos;
-                    applyArcball=true;
+                if (mouseWasDown) {
+                    lastMousePos = currentMousePos;
+                    if (ImGui::IsKeyDown(GLFW_KEY_LEFT_SHIFT) || ImGui::IsKeyDown(GLFW_KEY_RIGHT_SHIFT)) {
+                        applyPan = true;
+                        applyArcball = false;
+                    }
+                    else {
+                        applyArcball = true;
+                        applyPan = false;
+                    }
                 }
-                ImVec2 pos=ImGui::GetMousePos();
-                currentMousePos=glm::vec2(pos.x,pos.y);
-                mouseWasDown=true;
+                ImVec2 pos = ImGui::GetMousePos();
+                currentMousePos = glm::vec2(pos.x, pos.y);
+                mouseWasDown = true;
             }
-            else{
-                applyArcball=false;
-                mouseWasDown=false;
+            else {
+                applyArcball = false;
+                applyPan = false;
+                mouseWasDown = false;
             }
 
-            //rotate camera
-            if(applyArcball){
-                sceneCamera.rotateArcball(lastMousePos,currentMousePos);
+            //manipulate camera
+            if (applyArcball) {
+                sceneCamera.rotateArcball(lastMousePos, currentMousePos);
+            }
+            if (applyPan) {
+                glm::vec2 mouseDelta = currentMousePos - lastMousePos;
+                mouseDelta.x *= -1.0f;
+                sceneCamera.pan(mouseDelta);
             }
         }
 
 
         //Rendering
         ImGui::Render();
-        
+
         //adapt to window resize
-        glViewport(0,0,width,height);        
+        glViewport(0, 0, width, height);
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         activeModel.draw();
@@ -205,8 +219,8 @@ int main() {
         //cleanup opengl state for ImGui
         glUseProgram(0);
         glBindVertexArray(0);
-        glBindBuffer(GL_ARRAY_BUFFER,0);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
         ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 
