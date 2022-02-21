@@ -9,8 +9,8 @@
 int totalTests;
 int successfulTests;
 
-void runTest(bool(*test)(void),const char *testName) {
-    std::cout<<"Running "<<testName<<"... ";
+void runTest(bool(*test)(void), const char* testName) {
+    std::cout << "Running " << testName << "... ";
     totalTests++;
     successfulTests += test();
 }
@@ -120,116 +120,163 @@ bool testCubeDiff() {
     return true;
 }
 
-bool expectValue(const glm::vec3 &actual, const glm::vec3 &expected, const char* name){
-    if(fabs(glm::length(actual-expected))>std::numeric_limits<float>::epsilon()){
-        std::cout<<"FAILED\n \tExpected "<<name<<" value ("<<expected.x<<","<<expected.y<<","<<expected.z<<")\n";
-        std::cout<<"\tGot: ("<<actual.x<<","<<actual.y<<","<<actual.z<<")\n";
+bool expectValue(const glm::vec3& actual, const glm::vec3& expected, const char* name) {
+    if (fabs(glm::length(actual - expected)) > std::numeric_limits<float>::epsilon()) {
+        std::cout << "FAILED\n \tExpected " << name << " value (" << expected.x << "," << expected.y << "," << expected.z << ")\n";
+        std::cout << "\tGot: (" << actual.x << "," << actual.y << "," << actual.z << ")\n";
         return false;
     }
     return true;
 }
 
-bool testArcballNull(){
-    const glm::vec3 startingEye(.0f,.0f,1.0f);
+bool testArcballNull() {
+    const glm::vec3 startingEye(.0f, .0f, 1.0f);
     const glm::vec3 startingCenter(.0f);
-    const glm::vec3 startingUp(.0f,1.0f,.0f);
-    Camera camera(startingEye,startingCenter,startingUp);
-    camera.rotateArcball(glm::vec2(.0f),glm::vec2(.0f));
+    const glm::vec3 startingUp(.0f, 1.0f, .0f);
+    Camera camera(startingEye, startingCenter, startingUp);
+    camera.rotateArcball(glm::vec2(.0f), glm::vec2(.0f));
 
-    if(!expectValue(camera.getEye(),startingEye,"eye"))
+    if (!expectValue(camera.getEye(), startingEye, "eye"))
         return false;
-    if(!expectValue(camera.getCenter(),startingCenter,"center"))
+    if (!expectValue(camera.getCenter(), startingCenter, "center"))
         return false;
-    if(!expectValue(camera.getUp(),startingUp,"up"))
+    if (!expectValue(camera.getUp(), startingUp, "up"))
         return false;
-    std::cout<< "PASSED\n";
+    std::cout << "PASSED\n";
     return true;
 }
 
-bool testArcballEye(){
-    const glm::vec3 startingEye(.0f,.0f,1.0f);
+bool testArcballEye() {
+    const glm::vec3 startingEye(.0f, .0f, 1.0f);
     const glm::vec3 startingCenter(.0f);
-    const glm::vec3 startingUp(.0f,1.0f,.0f);
-    Camera camera(startingEye,startingCenter,startingUp);
+    const glm::vec3 startingUp(.0f, 1.0f, .0f);
+    Camera camera(startingEye, startingCenter, startingUp);
 
-    camera.rotateArcball(glm::vec2(.5f),glm::vec2(.75f,.5f));
+    camera.rotateArcball(glm::vec2(.5f), glm::vec2(.75f, .5f));
 
-    const glm::vec3 finalEye(-sin(glm::radians(60.0f)),.0f,cos(glm::radians(60.0f)));
-    if(!expectValue(camera.getEye(),finalEye,"eye"))
+    const glm::vec3 finalEye(-sin(glm::radians(60.0f)), .0f, cos(glm::radians(60.0f)));
+    if (!expectValue(camera.getEye(), finalEye, "eye"))
         return false;
 
-    std::cout<<"PASSED\n";
+    std::cout << "PASSED\n";
     return true;
 }
 
-bool testArcballEye2(){
-    const glm::vec3 startingEye(.0f,.0f,1.0f);
+bool testArcballEye2() {
+    const glm::vec3 startingEye(.0f, .0f, 1.0f);
     const glm::vec3 startingCenter(.0f);
-    const glm::vec3 startingUp(.0f,1.0f,.0f);
-    Camera camera(startingEye,startingCenter,startingUp);
+    const glm::vec3 startingUp(.0f, 1.0f, .0f);
+    Camera camera(startingEye, startingCenter, startingUp);
 
-    camera.rotateArcball(glm::vec2(.5f),glm::vec2(.5f,.75f));
+    camera.rotateArcball(glm::vec2(.5f), glm::vec2(.5f, .75f));
 
-    const glm::vec3 finalEye(.0f,sin(glm::radians(60.0f)),cos(glm::radians(60.0f)));
-    if(!expectValue(camera.getEye(),finalEye,"eye"))
+    const glm::vec3 finalEye(.0f, sin(glm::radians(60.0f)), cos(glm::radians(60.0f)));
+    if (!expectValue(camera.getEye(), finalEye, "eye"))
         return false;
-    std::cout<<"PASSED\n";
+    std::cout << "PASSED\n";
     return true;
 }
 
-bool testArcballUp(){
-    const glm::vec3 startingEye(.0f,.0f,1.0f);
+bool testArcballUp() {
+    const glm::vec3 startingEye(.0f, .0f, 1.0f);
     const glm::vec3 startingCenter(.0f);
-    const glm::vec3 startingUp(.0f,1.0f,.0f);
-    Camera camera(startingEye,startingCenter,startingUp);
+    const glm::vec3 startingUp(.0f, 1.0f, .0f);
+    Camera camera(startingEye, startingCenter, startingUp);
 
-    camera.rotateArcball(glm::vec2(.5f),glm::vec2(1.0f,.5f));
+    camera.rotateArcball(glm::vec2(.5f), glm::vec2(1.0f, .5f));
 
     //rotating around y axis - should be unchanged
-    if(!expectValue(camera.getUp(),startingUp,"up"))
+    if (!expectValue(camera.getUp(), startingUp, "up"))
         return false;
-    std::cout<<"PASSED\n";
+    std::cout << "PASSED\n";
     return true;
 }
 
-bool testArcballUp2(){
-    const glm::vec3 startingEye(.0f,.0f,1.0f);
+bool testArcballUp2() {
+    const glm::vec3 startingEye(.0f, .0f, 1.0f);
     const glm::vec3 startingCenter(.0f);
-    const glm::vec3 startingUp(.0f,1.0f,.0f);
-    Camera camera(startingEye,startingCenter,startingUp);
+    const glm::vec3 startingUp(.0f, 1.0f, .0f);
+    Camera camera(startingEye, startingCenter, startingUp);
 
-    camera.rotateArcball(glm::vec2(.5f),glm::vec2(.5f,.75f));
+    camera.rotateArcball(glm::vec2(.5f), glm::vec2(.5f, .75f));
 
-    const glm::vec3 finalUp(.0f,cos(glm::radians(60.0f)),-sin(glm::radians(60.0f)));
-    if(!expectValue(camera.getUp(),finalUp,"up"))
+    const glm::vec3 finalUp(.0f, cos(glm::radians(60.0f)), -sin(glm::radians(60.0f)));
+    if (!expectValue(camera.getUp(), finalUp, "up"))
         return false;
-    std::cout<<"PASSED\n";
+    std::cout << "PASSED\n";
     return true;
 }
 
-bool testArcballSequential(){
-    const glm::vec3 startingEye(.0f,.0f,1.0f);
+bool testArcballSequential() {
+    const glm::vec3 startingEye(.0f, .0f, 1.0f);
     const glm::vec3 startingCenter(.0f);
-    const glm::vec3 startingUp(.0f,1.0f,.0f);
-    Camera camera(startingEye,startingCenter,startingUp);
+    const glm::vec3 startingUp(.0f, 1.0f, .0f);
+    Camera camera(startingEye, startingCenter, startingUp);
 
-    camera.rotateArcball(glm::vec2(.0f,.0f),glm::vec2(.5f,.0f));
-    camera.rotateArcball(glm::vec2(.5f,.0f),glm::vec2(.5f,.5f));
-    camera.rotateArcball(glm::vec2(.5f,.5f),glm::vec2(.0f,.5f));
-    camera.rotateArcball(glm::vec2(.0f,.5f),glm::vec2(.0f,.0f));
-    if(!expectValue(camera.getUp(),startingUp,"up"))
+    camera.rotateArcball(glm::vec2(.0f, .0f), glm::vec2(.5f, .0f));
+    camera.rotateArcball(glm::vec2(.5f, .0f), glm::vec2(.5f, .5f));
+    camera.rotateArcball(glm::vec2(.5f, .5f), glm::vec2(.0f, .5f));
+    camera.rotateArcball(glm::vec2(.0f, .5f), glm::vec2(.0f, .0f));
+    if (!expectValue(camera.getUp(), startingUp, "up"))
         return false;
-    std::cout<<"PASSED\n";
+    std::cout << "PASSED\n";
     return true;
 }
 
-bool testPan(){
-    std::cout<<"TODO\n";
+bool testPan() {
+    const glm::vec3 startingEye(.0f, .0f, 1.0f);
+    const glm::vec3 startingCenter(.0f);
+    const glm::vec3 startingUp(.0f, 1.0f, .0f);
+    Camera camera(startingEye, startingCenter, startingUp);
+
+    camera.pan(glm::vec2(.5f, .0f));
+    if (!expectValue(camera.getCenter(), glm::vec3(1.0f, .0f, .0f), "center"))
+        return false;
+
+    if (!expectValue(camera.getEye(), glm::vec3(1.0f, .0f, 1.0f), "eye"))
+        return false;
+
+    std::cout << "PASSED\n";
     return true;
 }
 
-bool testZoom(){
-    std::cout<<"TODO\n";
+bool testPan2() {
+    const glm::vec3 startingEye(.0f, .0f, 1.0f);
+    const glm::vec3 startingCenter(.0f);
+    const glm::vec3 startingUp(.0f, 1.0f, .0f);
+    Camera camera(startingEye, startingCenter, startingUp);
+
+    camera.pan(glm::vec2(.0f, .5f));
+    if (!expectValue(camera.getCenter(), glm::vec3(.0f, 1.0f, .0f), "center"))
+        return false;
+
+    if (!expectValue(camera.getEye(), glm::vec3(.0f, 1.0f, 1.0f), "eye"))
+        return false;
+
+    std::cout << "PASSED\n";
+    return true;
+}
+
+bool testPan3() {
+    const glm::vec3 startingEye(.0f, .0f, 1.0f);
+    const glm::vec3 startingCenter(.0f);
+    const glm::vec3 startingUp(.0f, 1.0f, .0f);
+    Camera camera(startingEye, startingCenter, startingUp);
+
+    camera.pan(glm::vec2(.5f, .5f));
+    if (!expectValue(camera.getCenter(), glm::vec3(1.0f, 1.0f, .0f), "center"))
+        return false;
+
+    if (!expectValue(camera.getEye(), glm::vec3(1.0f, 1.0f, 1.0f), "eye"))
+        return false;
+
+    std::cout << "PASSED\n";
+    return true;
+}
+
+
+bool testZoom() {
+    std::cout << "TODO\n";
     return true;
 }
 
@@ -244,6 +291,8 @@ int main() {
     runTest(TEST(testArcballUp));
     runTest(TEST(testArcballUp2));
     runTest(TEST(testPan));
+    runTest(TEST(testPan2));
+    runTest(TEST(testPan3));
     runTest(TEST(testZoom));
     runTest(TEST(testArcballSequential));
 
