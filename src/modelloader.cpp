@@ -13,6 +13,7 @@
 #include<iostream>
 
 #include "animation.h"
+#include "camera.hpp"
 
 //Buffers
 static std::vector<glm::vec3> positionBuffer;
@@ -27,6 +28,10 @@ static GLuint modelElementBuffer;
 
 //Shading
 static GLuint defaultShader;
+
+//Camera
+Camera sceneCamera;
+
 
 char *loadAscii(const char *filename) {
     FILE *file = fopen(filename, "r");
@@ -125,13 +130,16 @@ void graphicsInit() {
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_MULTISAMPLE);
     //glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-}
 
-static glm::vec3 cameraCenter = glm::vec3(.0f, 1.0f, .0f);
-static glm::vec3 eye = glm::vec3(.0f, 2.0f, 5.0f);
-static float aspectRatio=16.0f / 9.0f;
-void setAspectRatio(float ratio){
-    aspectRatio=ratio;
+
+    //camera setup
+    sceneCamera=Camera(glm::vec3(.0f,2.0f,5.0f),glm::vec3(.0f, 1.0f, .0f),glm::vec3(.0f,1.0f,.0f));
+    sceneCamera.screenWidth=1600;
+    sceneCamera.screenHeight=900;
+}
+void setScreen(float width,float height){
+    sceneCamera.screenWidth=width;
+    sceneCamera.screenHeight=height;
 }
 
 void Model::draw() {
@@ -139,12 +147,11 @@ void Model::draw() {
 
 
     glUseProgram(defaultShader);
-    glm::mat4 viewProj = glm::perspective(glm::radians(45.0f), aspectRatio, 1.0f, 10.0f) *
-        glm::lookAt(eye, cameraCenter, glm::vec3(.0f, 1.0f, .0f));
+    glm::mat4 viewProj = sceneCamera.getMatrix();
     glm::mat4 model =  glm::rotate(glm::radians(-5.0f), glm::vec3(.0f, 1.0f, .0f))*glm::rotate(glm::radians(-90.0f), glm::vec3(1.0f, .0f, .0f));
     glUniformMatrix4fv(glGetUniformLocation(defaultShader, "model"), 1, false, glm::value_ptr(model));
     glUniformMatrix4fv(glGetUniformLocation(defaultShader, "viewproj"), 1, false, glm::value_ptr(viewProj));
-    glUniform3f(glGetUniformLocation(defaultShader, "viewPos"), eye.x, eye.y, eye.z);
+    glUniform3f(glGetUniformLocation(defaultShader, "viewPos"), sceneCamera.getEye().x, sceneCamera.getEye().y, sceneCamera.getEye().z);
     glUniform1i(glGetUniformLocation(defaultShader, "textured"), textured);
     glBindTexture(GL_TEXTURE_2D, texture);
     glBindVertexArray(modelVAO);

@@ -6,6 +6,7 @@
 #include<glm/gtx/quaternion.hpp>
 
 #include "animation.h"
+#include "camera.hpp"
 
 struct Joint{
     glm::mat4 matrix;
@@ -38,8 +39,11 @@ struct Model {
     void clear();
 };
 
+extern Camera sceneCamera;
+
 void graphicsInit();
 void setAspectRatio(float ratio);
+void setScreen(float width,float height);
 Model loadIQM(const char *filename);
 GLuint loadTexture(const char *filename);
 void uploadBuffers();

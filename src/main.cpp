@@ -61,8 +61,15 @@ int main() {
     uploadBuffers();
     activeModel.currentClip=1;
 
+    //animation control variables
     float animtime=.0f,lasttime=glfwGetTime();
-    bool paused=false;    
+    bool paused=false;\
+
+    //camera control variables
+    bool mouseWasDown=false;
+    glm::vec2 lastMousePos;
+    glm::vec2 currentMousePos;
+    bool applyArcball=false;
     while (!glfwWindowShouldClose(window)) {
         bool seeking=false;
 
@@ -83,6 +90,8 @@ int main() {
         //get window parameters
         int width,height;
         glfwGetFramebufferSize(window,&width,&height);
+        sceneCamera.screenWidth=width;
+        sceneCamera.screenHeight=height;
 
 
         //UI Input
@@ -159,11 +168,35 @@ int main() {
             activeModel.animate(animtime);
 
 
+        //Mouse Input
+        {  
+
+            if(ImGui::IsMouseDown(ImGuiMouseButton_Right)){
+                //record last position
+                if(mouseWasDown){
+                    lastMousePos=currentMousePos;
+                    applyArcball=true;
+                }
+                ImVec2 pos=ImGui::GetMousePos();
+                currentMousePos=glm::vec2(pos.x,pos.y);
+                mouseWasDown=true;
+            }
+            else{
+                applyArcball=false;
+                mouseWasDown=false;
+            }
+
+            //rotate camera
+            if(applyArcball){
+                sceneCamera.rotateArcball(lastMousePos,currentMousePos);
+            }
+        }
+
+
         //Rendering
         ImGui::Render();
         
         //adapt to window resize
-        setAspectRatio((float)width/height);
         glViewport(0,0,width,height);        
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -180,6 +213,8 @@ int main() {
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
+
+    activeModel.clear();
 
     ImGui_ImplOpenGL2_Shutdown();
     ImGui_ImplGlfw_Shutdown();
