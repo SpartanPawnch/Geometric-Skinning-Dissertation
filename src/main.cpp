@@ -26,6 +26,8 @@ int main() {
     glfwWindowHint(GLFW_SAMPLES, 4);
 
     window = glfwCreateWindow(1600, 900, "Skinning Dissertation", NULL, NULL);
+    glfwSwapInterval(0);
+
 
     glfwMakeContextCurrent(window);
 
@@ -55,11 +57,11 @@ int main() {
     const ImGuiViewport* mainViewport = ImGui::GetMainViewport();
 
     //load models
-    Model activeModel = loadIQM(ROOTDIR "/assets/longboi.iqm");
-    activeModel.texture = loadTexture(ROOTDIR "/assets/longboi_texture.png");
+    Model activeModel = loadIQM(ROOTDIR "/assets/complexanimations-15k.iqm");
+    activeModel.texture = loadTexture(ROOTDIR "/assets/complexanims_texture.png");
     activeModel.textured = true;
     uploadBuffers();
-    activeModel.currentClip = 1;
+    activeModel.currentClip = 0;
 
     //animation control variables
     float animtime = .0f, lasttime = glfwGetTime();
@@ -68,11 +70,14 @@ int main() {
     //camera control variables
     glm::vec2 lastMousePos;
     glm::vec2 currentMousePos;
-
-
     bool mouseWasDown = false;
     bool applyArcball = false;
     bool applyPan = false;
+
+    //metrics
+    float averageFPS = io.Framerate, minFPS = 144.0f, maxFPS = io.Framerate;
+    long totalFrames = 1;
+
     while (!glfwWindowShouldClose(window)) {
         bool seeking = false;
 
@@ -115,6 +120,16 @@ int main() {
                             activeModel = loadIQM(path);
                             uploadBuffers();
                             animtime = .0f;
+
+                            //reset camera
+                            sceneCamera = Camera(glm::vec3(.0f, 2.0f, 4.0f),
+                                glm::vec3(.0f, 1.0f, .0f), glm::vec3(.0f, 1.0f, .0f));
+
+                            //reset metrics
+                            averageFPS = io.Framerate;
+                            minFPS = 144.0f;
+                            maxFPS = io.Framerate;
+                            totalFrames = 1;
                         }
                     }
                     if (ImGui::MenuItem("Open Texture")) {
@@ -124,6 +139,7 @@ int main() {
                             activeModel.texture = loadTexture(path);
                             activeModel.textured = true;
                         }
+
                     }
                     ImGui::EndMenu();
                 }
@@ -133,9 +149,9 @@ int main() {
 
 
             //timeline
-            ImGui::SetNextWindowPos(ImVec2(mainViewport->WorkPos.x + width / 2.0f - 300.0f, mainViewport->WorkPos.y + height - 100.0f), true);
-
-            if (ImGui::Begin("Timeline", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
+            ImGui::SetNextWindowPos(ImVec2(mainViewport->WorkPos.x + width / 2.0f - 300.0f, mainViewport->WorkPos.y + height - 100.0f), ImGuiCond_Once);
+            ImGui::SetNextWindowSize(ImVec2(500.0f, 100.0f), ImGuiCond_Once);
+            if (ImGui::Begin("Timeline", NULL)) {
 
                 const char* animationDropdownText = (activeModel.currentClip >= 0 ? activeModel.clipNames[activeModel.currentClip].c_str() : "[all]");
                 if (activeModel.animatable && ImGui::BeginCombo("##animselector", animationDropdownText)) {
@@ -154,15 +170,22 @@ int main() {
 
                     ImGui::EndCombo();
                 }
-                ImGui::SameLine();
-                ImGui::Text("%d vertices, %.2f FPS", activeModel.animationData.baseNormals.size(), io.Framerate);
+
                 const char* pauseLabels[2] = { "Pause","Unpause" };
                 if (ImGui::Button(pauseLabels[paused]))
                     paused = !paused;
                 ImGui::SameLine();
+                ImGui::SetNextItemWidth(ImGui::GetWindowWidth() - 70.0f);
                 if (activeModel.animatable)
                     if (ImGui::SliderFloat("##timeline", &animtime, 0.0f, animationDuration))
                         seeking = true;
+                ImGui::End();
+            }
+
+            //metrics window
+            if (ImGui::Begin("Metrics", NULL)) {
+                ImGui::Text("%d vertices\n%.2f FPS, %.4f ms\n%.2f Avg, %.2f Min, %.2f Max",
+                    activeModel.animationData.baseNormals.size(), io.Framerate, io.DeltaTime, averageFPS, minFPS, maxFPS);
                 ImGui::End();
             }
         }
@@ -233,6 +256,12 @@ int main() {
 
         glfwSwapBuffers(window);
         glfwPollEvents();
+
+        //update metrics
+        totalFrames++;
+        averageFPS = (averageFPS * (totalFrames - 1) + io.Framerate) / totalFrames;
+        minFPS = io.Framerate < minFPS ? io.Framerate : minFPS;
+        maxFPS = io.Framerate > maxFPS ? io.Framerate : maxFPS;
     }
 
     activeModel.clear();

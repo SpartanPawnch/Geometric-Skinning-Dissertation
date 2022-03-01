@@ -50,7 +50,7 @@ void Camera::rotateArcball(const glm::vec2& cursorStart, const glm::vec2& cursor
 }
 void Camera::pan(glm::vec2 cursorDelta) {
 
-    glm::vec2 cursorScaled = glm::vec2(2.0f * cursorDelta.x / screenWidth, 2.0f * cursorDelta.y / screenHeight);
+    glm::vec2 cursorScaled = cameraZoom * glm::vec2(2.0f * cursorDelta.x / screenWidth, 2.0f * cursorDelta.y / screenHeight);
     //revert to world coordinates
     glm::vec3 worldTranslation = cameraInverse() * glm::vec4(cursorScaled.x, cursorScaled.y, .0f, .0f);
     center += worldTranslation;
