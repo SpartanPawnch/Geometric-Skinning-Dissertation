@@ -59,6 +59,7 @@ char* loadAscii(const char* filename) {
 }
 
 void graphicsInit() {
+
     //create vertex array object
     glGenVertexArrays(1, &modelVAO);
     glBindVertexArray(modelVAO);
@@ -78,7 +79,7 @@ void graphicsInit() {
     glEnableVertexAttribArray(2);
 
     glBindBuffer(GL_ARRAY_BUFFER, modelVBO[3]);
-    glVertexAttribIPointer(3, 4, GL_INT, GL_FALSE, (void*)0);
+    glVertexAttribPointer(3, 4, GL_INT, GL_FALSE, sizeof(glm::ivec4),(void*)0);
     glEnableVertexAttribArray(3);
 
     glBindBuffer(GL_ARRAY_BUFFER, modelVBO[4]);

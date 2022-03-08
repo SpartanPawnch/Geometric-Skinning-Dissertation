@@ -17,6 +17,7 @@ int main() {
     //setup window
     GLFWwindow* window;
     glfwInit();
+    
 
 #if GLFW_VERSION_MAJOR>=3 && GLFW_VERSION_MINOR>=1
     //Supported by glfw 3.1 and onwards

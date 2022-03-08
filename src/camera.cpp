@@ -7,7 +7,7 @@
 #include <iostream>
 
 
-static constexpr glm::vec2 toRelativeScreenCoordinates(const glm::vec2& v, float screenWidth, float screenHeight) {
+static glm::vec2 toRelativeScreenCoordinates(const glm::vec2& v, float screenWidth, float screenHeight) {
     glm::vec2 scaled = 2.0f * glm::vec2(v.x / screenWidth - .5f, -v.y / screenHeight + .5f);
     return scaled;
 }
@@ -52,7 +52,7 @@ void Camera::pan(glm::vec2 cursorDelta) {
 
     glm::vec2 cursorScaled = cameraZoom * glm::vec2(2.0f * cursorDelta.x / screenWidth, 2.0f * cursorDelta.y / screenHeight);
     //revert to world coordinates
-    glm::vec3 worldTranslation = cameraInverse() * glm::vec4(cursorScaled.x, cursorScaled.y, .0f, .0f);
+    glm::vec3 worldTranslation = (glm::vec3)(cameraInverse() * glm::vec4(cursorScaled.x, cursorScaled.y, .0f, .0f));
     center += worldTranslation;
 }
 void Camera::zoom(float scrollDelta) {
