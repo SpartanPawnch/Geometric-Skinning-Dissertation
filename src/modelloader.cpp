@@ -233,6 +233,16 @@ void Model::animate(float frame) {
     }
 }
 
+void Model::resetBuffers() {
+    animationData.resetVertices(&positionBuffer[bufferOffset]);
+    animationData.resetNormals(&normalBuffer[bufferOffset]);
+    //reupload buffer
+    glBindBuffer(GL_ARRAY_BUFFER, modelVBO[0]);
+    glBufferSubData(GL_ARRAY_BUFFER, bufferOffset * sizeof(glm::vec3), animationData.baseVertices.size() * sizeof(glm::vec3), &positionBuffer[bufferOffset]);
+    glBindBuffer(GL_ARRAY_BUFFER, modelVBO[1]);
+    glBufferSubData(GL_ARRAY_BUFFER, bufferOffset * sizeof(glm::vec3), animationData.baseVertices.size() * sizeof(glm::vec3), &normalBuffer[bufferOffset]);
+}
+
 void Model::clear() {
     vertexOffset = 0;
     vertexCount = 0;

@@ -26,12 +26,21 @@ struct AnimationData {
     unsigned int weightsPerVertex = 0;
     unsigned int posesPerFrame = 0;
 
-
+    //CPU Skinning
     void deformPositionLBS(glm::vec3* target, float frame);
     void deformPositionLBS(glm::vec3* target, float frame, const AnimationClip& clip);
     void deformNormalLBS(glm::vec3* target, float frame);
     void deformNormalLBS(glm::vec3* target, float frame, const AnimationClip& clip);
+
+    //GPU Skinning
+    //upload the poses at an absolute frame
     void uploadPose(float frame, GLuint program);
+    //upload the poses at the frame of a specific clip
     void uploadPose(float frame, GLuint program, const AnimationClip& clip);
+
+    //Reset target to base value
+    void resetVertices(glm::vec3* target);
+    void resetNormals(glm::vec3* target);
+
     void clear();
 };

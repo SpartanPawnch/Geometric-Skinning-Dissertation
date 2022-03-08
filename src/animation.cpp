@@ -50,6 +50,17 @@ void AnimationData::uploadPose(float frame, GLuint program, const AnimationClip&
     float absoluteFrame = clip.offset + fmodf(frame, clip.length);
     uploadPose(absoluteFrame, program);
 }
+
+void AnimationData::resetVertices(glm::vec3* target) {
+    for (int i = 0;i < baseVertices.size();i++)
+        target[i] = baseVertices[i];
+}
+
+void AnimationData::resetNormals(glm::vec3* target) {
+    for (int i = 0;i < baseNormals.size();i++)
+        target[i] = baseNormals[i];
+}
+
 void AnimationData::clear() {
     baseVertices.clear();
     baseNormals.clear();

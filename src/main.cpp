@@ -60,7 +60,6 @@ int main() {
     Model activeModel = loadIQM(ROOTDIR "/assets/complexanimations-15k.iqm");
     activeModel.texture = loadTexture(ROOTDIR "/assets/complexanims_texture.png");
     activeModel.textured = true;
-    activeModel.skinningType = SkinningTypeGPU;
     uploadBuffers();
     activeModel.currentClip = 0;
 
@@ -151,10 +150,12 @@ int main() {
 
             //timeline
             ImGui::SetNextWindowPos(ImVec2(mainViewport->WorkPos.x + width / 2.0f - 300.0f, mainViewport->WorkPos.y + height - 100.0f), ImGuiCond_Once);
-            ImGui::SetNextWindowSize(ImVec2(500.0f, 100.0f), ImGuiCond_Once);
+            ImGui::SetNextWindowSize(ImVec2(600.0f, 100.0f), ImGuiCond_Once);
             if (ImGui::Begin("Timeline", NULL)) {
 
+                //clip selector
                 const char* animationDropdownText = (activeModel.currentClip >= 0 ? activeModel.clipNames[activeModel.currentClip].c_str() : "[all]");
+                ImGui::SetNextItemWidth(ImGui::GetWindowWidth() * .4f);
                 if (activeModel.animatable && ImGui::BeginCombo("##animselector", animationDropdownText)) {
                     for (int i = 0;i < activeModel.clipNames.size();i++) {
                         bool isSelected = (i == activeModel.currentClip);
@@ -166,6 +167,28 @@ int main() {
                     bool isSelected = false;
                     if (ImGui::Selectable("[all]", isSelected))
                         activeModel.currentClip = -1;
+                    if (isSelected)
+                        ImGui::SetItemDefaultFocus();
+
+                    ImGui::EndCombo();
+                }
+
+                //skinning selector
+                const char* skinningDropdownText = (activeModel.skinningType == SkinningTypeCPU ? "CPU Skinning" : "GPU Skinning");
+                ImGui::SameLine();
+                ImGui::SetNextItemWidth(200.0f);
+                if (activeModel.animatable && ImGui::BeginCombo("##skinningselector", skinningDropdownText)) {
+                    bool isSelected = activeModel.skinningType == SkinningTypeCPU;
+                    if (ImGui::Selectable("CPU Skinning", &isSelected))
+                        activeModel.skinningType = SkinningTypeCPU;
+                    if (isSelected)
+                        ImGui::SetItemDefaultFocus();
+
+                    isSelected = activeModel.skinningType == SkinningTypeGPU;
+                    if (ImGui::Selectable("GPU Skinning", &isSelected)) {
+                        activeModel.skinningType = SkinningTypeGPU;
+                        activeModel.resetBuffers();
+                    }
                     if (isSelected)
                         ImGui::SetItemDefaultFocus();
 

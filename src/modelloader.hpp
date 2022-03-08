@@ -42,6 +42,10 @@ struct Model {
 
     void animate(float frame);
     void draw();
+
+    //reset vertices and normals to their rest pose
+    void resetBuffers();
+
     //reset state to default
     void clear();
 };
