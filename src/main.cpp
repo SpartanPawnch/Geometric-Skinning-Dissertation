@@ -26,7 +26,7 @@ int main() {
     glfwWindowHint(GLFW_SAMPLES, 4);
 
     window = glfwCreateWindow(1600, 900, "Skinning Dissertation", NULL, NULL);
-    glfwSwapInterval(0);
+    //glfwSwapInterval(0);
 
 
     glfwMakeContextCurrent(window);
@@ -60,6 +60,7 @@ int main() {
     Model activeModel = loadIQM(ROOTDIR "/assets/complexanimations-15k.iqm");
     activeModel.texture = loadTexture(ROOTDIR "/assets/complexanims_texture.png");
     activeModel.textured = true;
+    activeModel.skinningType = SkinningTypeGPU;
     uploadBuffers();
     activeModel.currentClip = 0;
 

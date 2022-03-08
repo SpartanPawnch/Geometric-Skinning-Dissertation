@@ -19,15 +19,19 @@
 static std::vector<glm::vec3> positionBuffer;
 static std::vector<glm::vec3> normalBuffer;
 static std::vector<glm::vec2> texCoordBuffer;
+static std::vector<glm::ivec4> weightIndexBuffer;
+static std::vector<glm::vec4> weightBuffer;
+
 static std::vector<unsigned int>indexBuffer;
 
 
 static GLuint modelVAO;
-static GLuint modelVBO[3];
+static GLuint modelVBO[5];
 static GLuint modelElementBuffer;
 
 //Shading
 static GLuint defaultShader;
+static GLuint skinnedShader;
 
 //Camera
 Camera sceneCamera;
@@ -60,7 +64,7 @@ void graphicsInit() {
     glBindVertexArray(modelVAO);
 
     //create vertex buffers
-    glGenBuffers(3, modelVBO);
+    glGenBuffers(5, modelVBO);
     glBindBuffer(GL_ARRAY_BUFFER, modelVBO[0]);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
     glEnableVertexAttribArray(0);
@@ -73,6 +77,14 @@ void graphicsInit() {
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), (void*)0);
     glEnableVertexAttribArray(2);
 
+    glBindBuffer(GL_ARRAY_BUFFER, modelVBO[3]);
+    glVertexAttribIPointer(3, 4, GL_INT, GL_FALSE, (void*)0);
+    glEnableVertexAttribArray(3);
+
+    glBindBuffer(GL_ARRAY_BUFFER, modelVBO[4]);
+    glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(glm::vec4), (void*)0);
+    glEnableVertexAttribArray(4);
+
     //create element buffer
     glGenBuffers(1, &modelElementBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, modelElementBuffer);
@@ -81,8 +93,8 @@ void graphicsInit() {
     int success;
     char infoLog[512];
 
-    //create vertex shader
-    const char* vertText = loadAscii(ROOTDIR "/shaders/base.vert");
+    //create regular vertex shader
+    char* vertText = loadAscii(ROOTDIR "/shaders/base.vert");
     GLuint vertShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertShader, 1, (const GLchar**)&vertText, NULL);
     glCompileShader(vertShader);
@@ -90,6 +102,18 @@ void graphicsInit() {
     if (!success) {
         glGetShaderInfoLog(vertShader, 512, NULL, infoLog);
         printf("Vertex Shader Error:%s", infoLog);
+    }
+    free((void*)vertText);
+
+    //create skinned vertex shader
+    vertText = loadAscii(ROOTDIR "/shaders/skinned.vert");
+    GLuint skinnedVertShader = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(skinnedVertShader, 1, (const GLchar**)&vertText, NULL);
+    glCompileShader(skinnedVertShader);
+    glGetShaderiv(skinnedVertShader, GL_COMPILE_STATUS, &success);
+    if (!success) {
+        glGetShaderInfoLog(skinnedVertShader, 512, NULL, infoLog);
+        printf("Skinned Vertex Shader Error:%s", infoLog);
     }
     free((void*)vertText);
 
@@ -119,7 +143,20 @@ void graphicsInit() {
         printf("Shader Program Error:%s", infoLog);
     }
 
+    //create skinned shader program
+    skinnedShader = glCreateProgram();
+    glAttachShader(skinnedShader, skinnedVertShader);
+    glAttachShader(skinnedShader, fragShader);
+
+    glLinkProgram(skinnedShader);
+    glGetProgramiv(skinnedShader, GL_COMPILE_STATUS, &success);
+    if (!success) {
+        glGetProgramInfoLog(skinnedShader, 512, NULL, infoLog);
+        printf("Shader Program Error:%s", infoLog);
+    }
+
     glDeleteShader(vertShader);
+    glDeleteShader(skinnedVertShader);
     glDeleteShader(fragShader);
 
     //GL settings
@@ -142,17 +179,32 @@ void setScreen(float width, float height) {
     sceneCamera.screenHeight = height;
 }
 
+//TODO: refactor to remove this
+static float targetFrame = .0f;
+
 void Model::draw() {
     glLoadIdentity();
 
+    GLuint activeShader = defaultShader;
+    if (skinningType == SkinningTypeGPU)
+        activeShader = skinnedShader;
 
-    glUseProgram(defaultShader);
+
+    glUseProgram(activeShader);
+
+    if (skinningType == SkinningTypeGPU) {
+        if (currentClip >= 0)
+            animationData.uploadPose(targetFrame, skinnedShader, clips[currentClip]);
+        else
+            animationData.uploadPose(targetFrame, skinnedShader);
+    }
+
     glm::mat4 viewProj = sceneCamera.getMatrix();
     glm::mat4 model = glm::rotate(glm::radians(-5.0f), glm::vec3(.0f, 1.0f, .0f)) * glm::rotate(glm::radians(-90.0f), glm::vec3(1.0f, .0f, .0f));
-    glUniformMatrix4fv(glGetUniformLocation(defaultShader, "model"), 1, false, glm::value_ptr(model));
-    glUniformMatrix4fv(glGetUniformLocation(defaultShader, "viewproj"), 1, false, glm::value_ptr(viewProj));
-    glUniform3f(glGetUniformLocation(defaultShader, "viewPos"), sceneCamera.getEye().x, sceneCamera.getEye().y, sceneCamera.getEye().z);
-    glUniform1i(glGetUniformLocation(defaultShader, "textured"), textured);
+    glUniformMatrix4fv(glGetUniformLocation(activeShader, "model"), 1, false, glm::value_ptr(model));
+    glUniformMatrix4fv(glGetUniformLocation(activeShader, "viewproj"), 1, false, glm::value_ptr(viewProj));
+    glUniform3f(glGetUniformLocation(activeShader, "viewPos"), sceneCamera.getEye().x, sceneCamera.getEye().y, sceneCamera.getEye().z);
+    glUniform1i(glGetUniformLocation(activeShader, "textured"), textured);
     glBindTexture(GL_TEXTURE_2D, texture);
     glBindVertexArray(modelVAO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, modelElementBuffer);
@@ -160,20 +212,25 @@ void Model::draw() {
 }
 
 void Model::animate(float frame) {
-    //compute new positions
-    if (currentClip >= 0) {
-        animationData.deformPositionLBS(&positionBuffer[bufferOffset], frame, clips[currentClip]);
-        animationData.deformNormalLBS(&normalBuffer[bufferOffset], frame, clips[currentClip]);
+    if (skinningType == SkinningTypeCPU) {
+        //compute new positions
+        if (currentClip >= 0) {
+            animationData.deformPositionLBS(&positionBuffer[bufferOffset], frame, clips[currentClip]);
+            animationData.deformNormalLBS(&normalBuffer[bufferOffset], frame, clips[currentClip]);
+        }
+        else {
+            animationData.deformPositionLBS(&positionBuffer[bufferOffset], frame);
+            animationData.deformNormalLBS(&normalBuffer[bufferOffset], frame);
+        }
+        //reupload buffer
+        glBindBuffer(GL_ARRAY_BUFFER, modelVBO[0]);
+        glBufferSubData(GL_ARRAY_BUFFER, bufferOffset * sizeof(glm::vec3), animationData.baseVertices.size() * sizeof(glm::vec3), &positionBuffer[bufferOffset]);
+        glBindBuffer(GL_ARRAY_BUFFER, modelVBO[1]);
+        glBufferSubData(GL_ARRAY_BUFFER, bufferOffset * sizeof(glm::vec3), animationData.baseVertices.size() * sizeof(glm::vec3), &normalBuffer[bufferOffset]);
     }
     else {
-        animationData.deformPositionLBS(&positionBuffer[bufferOffset], frame);
-        animationData.deformNormalLBS(&normalBuffer[bufferOffset], frame);
+        targetFrame = frame;
     }
-    //reupload buffer
-    glBindBuffer(GL_ARRAY_BUFFER, modelVBO[0]);
-    glBufferSubData(GL_ARRAY_BUFFER, bufferOffset * sizeof(glm::vec3), animationData.baseVertices.size() * sizeof(glm::vec3), &positionBuffer[bufferOffset]);
-    glBindBuffer(GL_ARRAY_BUFFER, modelVBO[1]);
-    glBufferSubData(GL_ARRAY_BUFFER, bufferOffset * sizeof(glm::vec3), animationData.baseVertices.size() * sizeof(glm::vec3), &normalBuffer[bufferOffset]);
 }
 
 void Model::clear() {
@@ -420,6 +477,25 @@ Model loadIQM(const char* filename) {
         }
     }
 
+    if (m.animatable) {
+        for (int i = 0;i < m.animationData.baseVertices.size();i++) {
+            glm::ivec4 index(0);
+            glm::vec4 weight(.0f);
+
+            for (int j = 0;j < m.animationData.weightsPerVertex && j < 4;j++) {
+                index[j] = m.animationData.weightIndices[i * m.animationData.weightsPerVertex + j];
+                weight[j] = m.animationData.vertexWeights[i * m.animationData.weightsPerVertex + j];
+            }
+            weightIndexBuffer.push_back(index);
+            weightBuffer.push_back(weight);
+        }
+    }
+    else {
+        for (int i = 0;i < m.animationData.baseVertices.size();i++) {
+            weightIndexBuffer.push_back(glm::ivec4(0));
+            weightBuffer.push_back(glm::vec4(.0f));
+        }
+    }
 
 
     fclose(file);
@@ -453,6 +529,13 @@ void uploadBuffers() {
     glBufferData(GL_ARRAY_BUFFER, normalBuffer.size() * sizeof(glm::vec3), &normalBuffer[0], GL_DYNAMIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, modelVBO[2]);
     glBufferData(GL_ARRAY_BUFFER, texCoordBuffer.size() * sizeof(glm::vec2), &texCoordBuffer[0], GL_DYNAMIC_DRAW);
+
+    //skinning weight data
+    glBindBuffer(GL_ARRAY_BUFFER, modelVBO[3]);
+    glBufferData(GL_ARRAY_BUFFER, weightIndexBuffer.size() * sizeof(glm::ivec4), &weightIndexBuffer[0], GL_DYNAMIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, modelVBO[4]);
+    glBufferData(GL_ARRAY_BUFFER, weightBuffer.size() * sizeof(glm::vec4), &weightBuffer[0], GL_DYNAMIC_DRAW);
+
     //element buffer
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, modelElementBuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBuffer.size() * sizeof(unsigned int), &indexBuffer[0], GL_STATIC_DRAW);
@@ -462,5 +545,7 @@ void clearBuffers() {
     positionBuffer.clear();
     normalBuffer.clear();
     texCoordBuffer.clear();
+    weightIndexBuffer.clear();
+    weightBuffer.clear();
     indexBuffer.clear();
 }
