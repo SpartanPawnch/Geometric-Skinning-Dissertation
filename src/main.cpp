@@ -26,10 +26,10 @@ int main() {
     glfwWindowHint(GLFW_SAMPLES, 4);
 
     window = glfwCreateWindow(1600, 900, "Skinning Dissertation", NULL, NULL);
-    //glfwSwapInterval(0);
 
 
     glfwMakeContextCurrent(window);
+    glfwSwapInterval(0);
 
     //swap buffers to avoid the window not responding
     glClearColor(.7f, .7f, .7f, 1.0f);
