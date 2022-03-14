@@ -491,6 +491,7 @@ Model loadIQM(const char* filename) {
 
 
     if (m.animatable) {
+        m.animationData.generateWeightSets();
         weightBuffer.resize(m.bufferOffset + m.animationData.baseVertices.size());
         weightIndexBuffer.resize(m.bufferOffset + m.animationData.baseVertices.size());
         m.animationData.copyWeights(&weightBuffer[m.bufferOffset], VertexWeightSetBase);

@@ -6,6 +6,31 @@
 #include <math.h>
 #include <iostream>
 
+// Initialization
+void AnimationData::generateWeightSets() {
+    //rounded
+    {
+        for (int i = 0;i < baseVertices.size();i++) {
+            //find vertex with maximum influence
+            int maxInd = 0;
+            for (int j = 1;j < weightsPerVertex;j++) {
+                if (vertexWeights[i * weightsPerVertex + j] > vertexWeights[i * weightsPerVertex + maxInd])
+                    maxInd = j;
+            }
+            for (int j = 0;j < weightsPerVertex;j++) {
+                if (j == maxInd)
+                    vertexWeights.push_back(1.0f);
+                else
+                    vertexWeights.push_back(.0f);
+            }
+        }
+    }
+
+    //automatic rigid bind
+    {
+
+    }
+}
 
 // CPU skinning
 void AnimationData::deformPositionLBS(glm::vec3* target, float frame, VertexWeightSet activeSet) {
@@ -62,7 +87,7 @@ void AnimationData::copyWeights(glm::vec4* target, VertexWeightSet set) {
     for (int i = 0;i < baseVertices.size();i++) {
         glm::vec4 weight(.0f);
         for (int j = 0;j < weightsPerVertex && j < 4;j++) {
-            weight[j] = vertexWeights[i * weightsPerVertex + j];
+            weight[j] = currentWeights[i * weightsPerVertex + j];
         }
         target[i] = weight;
     }

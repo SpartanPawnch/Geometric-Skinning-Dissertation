@@ -31,6 +31,9 @@ struct AnimationData {
     unsigned int weightsPerVertex = 0;
     unsigned int posesPerFrame = 0;
 
+    //Initialization
+    void generateWeightSets();
+
     //CPU Skinning
     void deformPositionLBS(glm::vec3* target, float frame, VertexWeightSet activeSet = VertexWeightSetBase);
     void deformPositionLBS(glm::vec3* target, float frame, const AnimationClip& clip,
