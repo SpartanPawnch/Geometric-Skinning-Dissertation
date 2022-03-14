@@ -17,6 +17,11 @@ struct AnimationClip {
     unsigned int length;
     float framerate;
 };
+enum VertexWeightSet {
+    VertexWeightSetBase = 0,
+    VertexWeightSetBaseRigid = 1,
+    VertexWeightSetAutoRigid = 2,
+};
 struct AnimationData {
     std::vector<glm::vec3> baseVertices;
     std::vector<glm::vec3> baseNormals;
@@ -27,12 +32,21 @@ struct AnimationData {
     unsigned int posesPerFrame = 0;
 
     //CPU Skinning
-    void deformPositionLBS(glm::vec3* target, float frame);
-    void deformPositionLBS(glm::vec3* target, float frame, const AnimationClip& clip);
-    void deformNormalLBS(glm::vec3* target, float frame);
-    void deformNormalLBS(glm::vec3* target, float frame, const AnimationClip& clip);
+    void deformPositionLBS(glm::vec3* target, float frame, VertexWeightSet activeSet = VertexWeightSetBase);
+    void deformPositionLBS(glm::vec3* target, float frame, const AnimationClip& clip,
+        VertexWeightSet activeSet = VertexWeightSetBase);
+    void deformNormalLBS(glm::vec3* target, float frame, VertexWeightSet activeSet = VertexWeightSetBase);
+    void deformNormalLBS(glm::vec3* target, float frame, const AnimationClip& clip,
+        VertexWeightSet activeSet = VertexWeightSetBase);
 
     //GPU Skinning
+
+    //copy vertex weights from active set to target buffer
+    void copyWeights(glm::vec4* target, VertexWeightSet activeSet);
+    //copy bone indices for vertex weights
+    void copyIndices(glm::ivec4* target);
+
+
     //upload the poses at an absolute frame
     void uploadPose(float frame, GLuint program);
     //upload the poses at the frame of a specific clip

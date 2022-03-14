@@ -6,9 +6,15 @@
 #include <math.h>
 #include <iostream>
 
-void AnimationData::deformPositionLBS(glm::vec3* target, float frame) {
+
+// CPU skinning
+void AnimationData::deformPositionLBS(glm::vec3* target, float frame, VertexWeightSet activeSet) {
+    //resolve current pose
     Pose* currentFrame = &poses[((int)frame) * posesPerFrame];
 
+    //resolve current weights
+    int weightSetLength = baseVertices.size() * weightsPerVertex;
+    float* currentWeights = &vertexWeights[activeSet * weightSetLength];
     for (int i = 0;i < baseVertices.size();i++) {
         target[i] = glm::vec3(0.0f);
         for (int j = 0;j < weightsPerVertex;j++) {
@@ -16,16 +22,21 @@ void AnimationData::deformPositionLBS(glm::vec3* target, float frame) {
                 weightsPerVertex + j]].rotscale * baseVertices[i] +
                 currentFrame[weightIndices[i * weightsPerVertex + j]].translate;
 
-            target[i] += vertexWeights[i * weightsPerVertex + j] * deformContribution;
+            target[i] += currentWeights[i * weightsPerVertex + j] * deformContribution;
         }
     }
 }
-void AnimationData::deformPositionLBS(glm::vec3* target, float frame, const AnimationClip& clip) {
+void AnimationData::deformPositionLBS(glm::vec3* target, float frame, const AnimationClip& clip, VertexWeightSet activeSet) {
     float absoluteFrame = clip.offset + fmodf(frame, clip.length);
-    deformPositionLBS(target, absoluteFrame);
+    deformPositionLBS(target, absoluteFrame, activeSet);
 }
-void AnimationData::deformNormalLBS(glm::vec3* target, float frame) {
+void AnimationData::deformNormalLBS(glm::vec3* target, float frame, VertexWeightSet activeSet) {
+    //resolve current pose
     Pose* currentFrame = &poses[((int)frame) * posesPerFrame];
+
+    //resolve current weights
+    int weightSetLength = baseNormals.size() * weightsPerVertex;
+    float* currentWeights = &vertexWeights[activeSet * weightSetLength];
 
     for (int i = 0;i < baseNormals.size();i++) {
         target[i] = glm::vec3(0.0f);
@@ -33,14 +44,39 @@ void AnimationData::deformNormalLBS(glm::vec3* target, float frame) {
             glm::vec3 deformContribution = currentFrame[weightIndices[i *
                 weightsPerVertex + j]].rotscale * baseNormals[i];
 
-            target[i] += vertexWeights[i * weightsPerVertex + j] * deformContribution;
+            target[i] += currentWeights[i * weightsPerVertex + j] * deformContribution;
         }
     }
 }
-void AnimationData::deformNormalLBS(glm::vec3* target, float frame, const AnimationClip& clip) {
+void AnimationData::deformNormalLBS(glm::vec3* target, float frame, const AnimationClip& clip, VertexWeightSet activeSet) {
     float absoluteFrame = clip.offset + fmodf(frame, clip.length);
-    deformNormalLBS(target, absoluteFrame);
+    deformNormalLBS(target, absoluteFrame, activeSet);
 }
+
+
+
+//GPU Skinning
+void AnimationData::copyWeights(glm::vec4* target, VertexWeightSet set) {
+    int weightSetLength = baseNormals.size() * weightsPerVertex;
+    float* currentWeights = &vertexWeights[set * weightSetLength];
+    for (int i = 0;i < baseVertices.size();i++) {
+        glm::vec4 weight(.0f);
+        for (int j = 0;j < weightsPerVertex && j < 4;j++) {
+            weight[j] = vertexWeights[i * weightsPerVertex + j];
+        }
+        target[i] = weight;
+    }
+}
+void AnimationData::copyIndices(glm::ivec4* target) {
+    for (int i = 0;i < baseVertices.size();i++) {
+        glm::ivec4 index(0);
+        for (int j = 0;j < weightsPerVertex && j < 4;j++) {
+            index[j] = weightIndices[i * weightsPerVertex + j];
+        }
+        target[i] = index;
+    }
+}
+
 void AnimationData::uploadPose(float frame, GLuint program) {
     Pose* currentFrame = &poses[((int)frame) * posesPerFrame];
     GLuint location = glGetUniformLocation(program, "poses");

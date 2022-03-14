@@ -79,7 +79,7 @@ void graphicsInit() {
     glEnableVertexAttribArray(2);
 
     glBindBuffer(GL_ARRAY_BUFFER, modelVBO[3]);
-    glVertexAttribPointer(3, 4, GL_INT, GL_FALSE, sizeof(glm::ivec4),(void*)0);
+    glVertexAttribPointer(3, 4, GL_INT, GL_FALSE, sizeof(glm::ivec4), (void*)0);
     glEnableVertexAttribArray(3);
 
     glBindBuffer(GL_ARRAY_BUFFER, modelVBO[4]);
@@ -488,18 +488,13 @@ Model loadIQM(const char* filename) {
         }
     }
 
-    if (m.animatable) {
-        for (int i = 0;i < m.animationData.baseVertices.size();i++) {
-            glm::ivec4 index(0);
-            glm::vec4 weight(.0f);
 
-            for (int j = 0;j < m.animationData.weightsPerVertex && j < 4;j++) {
-                index[j] = m.animationData.weightIndices[i * m.animationData.weightsPerVertex + j];
-                weight[j] = m.animationData.vertexWeights[i * m.animationData.weightsPerVertex + j];
-            }
-            weightIndexBuffer.push_back(index);
-            weightBuffer.push_back(weight);
-        }
+
+    if (m.animatable) {
+        weightBuffer.resize(m.bufferOffset + m.animationData.baseVertices.size());
+        weightIndexBuffer.resize(m.bufferOffset + m.animationData.baseVertices.size());
+        m.animationData.copyWeights(&weightBuffer[m.bufferOffset], VertexWeightSetBase);
+        m.animationData.copyIndices(&weightIndexBuffer[m.bufferOffset]);
     }
     else {
         for (int i = 0;i < m.animationData.baseVertices.size();i++) {
