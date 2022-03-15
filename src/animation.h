@@ -50,9 +50,9 @@ struct AnimationData {
     //GPU Skinning
 
     //copy vertex weights from active set to target buffer
-    void copyWeights(glm::vec4* target, VertexWeightSet activeSet);
+    void copyWeights(glm::vec4* target, VertexWeightSet activeSet = VertexWeightSetBase);
     //copy bone indices for vertex weights
-    void copyIndices(glm::ivec4* target);
+    void copyIndices(glm::ivec4* target, VertexWeightSet activeSet = VertexWeightSetBase);
 
 
     //upload the poses at an absolute frame

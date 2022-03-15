@@ -244,6 +244,15 @@ void Model::resetBuffers() {
     glBufferSubData(GL_ARRAY_BUFFER, bufferOffset * sizeof(glm::vec3), animationData.baseVertices.size() * sizeof(glm::vec3), &normalBuffer[bufferOffset]);
 }
 
+void Model::reuploadBind() {
+    animationData.copyWeights(&weightBuffer[0], vertexWeightSet);
+    animationData.copyIndices(&weightIndexBuffer[0], vertexWeightSet);
+    glBindBuffer(GL_ARRAY_BUFFER, modelVBO[3]);
+    glBufferSubData(GL_ARRAY_BUFFER, bufferOffset * sizeof(glm::ivec4), animationData.baseVertices.size() * sizeof(glm::ivec4), &weightIndexBuffer[bufferOffset]);
+    glBindBuffer(GL_ARRAY_BUFFER, modelVBO[4]);
+    glBufferSubData(GL_ARRAY_BUFFER, bufferOffset * sizeof(glm::vec4), animationData.baseVertices.size() * sizeof(glm::vec4), &weightBuffer[bufferOffset]);
+}
+
 void Model::clear() {
     vertexOffset = 0;
     vertexCount = 0;

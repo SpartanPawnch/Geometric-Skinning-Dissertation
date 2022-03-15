@@ -222,14 +222,17 @@ int main() {
                 ImGui::SetNextItemWidth(200.0f);
                 if (activeModel.animatable && ImGui::BeginCombo("##weightselector", weightDropdownText[activeModel.vertexWeightSet])) {
                     bool isSelected = activeModel.vertexWeightSet == VertexWeightSetBase;
-                    if (ImGui::Selectable(weightDropdownText[VertexWeightSetBase], &isSelected))
+                    if (ImGui::Selectable(weightDropdownText[VertexWeightSetBase], &isSelected)) {
                         activeModel.vertexWeightSet = VertexWeightSetBase;
+                        activeModel.reuploadBind();
+                    }
                     if (isSelected)
                         ImGui::SetItemDefaultFocus();
 
                     isSelected = activeModel.vertexWeightSet == VertexWeightSetBaseRigid;
                     if (ImGui::Selectable(weightDropdownText[VertexWeightSetBaseRigid], &isSelected)) {
                         activeModel.vertexWeightSet = VertexWeightSetBaseRigid;
+                        activeModel.reuploadBind();
                     }
                     if (isSelected)
                         ImGui::SetItemDefaultFocus();
@@ -237,6 +240,7 @@ int main() {
                     isSelected = activeModel.vertexWeightSet == VertexWeightSetAutoRigid;
                     if (ImGui::Selectable(weightDropdownText[VertexWeightSetAutoRigid], &isSelected)) {
                         activeModel.vertexWeightSet = VertexWeightSetAutoRigid;
+                        activeModel.reuploadBind();
                     }
                     if (isSelected)
                         ImGui::SetItemDefaultFocus();

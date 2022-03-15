@@ -142,9 +142,9 @@ void AnimationData::deformNormalLBS(glm::vec3* target, float frame, const Animat
 
 
 //GPU Skinning
-void AnimationData::copyWeights(glm::vec4* target, VertexWeightSet set) {
-    int weightSetLength = baseNormals.size() * weightsPerVertex;
-    float* currentWeights = &vertexWeights[set * weightSetLength];
+void AnimationData::copyWeights(glm::vec4* target, VertexWeightSet activeSet) {
+    const int weightSetLength = baseNormals.size() * weightsPerVertex;
+    float* currentWeights = &vertexWeights[activeSet * weightSetLength];
     for (int i = 0;i < baseVertices.size();i++) {
         glm::vec4 weight(.0f);
         for (int j = 0;j < weightsPerVertex && j < 4;j++) {
@@ -153,11 +153,13 @@ void AnimationData::copyWeights(glm::vec4* target, VertexWeightSet set) {
         target[i] = weight;
     }
 }
-void AnimationData::copyIndices(glm::ivec4* target) {
+void AnimationData::copyIndices(glm::ivec4* target, VertexWeightSet activeSet) {
+    const int weightSetLength = baseNormals.size() * weightsPerVertex;
+    int* activeIndices = &weightIndices[(activeSet / 2) * weightSetLength];
     for (int i = 0;i < baseVertices.size();i++) {
         glm::ivec4 index(0);
         for (int j = 0;j < weightsPerVertex && j < 4;j++) {
-            index[j] = weightIndices[i * weightsPerVertex + j];
+            index[j] = activeIndices[i * weightsPerVertex + j];
         }
         target[i] = index;
     }

@@ -40,6 +40,8 @@ struct Model {
 
     //reset vertices and normals to their rest pose
     void resetBuffers();
+    //reupload weights and indices to the GPU
+    void reuploadBind();
 
     //reset state to default
     void clear();
