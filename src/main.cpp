@@ -11,13 +11,14 @@
 #define GLM_FORCE_INLINE
 
 #include "modelloader.hpp"
+#include "animation.h"
 #include "../external/tinyfiledialogs/tinyfiledialogs.h"
 
 int main() {
     //setup window
     GLFWwindow* window;
     glfwInit();
-    
+
 
 #if GLFW_VERSION_MAJOR>=3 && GLFW_VERSION_MINOR>=1
     //Supported by glfw 3.1 and onwards
@@ -174,9 +175,29 @@ int main() {
                     ImGui::EndCombo();
                 }
 
+                const char* pauseLabels[2] = { "Pause","Unpause" };
+                if (ImGui::Button(pauseLabels[paused]))
+                    paused = !paused;
+                ImGui::SameLine();
+                ImGui::SetNextItemWidth(ImGui::GetWindowWidth() - 70.0f);
+                if (activeModel.animatable)
+                    if (ImGui::SliderFloat("##timeline", &animtime, 0.0f, animationDuration))
+                        seeking = true;
+                ImGui::End();
+            }
+
+            //metrics window
+            if (ImGui::Begin("Metrics", NULL)) {
+                ImGui::Text("%d vertices\n%.2f FPS, %.4f ms\n%.2f Avg, %.2f Min, %.2f Max",
+                    activeModel.animationData.baseNormals.size(), io.Framerate, io.DeltaTime, averageFPS, minFPS, maxFPS);
+                ImGui::End();
+            }
+
+            //Skinning Controls
+            ImGui::SetNextWindowSize(ImVec2(220.0f, 100.0f), ImGuiCond_Once);
+            if (ImGui::Begin("Skinning Controls", NULL)) {
                 //skinning selector
                 const char* skinningDropdownText = (activeModel.skinningType == SkinningTypeCPU ? "CPU Skinning" : "GPU Skinning");
-                ImGui::SameLine();
                 ImGui::SetNextItemWidth(200.0f);
                 if (activeModel.animatable && ImGui::BeginCombo("##skinningselector", skinningDropdownText)) {
                     bool isSelected = activeModel.skinningType == SkinningTypeCPU;
@@ -196,23 +217,36 @@ int main() {
                     ImGui::EndCombo();
                 }
 
-                const char* pauseLabels[2] = { "Pause","Unpause" };
-                if (ImGui::Button(pauseLabels[paused]))
-                    paused = !paused;
-                ImGui::SameLine();
-                ImGui::SetNextItemWidth(ImGui::GetWindowWidth() - 70.0f);
-                if (activeModel.animatable)
-                    if (ImGui::SliderFloat("##timeline", &animtime, 0.0f, animationDuration))
-                        seeking = true;
+                //skinning weight selector
+                const char* weightDropdownText[3] = { "Base Weights","Rounded Base Weights","Automatic Rigid Weights" };
+                ImGui::SetNextItemWidth(200.0f);
+                if (activeModel.animatable && ImGui::BeginCombo("##weightselector", weightDropdownText[activeModel.vertexWeightSet])) {
+                    bool isSelected = activeModel.vertexWeightSet == VertexWeightSetBase;
+                    if (ImGui::Selectable(weightDropdownText[VertexWeightSetBase], &isSelected))
+                        activeModel.vertexWeightSet = VertexWeightSetBase;
+                    if (isSelected)
+                        ImGui::SetItemDefaultFocus();
+
+                    isSelected = activeModel.vertexWeightSet == VertexWeightSetBaseRigid;
+                    if (ImGui::Selectable(weightDropdownText[VertexWeightSetBaseRigid], &isSelected)) {
+                        activeModel.vertexWeightSet = VertexWeightSetBaseRigid;
+                    }
+                    if (isSelected)
+                        ImGui::SetItemDefaultFocus();
+
+                    isSelected = activeModel.vertexWeightSet == VertexWeightSetAutoRigid;
+                    if (ImGui::Selectable(weightDropdownText[VertexWeightSetAutoRigid], &isSelected)) {
+                        activeModel.vertexWeightSet = VertexWeightSetAutoRigid;
+                    }
+                    if (isSelected)
+                        ImGui::SetItemDefaultFocus();
+
+                    ImGui::EndCombo();
+                }
                 ImGui::End();
             }
 
-            //metrics window
-            if (ImGui::Begin("Metrics", NULL)) {
-                ImGui::Text("%d vertices\n%.2f FPS, %.4f ms\n%.2f Avg, %.2f Min, %.2f Max",
-                    activeModel.animationData.baseNormals.size(), io.Framerate, io.DeltaTime, averageFPS, minFPS, maxFPS);
-                ImGui::End();
-            }
+
         }
 
         if (activeModel.animatable && (!paused || seeking))

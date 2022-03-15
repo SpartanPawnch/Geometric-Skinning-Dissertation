@@ -216,12 +216,12 @@ void Model::animate(float frame) {
     if (skinningType == SkinningTypeCPU) {
         //compute new positions
         if (currentClip >= 0) {
-            animationData.deformPositionLBS(&positionBuffer[bufferOffset], frame, clips[currentClip]);
-            animationData.deformNormalLBS(&normalBuffer[bufferOffset], frame, clips[currentClip]);
+            animationData.deformPositionLBS(&positionBuffer[bufferOffset], frame, clips[currentClip], vertexWeightSet);
+            animationData.deformNormalLBS(&normalBuffer[bufferOffset], frame, clips[currentClip], vertexWeightSet);
         }
         else {
-            animationData.deformPositionLBS(&positionBuffer[bufferOffset], frame);
-            animationData.deformNormalLBS(&normalBuffer[bufferOffset], frame);
+            animationData.deformPositionLBS(&positionBuffer[bufferOffset], frame, vertexWeightSet);
+            animationData.deformNormalLBS(&normalBuffer[bufferOffset], frame, vertexWeightSet);
         }
         //reupload buffer
         glBindBuffer(GL_ARRAY_BUFFER, modelVBO[0]);
@@ -381,6 +381,7 @@ Model loadIQM(const char* filename) {
 
             m.joints[i].matrix = localJoints[i];
             m.joints[i].inverse = inverseLocalJoints[i];
+            m.joints[i].parent = joints[i].parent;
 
         }
     }
@@ -491,7 +492,8 @@ Model loadIQM(const char* filename) {
 
 
     if (m.animatable) {
-        m.animationData.generateWeightSets();
+        m.vertexWeightSet = VertexWeightSetBase;
+        m.animationData.generateWeightSets(&m.joints[0]);
         weightBuffer.resize(m.bufferOffset + m.animationData.baseVertices.size());
         weightIndexBuffer.resize(m.bufferOffset + m.animationData.baseVertices.size());
         m.animationData.copyWeights(&weightBuffer[m.bufferOffset], VertexWeightSetBase);

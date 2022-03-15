@@ -7,12 +7,6 @@
 
 #include "animation.h"
 #include "camera.hpp"
-
-struct Joint {
-    glm::mat4 matrix;
-    glm::mat4 inverse;
-};
-
 enum SkinningType {
     SkinningTypeCPU,
     SkinningTypeGPU
@@ -36,6 +30,7 @@ struct Model {
     std::vector<Joint> joints;
 
     SkinningType skinningType = SkinningTypeCPU;
+    VertexWeightSet vertexWeightSet = VertexWeightSetBase;
     std::vector<AnimationClip> clips;
     std::vector<std::string> clipNames;
     int currentClip = -1;

@@ -5,6 +5,11 @@
 #include<glm/vec3.hpp>
 #include<vector>
 #include<string>
+struct Joint {
+    glm::mat4 matrix;
+    glm::mat4 inverse;
+    int parent;
+};
 struct Pose {
     glm::mat3 rotscale;
     glm::vec3 translate;
@@ -32,7 +37,7 @@ struct AnimationData {
     unsigned int posesPerFrame = 0;
 
     //Initialization
-    void generateWeightSets();
+    void generateWeightSets(Joint* joints);
 
     //CPU Skinning
     void deformPositionLBS(glm::vec3* target, float frame, VertexWeightSet activeSet = VertexWeightSetBase);

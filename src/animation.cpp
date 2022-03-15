@@ -7,7 +7,7 @@
 #include <iostream>
 
 // Initialization
-void AnimationData::generateWeightSets() {
+void AnimationData::generateWeightSets(Joint* joints) {
     //rounded
     {
         for (int i = 0;i < baseVertices.size();i++) {
@@ -28,7 +28,65 @@ void AnimationData::generateWeightSets() {
 
     //automatic rigid bind
     {
+        //calculate joint centers in world space
+        glm::vec3* jointCenters = new glm::vec3[posesPerFrame];
+        bool* isJointActive = new bool[posesPerFrame];
+        for (int i = 0;i < posesPerFrame;i++) {
+            jointCenters[i] = joints[i].matrix * glm::vec4(.0f, .0f, .0f, 1.0f);
+            isJointActive[i] = false;
+        }
 
+        //ignore helper bones - only activate bones that were already bound
+        for (int i = 0;i < baseVertices.size() * weightsPerVertex;i++) {
+            isJointActive[weightIndices[i]] = true;
+        }
+
+        for (int i = 0;i < baseVertices.size();i++) {
+            //find first active joint
+            int startInd = 0;
+            for (;startInd < posesPerFrame;startInd++) {
+                if (isJointActive[startInd])
+                    break;
+            }
+
+            //find closest joint
+            float minDist = .0f;
+            if (startInd < posesPerFrame)
+                minDist = glm::length(jointCenters[startInd] - baseVertices[i]);
+            int minInd = startInd;
+
+            for (int j = startInd;j < posesPerFrame;j++) {
+                float newDist = glm::length(jointCenters[j] - baseVertices[i]);
+                if (newDist < minDist && isJointActive[j]) {
+                    minInd = j;
+                    minDist = newDist;
+                }
+            }
+
+
+            //check if point is between the closest joint and its parent
+            if (joints[minInd].parent >= 0) {
+                glm::vec3 boneDir = glm::normalize(jointCenters[joints[minInd].parent] - jointCenters[minInd]);
+                glm::vec3 vertDir = glm::normalize(baseVertices[i] - jointCenters[minInd]);
+                float boneAngle = acos(glm::dot(boneDir, vertDir));
+
+                if (boneAngle <= glm::radians(90.0f) && isJointActive[joints[minInd].parent]) {
+                    //between joint and parent - assign to parent
+                    minInd = joints[minInd].parent;
+                }
+            }
+
+            //bind to closest joint
+            bool weightAdded = false;
+            weightIndices.push_back(minInd);
+            vertexWeights.push_back(1.0f);
+            for (int j = 1;j < weightsPerVertex;j++) {
+                weightIndices.push_back(0);
+                vertexWeights.push_back(.0f);
+            }
+        }
+        delete[] jointCenters;
+        delete[] isJointActive;
     }
 }
 
@@ -37,15 +95,17 @@ void AnimationData::deformPositionLBS(glm::vec3* target, float frame, VertexWeig
     //resolve current pose
     Pose* currentFrame = &poses[((int)frame) * posesPerFrame];
 
-    //resolve current weights
+    //resolve current weights and indices
     int weightSetLength = baseVertices.size() * weightsPerVertex;
     float* currentWeights = &vertexWeights[activeSet * weightSetLength];
+    int* currentIndices = &weightIndices[(activeSet / 2) * weightSetLength];
+
     for (int i = 0;i < baseVertices.size();i++) {
         target[i] = glm::vec3(0.0f);
         for (int j = 0;j < weightsPerVertex;j++) {
-            glm::vec3 deformContribution = currentFrame[weightIndices[i *
+            glm::vec3 deformContribution = currentFrame[currentIndices[i *
                 weightsPerVertex + j]].rotscale * baseVertices[i] +
-                currentFrame[weightIndices[i * weightsPerVertex + j]].translate;
+                currentFrame[currentIndices[i * weightsPerVertex + j]].translate;
 
             target[i] += currentWeights[i * weightsPerVertex + j] * deformContribution;
         }
@@ -59,14 +119,15 @@ void AnimationData::deformNormalLBS(glm::vec3* target, float frame, VertexWeight
     //resolve current pose
     Pose* currentFrame = &poses[((int)frame) * posesPerFrame];
 
-    //resolve current weights
+    //resolve current weights and indices
     int weightSetLength = baseNormals.size() * weightsPerVertex;
     float* currentWeights = &vertexWeights[activeSet * weightSetLength];
+    int* currentIndices = &weightIndices[(activeSet / 2) * weightSetLength];
 
     for (int i = 0;i < baseNormals.size();i++) {
         target[i] = glm::vec3(0.0f);
         for (int j = 0;j < weightsPerVertex;j++) {
-            glm::vec3 deformContribution = currentFrame[weightIndices[i *
+            glm::vec3 deformContribution = currentFrame[currentIndices[i *
                 weightsPerVertex + j]].rotscale * baseNormals[i];
 
             target[i] += currentWeights[i * weightsPerVertex + j] * deformContribution;
