@@ -194,3 +194,44 @@ void AnimationData::clear() {
     weightsPerVertex = 0;
     posesPerFrame = 1;
 }
+
+//create adjacency list based on list of triagles
+void generateAdjacencyList(std::vector<std::vector<int>>& target, const int* faces, int faceCount, int vertexCount) {
+    target.clear();
+    target.resize(vertexCount);
+    for (int i = 0;i < faceCount;i++) {
+        //update neighbours for all three vertices
+        for (int j = 0;j < 3;j++) {
+            //check if vertices are already added to list
+            bool found = false;
+            for (int k = 0;k < target[faces[3 * i + j]].size();k++) {
+                if (target[faces[3 * i + j]][k] == faces[3 * i + (j + 1) % 3]) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+                target[faces[3 * i + j]].push_back(faces[3 * i + (j + 1) % 3]);
+
+            found = false;
+            for (int k = 0;k < target[faces[3 * i + j]].size();k++) {
+                if (target[faces[3 * i + j]][k] == faces[3 * i + (j + 2) % 3]) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+                target[faces[3 * i + j]].push_back(faces[3 * i + (j + 2) % 3]);
+        }
+    }
+}
+
+void smoothLaplacian(glm::vec3* source, glm::vec3* target) {}
+
+void AnimationData::prepareDeltaMush(int* faces, int count) {
+    std::vector<std::vector<int>>target;
+    generateAdjacencyList(target, faces, count, baseVertices.size());
+
+    //generate deltas
+    //smoothLaplacian
+}

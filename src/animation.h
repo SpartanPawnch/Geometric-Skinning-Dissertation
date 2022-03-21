@@ -38,6 +38,7 @@ struct AnimationData {
 
     //Initialization
     void generateWeightSets(Joint* joints);
+    void prepareDeltaMush(int* faces, int count);
 
     //CPU Skinning
     void deformPositionLBS(glm::vec3* target, float frame, VertexWeightSet activeSet = VertexWeightSetBase);
@@ -66,3 +67,5 @@ struct AnimationData {
 
     void clear();
 };
+
+void generateAdjacencyList(std::vector<std::vector<int>>& target, const int* faces, int faceCount, int vertexCount);

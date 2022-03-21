@@ -1,6 +1,7 @@
 #include <iostream>
 #include <glm/vec3.hpp>
 #include "modelloader.cpp"
+#include "animation.h"
 #include "camera.hpp"
 
 //simple macro to copy function name as string literal
@@ -311,6 +312,53 @@ bool testZoomClamp() {
     return true;
 }
 
+bool testAdjacencyList() {
+    int faces[6] = {
+        0,1,2,
+        3,4,5,
+    };
+
+    int adjacency[6][2] = {
+        {1,2},
+        {0,2},
+        {0,1},
+        {4,5},
+        {3,5},
+        {3,4}
+    };
+
+    std::vector<std::vector<int>> target;
+    generateAdjacencyList(target, faces, 2, 6);
+
+
+    if (target.size() != 6) {
+        std::cout << "FAILED: expected list size 6, got: " << target.size() << "\n";
+        return false;
+    }
+    for (int i = 0;i < 6;i++) {
+        if (target[i].size() != 2) {
+            std::cout << "FAILED: expected 2 neighbours, got: " << target[i].size() << "\n";
+            return false;
+        }
+        for (int j = 0;j < 2;j++) {
+            //check that all neighbours are found
+            bool found = false;
+            for (int x = 0;x < 2;x++) {
+                if (target[i][x] == adjacency[i][j]) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                std::cout << "FAILED: Neighbour " << adjacency[i][j] << "not found\n";
+                return false;
+            }
+        }
+    }
+    std::cout << "PASSED\n";
+    return true;
+}
+
 int main() {
     totalTests = 0;
     successfulTests = 0;
@@ -327,7 +375,7 @@ int main() {
     runTest(TEST(testZoom));
     runTest(TEST(testZoomClamp));
     runTest(TEST(testArcballSequential));
-
+    runTest(TEST(testAdjacencyList));
 
     std::cout << "Tests Passed: " << successfulTests << "/" << totalTests;
     return 0;
