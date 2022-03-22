@@ -69,3 +69,4 @@ struct AnimationData {
 };
 
 void generateAdjacencyList(std::vector<std::vector<int>>& target, const int* faces, int faceCount, int vertexCount);
+void smoothLaplacian(glm::vec3* source, glm::vec3* target, int count, std::vector<std::vector<int>>& adjacency);

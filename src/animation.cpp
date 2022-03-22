@@ -226,7 +226,17 @@ void generateAdjacencyList(std::vector<std::vector<int>>& target, const int* fac
     }
 }
 
-void smoothLaplacian(glm::vec3* source, glm::vec3* target) {}
+void smoothLaplacian(glm::vec3* source, glm::vec3* target, int count, std::vector<std::vector<int>>& adjacency) {
+    for (int i = 0;i < count;i++) {
+        glm::vec3 sum(.0f);
+        for (int j = 0;j < adjacency[i].size();j++) {
+            sum += source[adjacency[i][j]];
+        }
+
+        //simplest option - fully replace with average of neighbours
+        target[i] = (1.0f / adjacency[i].size()) * sum;
+    }
+}
 
 void AnimationData::prepareDeltaMush(int* faces, int count) {
     std::vector<std::vector<int>>target;

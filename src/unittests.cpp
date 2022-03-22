@@ -359,6 +359,36 @@ bool testAdjacencyList() {
     return true;
 }
 
+bool testLaplacianSmooth() {
+    glm::vec3 positions[4] = {
+        glm::vec3(-1.0f,.0f,-1.0f),
+        glm::vec3(1.0f,.0f,-1.0f),
+        glm::vec3(.0f,.0f,1.0f),
+        glm::vec3(.0f,1.0f,.0f),
+    };
+    glm::vec3 newPositions[4];
+
+    std::vector<std::vector<int>> adjacency = { {1,2,3},{0,2,3},{0,1,3},{0,1,2} };
+
+    smoothLaplacian(positions, newPositions, 4, adjacency);
+
+    const glm::vec3 expectedPositions[4] = {
+        glm::vec3(1.0f / 3.0f,1.0f / 3.0f,.0f),
+        glm::vec3(-1.0f / 3.0f,1.0f / 3.0f,.0f),
+        glm::vec3(.0f,1.0f / 3.0f,-2.0f / 3.0f),
+        glm::vec3(.0f,.0f,-1.0f / 3.0f),
+    };
+
+    for (int i = 0;i < 4;i++) {
+        if (!expectValue(newPositions[i], expectedPositions[i], "smoothed vertex"))
+            return false;
+    }
+
+    std::cout << "PASSED\n";
+    return true;
+
+}
+
 int main() {
     totalTests = 0;
     successfulTests = 0;
@@ -376,6 +406,7 @@ int main() {
     runTest(TEST(testZoomClamp));
     runTest(TEST(testArcballSequential));
     runTest(TEST(testAdjacencyList));
+    runTest(TEST(testLaplacianSmooth));
 
     std::cout << "Tests Passed: " << successfulTests << "/" << totalTests;
     return 0;
