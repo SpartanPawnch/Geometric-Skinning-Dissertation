@@ -30,6 +30,7 @@ struct Model {
     std::vector<Joint> joints;
 
     SkinningType skinningType = SkinningTypeCPU;
+    bool useDeltaMush = false;
     VertexWeightSet vertexWeightSet = VertexWeightSetBase;
     std::vector<AnimationClip> clips;
     std::vector<std::string> clipNames;

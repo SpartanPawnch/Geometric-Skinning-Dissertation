@@ -77,7 +77,7 @@ int main() {
     bool applyPan = false;
 
     //metrics
-    float averageFPS = io.Framerate, minFPS = 144.0f, maxFPS = io.Framerate;
+    float averageFPS = 1.0f / io.DeltaTime, minFPS = 144.0f, maxFPS = 1.0f / io.DeltaTime;
     long totalFrames = 1;
 
     while (!glfwWindowShouldClose(window)) {
@@ -117,20 +117,23 @@ int main() {
                         const char* filter = "*.iqm";
                         const char* path = tinyfd_openFileDialog(NULL, NULL, 1, &filter, NULL, 0);
                         if (path != NULL) {
+                            double startTime = glfwGetTime();
                             activeModel.clear();
                             clearBuffers();
                             activeModel = loadIQM(path);
                             uploadBuffers();
                             animtime = .0f;
+                            double endTime = glfwGetTime();
+                            std::cout << "Loaded " << path << " in " << endTime - startTime << " seconds\n";
 
                             //reset camera
                             sceneCamera = Camera(glm::vec3(.0f, 2.0f, 4.0f),
                                 glm::vec3(.0f, 1.0f, .0f), glm::vec3(.0f, 1.0f, .0f));
 
                             //reset metrics
-                            averageFPS = io.Framerate;
+                            averageFPS = 1.0f / io.DeltaTime;
                             minFPS = 144.0f;
-                            maxFPS = io.Framerate;
+                            maxFPS = 1.0f / io.DeltaTime;
                             totalFrames = 1;
                         }
                     }
@@ -190,6 +193,12 @@ int main() {
             if (ImGui::Begin("Metrics", NULL)) {
                 ImGui::Text("%d vertices\n%.2f FPS, %.4f ms\n%.2f Avg, %.2f Min, %.2f Max",
                     activeModel.animationData.baseNormals.size(), io.Framerate, io.DeltaTime, averageFPS, minFPS, maxFPS);
+                if (ImGui::Button("Reset Metrics")) {
+                    averageFPS = 1.0f / io.DeltaTime;
+                    minFPS = 1.0f / io.DeltaTime;
+                    maxFPS = 1.0f / io.DeltaTime;
+                    totalFrames = 1;
+                }
                 ImGui::End();
             }
 
@@ -246,6 +255,10 @@ int main() {
                         ImGui::SetItemDefaultFocus();
 
                     ImGui::EndCombo();
+                }
+
+                if (activeModel.skinningType == SkinningTypeCPU) {
+                    ImGui::Checkbox("Delta Mush", &activeModel.useDeltaMush);
                 }
                 ImGui::End();
             }
@@ -322,9 +335,9 @@ int main() {
 
         //update metrics
         totalFrames++;
-        averageFPS = (averageFPS * (totalFrames - 1) + io.Framerate) / totalFrames;
-        minFPS = io.Framerate < minFPS ? io.Framerate : minFPS;
-        maxFPS = io.Framerate > maxFPS ? io.Framerate : maxFPS;
+        averageFPS = (averageFPS * (totalFrames - 1) + 1.0f / io.DeltaTime) / totalFrames;
+        minFPS = (1.0f / io.DeltaTime) < minFPS ? (1.0f / io.DeltaTime) : minFPS;
+        maxFPS = (1.0f / io.DeltaTime) > maxFPS ? (1.0f / io.DeltaTime) : maxFPS;
     }
 
     activeModel.clear();

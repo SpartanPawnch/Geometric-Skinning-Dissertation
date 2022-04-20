@@ -313,7 +313,7 @@ bool testZoomClamp() {
 }
 
 bool testAdjacencyList() {
-    int faces[6] = {
+    unsigned int faces[6] = {
         0,1,2,
         3,4,5,
     };
@@ -370,7 +370,7 @@ bool testLaplacianSmooth() {
 
     std::vector<std::vector<int>> adjacency = { {1,2,3},{0,2,3},{0,1,3},{0,1,2} };
 
-    smoothLaplacian(positions, newPositions, 4, adjacency);
+    smoothLaplacian(positions, newPositions, 4, adjacency, 1);
 
     const glm::vec3 expectedPositions[4] = {
         glm::vec3(1.0f / 3.0f,1.0f / 3.0f,.0f),

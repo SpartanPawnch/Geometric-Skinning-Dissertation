@@ -28,17 +28,25 @@ enum VertexWeightSet {
     VertexWeightSetAutoRigid = 2,
 };
 struct AnimationData {
+    //regular skinning
     std::vector<glm::vec3> baseVertices;
     std::vector<glm::vec3> baseNormals;
+    std::vector<glm::vec3> baseTangents;
     std::vector<Pose> poses;
     std::vector<float> vertexWeights;
     std::vector<int> weightIndices;
     unsigned int weightsPerVertex = 0;
     unsigned int posesPerFrame = 0;
 
+    //delta mush
+    bool deltaMushReady = false;
+    std::vector<std::vector<int>>adjacency;
+    std::vector<glm::vec3> averageNormals;
+    std::vector<glm::vec3> deltas;
+
     //Initialization
     void generateWeightSets(Joint* joints);
-    void prepareDeltaMush(int* faces, int count);
+    void prepareDeltaMush(unsigned int* faces, int count);
 
     //CPU Skinning
     void deformPositionLBS(glm::vec3* target, float frame, VertexWeightSet activeSet = VertexWeightSetBase);
@@ -47,6 +55,9 @@ struct AnimationData {
     void deformNormalLBS(glm::vec3* target, float frame, VertexWeightSet activeSet = VertexWeightSetBase);
     void deformNormalLBS(glm::vec3* target, float frame, const AnimationClip& clip,
         VertexWeightSet activeSet = VertexWeightSetBase);
+
+    void applyDeltaMush(glm::vec3* positions, glm::vec3* normal, float frame, VertexWeightSet activeSet = VertexWeightSetBase);
+    void applyDeltaMush(glm::vec3* positions, glm::vec3* normal, float frame, const AnimationClip& clip, VertexWeightSet activeSet = VertexWeightSetBase);
 
     //GPU Skinning
 
@@ -68,5 +79,5 @@ struct AnimationData {
     void clear();
 };
 
-void generateAdjacencyList(std::vector<std::vector<int>>& target, const int* faces, int faceCount, int vertexCount);
-void smoothLaplacian(glm::vec3* source, glm::vec3* target, int count, std::vector<std::vector<int>>& adjacency);
+void generateAdjacencyList(std::vector<std::vector<int>>& target, const unsigned int* faces, int faceCount, int vertexCount);
+void smoothLaplacian(glm::vec3* source, glm::vec3* target, int count, std::vector<std::vector<int>>& adjacency, int iterations = 10);
