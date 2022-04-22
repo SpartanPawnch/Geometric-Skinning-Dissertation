@@ -192,7 +192,7 @@ int main() {
             //metrics window
             if (ImGui::Begin("Metrics", NULL)) {
                 ImGui::Text("%d vertices\n%.2f FPS, %.4f ms\n%.2f Avg, %.2f Min, %.2f Max",
-                    activeModel.animationData.baseNormals.size(), io.Framerate, io.DeltaTime, averageFPS, minFPS, maxFPS);
+                    activeModel.animationData.baseNormals.size(), 1.0f / io.DeltaTime, io.DeltaTime, averageFPS, minFPS, maxFPS);
                 if (ImGui::Button("Reset Metrics")) {
                     averageFPS = 1.0f / io.DeltaTime;
                     minFPS = 1.0f / io.DeltaTime;
