@@ -4,6 +4,7 @@
 #include "../external/stb_image.h"
 
 #include<GL/glew.h>
+#include<GLFW/glfw3.h>
 #include<glm/gtc/type_ptr.hpp>
 #include<glm/gtx/transform.hpp>
 #include<glm/gtc/quaternion.hpp>
@@ -218,20 +219,20 @@ void Model::animate(float frame) {
         if (currentClip >= 0) {
             animationData.deformPositionLBS(&positionBuffer[bufferOffset], frame, clips[currentClip], vertexWeightSet);
             animationData.deformNormalLBS(&normalBuffer[bufferOffset], frame, clips[currentClip], vertexWeightSet);
-            if (useDeltaMush) {
-                if (!animationData.deltaMushReady)
-                    animationData.prepareDeltaMush(&indexBuffer[bufferOffset], vertexCount / 3);
-                animationData.applyDeltaMush(&positionBuffer[bufferOffset], &normalBuffer[bufferOffset], frame, clips[currentClip], vertexWeightSet);
-            }
         }
         else {
             animationData.deformPositionLBS(&positionBuffer[bufferOffset], frame, vertexWeightSet);
             animationData.deformNormalLBS(&normalBuffer[bufferOffset], frame, vertexWeightSet);
-            if (useDeltaMush) {
-                if (!animationData.deltaMushReady)
-                    animationData.prepareDeltaMush(&indexBuffer[bufferOffset], vertexCount / 3);
-                animationData.applyDeltaMush(&positionBuffer[bufferOffset], &normalBuffer[bufferOffset], frame, vertexWeightSet);
+        }
+
+        if (useDeltaMush) {
+            if (!animationData.deltaMushReady) {
+                float startTime = glfwGetTime();
+                animationData.prepareDeltaMush(&indexBuffer[vertexOffset], vertexCount / 3);
+                float endTime = glfwGetTime();
+                std::cout << "Preprocessed Delta Mush in " << endTime - startTime << "s\n";
             }
+            animationData.applyDeltaMush(&positionBuffer[bufferOffset], &indexBuffer[vertexOffset], vertexCount / 3);
         }
         //reupload buffer
         glBindBuffer(GL_ARRAY_BUFFER, modelVBO[0]);
@@ -303,7 +304,6 @@ Model loadIQM(const char* filename) {
 
         float* positions = new float[header.num_vertexes * 3];
         float* normals = new float[header.num_vertexes * 3];
-        float* tangents = new float[header.num_vertexes * 3];
         float* texCoords = new float[header.num_vertexes * 2];
         unsigned char* blendWeights = NULL;
         unsigned char* blendIndices = NULL;
@@ -315,10 +315,6 @@ Model loadIQM(const char* filename) {
             else if (vertArray[i].type == IQM_NORMAL) {
                 fseek(file, vertArray[i].offset, SEEK_SET);
                 fread(normals, sizeof(float), header.num_vertexes * 3, file);
-            }
-            else if (vertArray[i].type == IQM_TANGENT) {
-                fseek(file, vertArray[i].offset, SEEK_SET);
-                fread(tangents, sizeof(float), header.num_vertexes * 3, file);
             }
             else if (vertArray[i].type == IQM_TEXCOORD) {
                 fseek(file, vertArray[i].offset, SEEK_SET);
@@ -344,7 +340,6 @@ Model loadIQM(const char* filename) {
             m.animationData.baseVertices.push_back(glm::vec3(positions[3 * i], positions[3 * i + 1], positions[3 * i + 2]));
             normalBuffer.push_back(glm::vec3(normals[3 * i], normals[3 * i + 1], normals[3 * i + 2]));
             m.animationData.baseNormals.push_back(glm::vec3(normals[3 * i], normals[3 * i + 1], normals[3 * i + 2]));
-            m.animationData.baseTangents.push_back(glm::vec3(tangents[3 * i], tangents[3 * i + 1], tangents[3 * i + 2]));
             texCoordBuffer.push_back(glm::vec2(texCoords[2 * i], texCoords[2 * i + 1]));
             if (blendWeights != NULL && blendIndices != NULL) {
                 for (int j = 0;j < m.animationData.weightsPerVertex;j++) {
@@ -356,7 +351,6 @@ Model loadIQM(const char* filename) {
 
         delete[] positions;
         delete[] normals;
-        delete[] tangents;
         delete[] texCoords;
 
         if (blendWeights != NULL)

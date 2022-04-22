@@ -31,7 +31,6 @@ struct AnimationData {
     //regular skinning
     std::vector<glm::vec3> baseVertices;
     std::vector<glm::vec3> baseNormals;
-    std::vector<glm::vec3> baseTangents;
     std::vector<Pose> poses;
     std::vector<float> vertexWeights;
     std::vector<int> weightIndices;
@@ -41,7 +40,8 @@ struct AnimationData {
     //delta mush
     bool deltaMushReady = false;
     std::vector<std::vector<int>>adjacency;
-    std::vector<glm::vec3> averageNormals;
+    std::vector<std::vector<int>>duplicates;
+    std::vector<glm::vec3> surfaceNormals;
     std::vector<glm::vec3> deltas;
 
     //Initialization
@@ -56,8 +56,7 @@ struct AnimationData {
     void deformNormalLBS(glm::vec3* target, float frame, const AnimationClip& clip,
         VertexWeightSet activeSet = VertexWeightSetBase);
 
-    void applyDeltaMush(glm::vec3* positions, glm::vec3* normal, float frame, VertexWeightSet activeSet = VertexWeightSetBase);
-    void applyDeltaMush(glm::vec3* positions, glm::vec3* normal, float frame, const AnimationClip& clip, VertexWeightSet activeSet = VertexWeightSetBase);
+    void applyDeltaMush(glm::vec3* positions, unsigned int* faces, int faceCount);
 
     //GPU Skinning
 
@@ -80,4 +79,4 @@ struct AnimationData {
 };
 
 void generateAdjacencyList(std::vector<std::vector<int>>& target, const unsigned int* faces, int faceCount, int vertexCount);
-void smoothLaplacian(glm::vec3* source, glm::vec3* target, int count, std::vector<std::vector<int>>& adjacency, int iterations = 10);
+void smoothLaplacian(glm::vec3* source, glm::vec3* target, int count, std::vector<std::vector<int>>& adjacency, int iterations = 5);
