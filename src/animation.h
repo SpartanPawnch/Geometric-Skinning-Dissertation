@@ -2,6 +2,7 @@
 #include<GL/glew.h>
 #include<glm/mat3x3.hpp>
 #include<glm/mat4x3.hpp>
+#include<glm/mat4x4.hpp>
 #include<glm/vec3.hpp>
 #include<vector>
 #include<string>
@@ -39,8 +40,8 @@ struct AnimationData {
 
     //delta mush
     bool deltaMushReady = false;
-    std::vector<std::vector<int>>adjacency;
-    std::vector<std::vector<int>>duplicates;
+    std::vector<std::vector<int> >adjacency;
+    std::vector<std::vector<int> >duplicates;
     std::vector<glm::vec3> surfaceNormals;
     std::vector<glm::vec3> deltas;
 
@@ -78,5 +79,5 @@ struct AnimationData {
     void clear();
 };
 
-void generateAdjacencyList(std::vector<std::vector<int>>& target, const unsigned int* faces, int faceCount, int vertexCount);
-void smoothLaplacian(glm::vec3* source, glm::vec3* target, int count, std::vector<std::vector<int>>& adjacency, int iterations = 5);
+void generateAdjacencyList(std::vector<std::vector<int> >& target, const unsigned int* faces, int faceCount, int vertexCount);
+void smoothLaplacian(glm::vec3* source, glm::vec3* target, int count, std::vector<std::vector<int> >& adjacency, int iterations = 5);

@@ -2,6 +2,7 @@
 #include <GL/glew.h>
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/transform.hpp>
 
 #include <math.h>
 #include <iostream>
@@ -31,8 +32,12 @@ void AnimationData::generateWeightSets(Joint* joints) {
         //calculate joint centers in world space
         glm::vec3* jointCenters = new glm::vec3[posesPerFrame];
         bool* isJointActive = new bool[posesPerFrame];
+
         for (int i = 0;i < posesPerFrame;i++) {
-            jointCenters[i] = joints[i].matrix * glm::vec4(.0f, .0f, .0f, 1.0f);
+            glm::vec4 jointCent=joints[i].matrix * glm::vec4(.0f, .0f, .0f, 1.0f);
+            jointCenters[i] = glm::vec3(jointCent.x,jointCent.y,jointCent.z);
+            //touch for the sake of feng compatibility
+            volatile float touch=jointCenters[i].x+jointCenters[i].y+jointCenters[i].z;
             isJointActive[i] = false;
         }
 
@@ -51,13 +56,17 @@ void AnimationData::generateWeightSets(Joint* joints) {
 
             //find closest joint
             float minDist = .0f;
-            if (startInd < posesPerFrame)
-                minDist = glm::length(jointCenters[startInd] - baseVertices[i]);
-            int minInd = startInd;
+            int minInd=0;
+            if (startInd < posesPerFrame){
+                glm::vec3 minVec=jointCenters[startInd] - baseVertices[i];
+                minDist = minVec.x*minVec.x+minVec.y*minVec.y+minVec.z*minVec.z;
+                minInd=startInd;
+            }
 
             for (int j = startInd;j < posesPerFrame;j++) {
-                float newDist = glm::length(jointCenters[j] - baseVertices[i]);
-                if (newDist < minDist && isJointActive[j]) {
+                glm::vec3 newVec=(glm::vec3)jointCenters[j] - baseVertices[i];
+                float newDist = newVec.x*newVec.x+newVec.y*newVec.y+newVec.z*newVec.z;
+                if ((newDist < minDist) && isJointActive[j]) {
                     minInd = j;
                     minDist = newDist;
                 }
@@ -77,12 +86,11 @@ void AnimationData::generateWeightSets(Joint* joints) {
             }
 
             //bind to closest joint
-            bool weightAdded = false;
             weightIndices.push_back(minInd);
             vertexWeights.push_back(1.0f);
             for (int j = 1;j < weightsPerVertex;j++) {
                 weightIndices.push_back(0);
-                vertexWeights.push_back(.0f);
+                vertexWeights.push_back(0.0f);
             }
         }
         delete[] jointCenters;
@@ -98,7 +106,8 @@ void AnimationData::deformPositionLBS(glm::vec3* target, float frame, VertexWeig
     //resolve current weights and indices
     int weightSetLength = baseVertices.size() * weightsPerVertex;
     float* currentWeights = &vertexWeights[activeSet * weightSetLength];
-    int* currentIndices = &weightIndices[(activeSet / 2) * weightSetLength];
+    short indexSet=activeSet/2;
+    int* currentIndices = &weightIndices[indexSet * weightSetLength];
 
     for (int i = 0;i < baseVertices.size();i++) {
         target[i] = glm::vec3(0.0f);
@@ -204,7 +213,7 @@ void AnimationData::clear() {
 }
 
 //create adjacency list based on list of triagles
-void generateAdjacencyList(std::vector<std::vector<int>>& target, const unsigned int* faces, int faceCount, int vertexCount) {
+void generateAdjacencyList(std::vector<std::vector<int> >& target, const unsigned int* faces, int faceCount, int vertexCount) {
     target.clear();
     target.resize(vertexCount);
     for (int i = 0;i < faceCount;i++) {
@@ -234,7 +243,7 @@ void generateAdjacencyList(std::vector<std::vector<int>>& target, const unsigned
     }
 }
 
-void smoothLaplacian(glm::vec3* source, glm::vec3* target, int count, std::vector<std::vector<int>>& adjacency, int iterations) {
+void smoothLaplacian(glm::vec3* source, glm::vec3* target, int count, std::vector<std::vector<int> >& adjacency, int iterations) {
     //initial iteration uses source
     for (int i = 0;i < count;i++) {
         glm::vec3 sum(.0f);
@@ -274,7 +283,7 @@ static const int DEFAULTLAPLACIANITERATIONS = 10;
 
 
 static void computeSurfaceNormals(glm::vec3* target, glm::vec3* vertices, size_t vertexCount, unsigned int* faces,
-    int faceCount, std::vector<std::vector<int>>& duplicates) {
+    int faceCount, std::vector<std::vector<int> >& duplicates) {
     //initialise per-vertex sums
     for (int i = 0;i < vertexCount;i++) {
         target[i] = glm::vec3(.0f);

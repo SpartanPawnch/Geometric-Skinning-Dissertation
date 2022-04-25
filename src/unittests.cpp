@@ -327,7 +327,7 @@ bool testAdjacencyList() {
         {3,4}
     };
 
-    std::vector<std::vector<int>> target;
+    std::vector<std::vector<int> > target;
     generateAdjacencyList(target, faces, 2, 6);
 
 
@@ -368,7 +368,23 @@ bool testLaplacianSmooth() {
     };
     glm::vec3 newPositions[4];
 
-    std::vector<std::vector<int>> adjacency = { {1,2,3},{0,2,3},{0,1,3},{0,1,2} };
+    std::vector<std::vector<int> > adjacency;
+    adjacency.push_back(std::vector<int>());
+    adjacency[0].push_back(1);
+    adjacency[0].push_back(2);
+    adjacency[0].push_back(3);
+    adjacency.push_back(std::vector<int>());
+    adjacency[1].push_back(0);
+    adjacency[1].push_back(2);
+    adjacency[1].push_back(3);
+    adjacency.push_back(std::vector<int>());
+    adjacency[2].push_back(0);
+    adjacency[2].push_back(1);
+    adjacency[2].push_back(3);
+    adjacency.push_back(std::vector<int>());
+    adjacency[3].push_back(0);
+    adjacency[3].push_back(1);
+    adjacency[3].push_back(2);
 
     smoothLaplacian(positions, newPositions, 4, adjacency, 1);
 
