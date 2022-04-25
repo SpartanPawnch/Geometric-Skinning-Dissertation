@@ -96,7 +96,7 @@ void graphicsInit() {
     char infoLog[512];
 
     //create regular vertex shader
-    char* vertText = loadAscii(ROOTDIR "/shaders/base.vert");
+    char* vertText = loadAscii("./shaders/base.vert");
     GLuint vertShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertShader, 1, (const GLchar**)&vertText, NULL);
     glCompileShader(vertShader);
@@ -108,7 +108,7 @@ void graphicsInit() {
     free((void*)vertText);
 
     //create skinned vertex shader
-    vertText = loadAscii(ROOTDIR "/shaders/skinned.vert");
+    vertText = loadAscii("./shaders/skinned.vert");
     GLuint skinnedVertShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(skinnedVertShader, 1, (const GLchar**)&vertText, NULL);
     glCompileShader(skinnedVertShader);
@@ -121,7 +121,7 @@ void graphicsInit() {
 
 
     //create fragment shader
-    char* fragText = loadAscii(ROOTDIR "/shaders/base.frag");
+    char* fragText = loadAscii("./shaders/base.frag");
     GLuint fragShader = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragShader, 1, (const GLchar**)&fragText, NULL);
     glCompileShader(fragShader);

@@ -7,6 +7,15 @@
 #include <math.h>
 #include <iostream>
 
+#ifdef _WIN32
+#include<libloaderapi.h>
+#include<direct.h>
+#else
+#include<unistd.h>
+#include<limits.h>
+#endif
+
+
 #define GLM_FORCE_PRECISION_LOWP_FLOAT
 #define GLM_FORCE_INLINE
 
@@ -15,6 +24,23 @@
 #include "../external/tinyfiledialogs/tinyfiledialogs.h"
 
 int main() {
+    //switch to correct working directory - platform specific
+    {
+        char executablePath[MAX_PATH];
+#ifdef _WIN32
+        int pathLen = GetModuleFileName(NULL, executablePath, MAX_PATH);
+#else
+        int pathLen = readlink("/proc/self/exe", executablePath, MAX_PATH);
+#endif
+        //remove executable name
+        for (pathLen--;pathLen >= 0 && executablePath[pathLen] != '\\';pathLen--) {
+            executablePath[pathLen] = '\0';
+        }
+
+        chdir(executablePath);
+    }
+
+
     //setup window
     GLFWwindow* window;
     glfwInit();
@@ -59,8 +85,8 @@ int main() {
     const ImGuiViewport* mainViewport = ImGui::GetMainViewport();
 
     //load models
-    Model activeModel = loadIQM(ROOTDIR "/assets/complexanimations-15k.iqm");
-    activeModel.texture = loadTexture(ROOTDIR "/assets/complexanims_texture.png");
+    Model activeModel = loadIQM("./assets/complexanimations-15k.iqm");
+    activeModel.texture = loadTexture("./assets/complexanims_texture.png");
     activeModel.textured = true;
     uploadBuffers();
     activeModel.currentClip = 0;

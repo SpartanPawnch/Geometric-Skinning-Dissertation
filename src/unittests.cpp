@@ -4,6 +4,13 @@
 #include "animation.h"
 #include "camera.hpp"
 
+#ifdef _WIN32
+#include<libloaderapi.h>
+#include<direct.h>
+#else
+#include<unistd.h>
+#endif
+
 //simple macro to copy function name as string literal
 #define TEST(f) f,#f
 
@@ -20,7 +27,7 @@ bool testVertexData() {
     positionBuffer.clear();
     normalBuffer.clear();
     indexBuffer.clear();
-    Model m = loadIQM(ROOTDIR "/assets/testcube.iqm");
+    Model m = loadIQM("./assets/testcube.iqm");
     glm::vec3 positions[8] = {
         glm::vec3(1.0f,1.0f,1.0f),
         glm::vec3(1.0f,-1.0f,1.0f),
@@ -406,6 +413,22 @@ bool testLaplacianSmooth() {
 }
 
 int main() {
+    {
+        char executablePath[MAX_PATH];
+#ifdef _WIN32
+        int pathLen = GetModuleFileName(NULL, executablePath, MAX_PATH);
+#else
+        int pathLen = readlink("/proc/self/exe", executablePath, MAX_PATH);
+#endif
+        //remove executable name
+        for (pathLen--;pathLen >= 0 && executablePath[pathLen] != '\\';pathLen--) {
+            executablePath[pathLen] = '\0';
+        }
+
+        chdir(executablePath);
+    }
+
+
     totalTests = 0;
     successfulTests = 0;
 

@@ -42,3 +42,6 @@ endif()
 target_compile_definitions(${PROJECT_NAME} PUBLIC ROOTDIR="${CMAKE_CURRENT_SOURCE_DIR}")
 target_compile_definitions(UnitTests PUBLIC ROOTDIR="${CMAKE_CURRENT_SOURCE_DIR}")
 
+# copy assets and shaders
+file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/assets" DESTINATION "${CMAKE_BINARY_DIR}")
+file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/shaders" DESTINATION "${CMAKE_BINARY_DIR}")
