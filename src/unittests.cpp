@@ -414,11 +414,12 @@ bool testLaplacianSmooth() {
 
 int main() {
     {
-        char executablePath[MAX_PATH];
 #ifdef _WIN32
+        char executablePath[MAX_PATH];
         int pathLen = GetModuleFileName(NULL, executablePath, MAX_PATH);
 #else
-        int pathLen = readlink("/proc/self/exe", executablePath, MAX_PATH);
+        char executablePath[PATH_MAX];
+        int pathLen = readlink("/proc/self/exe", executablePath, PATH_MAX);
 #endif
         //remove executable name
         for (pathLen--;pathLen >= 0 && executablePath[pathLen] != '\\';pathLen--) {
