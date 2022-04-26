@@ -14,12 +14,14 @@ set(IMGUIBACKENDS "${IMGUIDIR}/backends/imgui_impl_opengl2.cpp" "${IMGUIDIR}/bac
 add_executable(${PROJECT_NAME} src/main.cpp src/animation.cpp src/modelloader.cpp src/camera.cpp 
     external/tinyfiledialogs/tinyfiledialogs.c ${IMGUICORE} ${IMGUIBACKENDS})
 add_executable(UnitTests src/unittests.cpp src/animation.cpp src/camera.cpp)
+add_executable(VolumeEstimation src/montecarlo.cpp src/animation.cpp src/camera.cpp)
 
 #compatibility
 if(WIN32)
     message(STATUS "Using Windows library targets")
     target_link_libraries(${PROJECT_NAME} glfw3 opengl32 glew32)
     target_link_libraries(UnitTests glfw3 opengl32 glew32)
+    target_link_libraries(VolumeEstimation glfw3 opengl32 glew32)
 
     if(CMAKE_BUILD_TYPE==RELEASE)
         #hide console
@@ -37,6 +39,7 @@ else()
 
     target_link_libraries(${PROJECT_NAME} glfw GL GLEW)
     target_link_libraries(UnitTests glfw GL GLEW)
+    target_link_libraries(VolumeEstimation glfw GL GLEW)
 endif()
 # target_link_libraries(${PROJECT_NAME} IMGUI)
 target_compile_definitions(${PROJECT_NAME} PUBLIC ROOTDIR="${CMAKE_CURRENT_SOURCE_DIR}")

@@ -34,10 +34,10 @@ void AnimationData::generateWeightSets(Joint* joints) {
         bool* isJointActive = new bool[posesPerFrame];
 
         for (int i = 0;i < posesPerFrame;i++) {
-            glm::vec4 jointCent=joints[i].matrix * glm::vec4(.0f, .0f, .0f, 1.0f);
-            jointCenters[i] = glm::vec3(jointCent.x,jointCent.y,jointCent.z);
+            glm::vec4 jointCent = joints[i].matrix * glm::vec4(.0f, .0f, .0f, 1.0f);
+            jointCenters[i] = glm::vec3(jointCent.x, jointCent.y, jointCent.z);
             //touch for the sake of feng compatibility
-            volatile float touch=jointCenters[i].x+jointCenters[i].y+jointCenters[i].z;
+            volatile float touch = jointCenters[i].x + jointCenters[i].y + jointCenters[i].z;
             isJointActive[i] = false;
         }
 
@@ -56,16 +56,16 @@ void AnimationData::generateWeightSets(Joint* joints) {
 
             //find closest joint
             float minDist = .0f;
-            int minInd=0;
-            if (startInd < posesPerFrame){
-                glm::vec3 minVec=jointCenters[startInd] - baseVertices[i];
-                minDist = minVec.x*minVec.x+minVec.y*minVec.y+minVec.z*minVec.z;
-                minInd=startInd;
+            int minInd = 0;
+            if (startInd < posesPerFrame) {
+                glm::vec3 minVec = jointCenters[startInd] - baseVertices[i];
+                minDist = minVec.x * minVec.x + minVec.y * minVec.y + minVec.z * minVec.z;
+                minInd = startInd;
             }
 
             for (int j = startInd;j < posesPerFrame;j++) {
-                glm::vec3 newVec=(glm::vec3)jointCenters[j] - baseVertices[i];
-                float newDist = newVec.x*newVec.x+newVec.y*newVec.y+newVec.z*newVec.z;
+                glm::vec3 newVec = (glm::vec3)jointCenters[j] - baseVertices[i];
+                float newDist = newVec.x * newVec.x + newVec.y * newVec.y + newVec.z * newVec.z;
                 if ((newDist < minDist) && isJointActive[j]) {
                     minInd = j;
                     minDist = newDist;
@@ -106,7 +106,7 @@ void AnimationData::deformPositionLBS(glm::vec3* target, float frame, VertexWeig
     //resolve current weights and indices
     int weightSetLength = baseVertices.size() * weightsPerVertex;
     float* currentWeights = &vertexWeights[activeSet * weightSetLength];
-    short indexSet=activeSet/2;
+    short indexSet = activeSet / 2;
     int* currentIndices = &weightIndices[indexSet * weightSetLength];
 
     for (int i = 0;i < baseVertices.size();i++) {

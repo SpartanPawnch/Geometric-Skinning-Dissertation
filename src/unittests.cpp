@@ -4,6 +4,9 @@
 #include "animation.h"
 #include "camera.hpp"
 
+#define MONTE_TESTING
+#include "montecarlo.cpp"
+
 #ifdef _WIN32
 #include<libloaderapi.h>
 #include<direct.h>
@@ -412,6 +415,86 @@ bool testLaplacianSmooth() {
 
 }
 
+bool testIntersect1() {
+    glm::vec3 point = glm::vec3(.0f, .0f, .0f);
+    glm::vec3 a = glm::vec3(-1.0f, -1.0f, 1.0f);
+    glm::vec3 b = glm::vec3(1.0f, -1.0f, 1.0f);
+    glm::vec3 c = glm::vec3(.0f, 1.0f, 1.0f);
+
+    if (!expectValue(checkIntersection(point, a, b, c), 1, "result"))
+        return false;
+
+    std::cout << "PASSED\n";
+    return true;
+}
+
+bool testIntersect2() {
+    glm::vec3 point = glm::vec3(.0f, .0f, 2.0f);
+    glm::vec3 a = glm::vec3(-1.0f, -1.0f, 1.0f);
+    glm::vec3 b = glm::vec3(1.0f, -1.0f, 1.0f);
+    glm::vec3 c = glm::vec3(.0f, 1.0f, 1.0f);
+
+    if (!expectValue(checkIntersection(point, a, b, c), 0, "result"))
+        return false;
+
+    std::cout << "PASSED\n";
+    return true;
+}
+
+bool testIntersect3() {
+    glm::vec3 point = glm::vec3(2.0f, .0f, .0f);
+    glm::vec3 a = glm::vec3(-1.0f, -1.0f, 1.0f);
+    glm::vec3 b = glm::vec3(1.0f, -1.0f, 1.0f);
+    glm::vec3 c = glm::vec3(.0f, 1.0f, 1.0f);
+
+    if (!expectValue(checkIntersection(point, a, b, c), 0, "result"))
+        return false;
+
+    std::cout << "PASSED\n";
+    return true;
+}
+
+bool testCheckInside() {
+    glm::vec3 point = glm::vec3(.1f);
+    glm::vec3 verts[4] = { glm::vec3(-1.0f,-1.0f,1.0f),glm::vec3(1.0f,-1.0f,1.0f),
+        glm::vec3(.0f,-1.0f,-1.0f),glm::vec3(.0f,1.0f,.0f) };
+
+    unsigned int faces[12] = {
+        0,1,2,
+        0,1,3,
+        0,2,3,
+        1,2,3
+    };
+
+    if (!expectValue(checkInside(point, verts, faces, 4), 1, "result"))
+        return false;
+
+    std::cout << "PASSED\n";
+    return true;
+
+}
+
+bool testCheckInside2() {
+    glm::vec3 point = glm::vec3(.1f, .1, 3.0f);
+    glm::vec3 verts[4] = { glm::vec3(-1.0f,-1.0f,1.0f),glm::vec3(1.0f,-1.0f,1.0f),
+        glm::vec3(.0f,-1.0f,-1.0f),glm::vec3(.0f,1.0f,.0f) };
+
+    unsigned int faces[12] = {
+        0,1,2,
+        0,1,3,
+        0,2,3,
+        1,2,3
+    };
+
+    if (!expectValue(checkInside(point, verts, faces, 4), 0, "result"))
+        return false;
+
+    std::cout << "PASSED\n";
+    return true;
+
+}
+
+
 int main() {
     {
 #ifdef _WIN32
@@ -447,6 +530,11 @@ int main() {
     runTest(TEST(testArcballSequential));
     runTest(TEST(testAdjacencyList));
     runTest(TEST(testLaplacianSmooth));
+    runTest(TEST(testIntersect1));
+    runTest(TEST(testIntersect2));
+    runTest(TEST(testIntersect3));
+    runTest(TEST(testCheckInside));
+    runTest(TEST(testCheckInside2));
 
     std::cout << "Tests Passed: " << successfulTests << "/" << totalTests;
     return 0;
