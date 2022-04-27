@@ -1,6 +1,5 @@
 #include <iostream>
 #include <glm/vec3.hpp>
-#include "modelloader.cpp"
 #include "animation.h"
 #include "camera.hpp"
 
