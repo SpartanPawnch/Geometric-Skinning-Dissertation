@@ -3,8 +3,12 @@
 #include "animation.h"
 #include "camera.hpp"
 
+#ifdef _WIN32
 #define MONTE_TESTING
 #include "montecarlo.cpp"
+#else
+#include "modelloader.cpp"
+#endif
 
 #ifdef _WIN32
 #include<libloaderapi.h>
@@ -414,6 +418,7 @@ bool testLaplacianSmooth() {
 
 }
 
+#ifdef _WIN32
 bool testIntersect1() {
     glm::vec3 point = glm::vec3(.0f, .0f, .0f);
     glm::vec3 a = glm::vec3(-1.0f, -1.0f, 1.0f);
@@ -492,21 +497,25 @@ bool testCheckInside2() {
     return true;
 
 }
-
+#endif
 
 int main() {
     {
 #ifdef _WIN32
         char executablePath[MAX_PATH];
         int pathLen = GetModuleFileName(NULL, executablePath, MAX_PATH);
-#else
-        char executablePath[PATH_MAX];
-        int pathLen = readlink("/proc/self/exe", executablePath, PATH_MAX);
-#endif
         //remove executable name
         for (pathLen--;pathLen >= 0 && executablePath[pathLen] != '\\';pathLen--) {
             executablePath[pathLen] = '\0';
         }
+#else
+        char executablePath[PATH_MAX];
+        int pathLen = readlink("/proc/self/exe", executablePath, PATH_MAX);
+        //remove executable name
+        for (pathLen--;pathLen >= 0 && executablePath[pathLen] != '/';pathLen--) {
+            executablePath[pathLen] = '\0';
+        }
+#endif
 
         chdir(executablePath);
     }
@@ -529,11 +538,13 @@ int main() {
     runTest(TEST(testArcballSequential));
     runTest(TEST(testAdjacencyList));
     runTest(TEST(testLaplacianSmooth));
+    #ifdef _WIN32
     runTest(TEST(testIntersect1));
     runTest(TEST(testIntersect2));
     runTest(TEST(testIntersect3));
     runTest(TEST(testCheckInside));
     runTest(TEST(testCheckInside2));
+    #endif
 
     std::cout << "Tests Passed: " << successfulTests << "/" << totalTests;
     return 0;

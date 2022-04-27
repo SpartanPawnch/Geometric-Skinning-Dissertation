@@ -29,14 +29,19 @@ int main() {
 #ifdef _WIN32
         char executablePath[MAX_PATH];
         int pathLen = GetModuleFileName(NULL, executablePath, MAX_PATH);
-#else
-        char executablePath[PATH_MAX];
-        int pathLen = readlink("/proc/self/exe", executablePath, PATH_MAX);
-#endif
         //remove executable name
         for (pathLen--;pathLen >= 0 && executablePath[pathLen] != '\\';pathLen--) {
             executablePath[pathLen] = '\0';
         }
+#else
+        char executablePath[PATH_MAX];
+        int pathLen = readlink("/proc/self/exe", executablePath, PATH_MAX);
+        //remove executable name
+        for (pathLen--;pathLen >= 0 && executablePath[pathLen] != '/';pathLen--) {
+            executablePath[pathLen] = '\0';
+        }
+#endif
+        
 
         chdir(executablePath);
     }
